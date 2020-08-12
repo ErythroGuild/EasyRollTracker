@@ -1,6 +1,4 @@
-<img alt="Easy Roll Tracker header logo" src="https://github.com/ErythroGuild/EasyRollTracker/blob/v1.0/rc/EasyRollTracker%20-%20GitHub%20Header.png" height=50/>
-
-Easy Roll Tracker
+Easy Roll Tracker <img alt="Easy Roll Tracker logo" src="https://github.com/ErythroGuild/EasyRollTracker/blob/v1.0/rc/EasyRollTracker.png" height=50 />
 ---
 
 A simple addon to list `/roll` results of a raid, with a few
