@@ -10,3 +10,5 @@ Features include:
 - Formatting names by class color / role icon
 - Tracking and coloring the number rolled out of
 - Announcing loot rolls to group as `/rw`
+
+The project can be found on CurseForge [here](https://www.curseforge.com/wow/addons/easy-roll-tracker).
