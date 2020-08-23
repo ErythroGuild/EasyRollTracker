@@ -1,7 +1,7 @@
 ## Interface: 80300
 ## Title: Easy Roll Tracker
 ## Author: Ernest Gu
-## Version: 1.0.0
+## Version: 1.0.1
 ## Notes: A simple interface to list (and sort) gear rolls.
 ## DefaultState: Enabled
 ## LoadOnDemand: 0

@@ -26,8 +26,21 @@ local colortable = {
 	darkgray	= "414141",
 }
 
+local match_name_chars =
+	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
+	"ÉÈÊË"   .. "éèêë"   ..
+	"ÍÌÎÏ"   .. "íìîï"   ..
+	"ÓÒÔÕÖØ" .. "óòôõöø" ..
+	"ÚÙÛÜ"   .. "úùûü"   ..
+	"ÝŸ"     .. "ýÿ"     ..
+	"ÆÇÐÑ"   .. "æçðñ"   .. "ß"
+
 local function Colorize(text, color)
-	return "|cFF" .. color .. text .. "|r"
+	if color ~= nil then
+		return "|cFF" .. color .. text .. "|r"
+	else
+		return text
+	end
 end
 
 local classcolor = {
@@ -45,7 +58,7 @@ local classcolor = {
 	WARRIOR		= "C79C6E",
 }
 local function ColorizeName(name)
-	local _, classname, _ = UnitClass(name)
+	local classname, _ = UnitClassBase(name)
 	local color = classcolor[classname]
 	return Colorize(name, color)
 end
@@ -62,11 +75,17 @@ local function RoleIconString(name)
 end
 
 local function ParseRollText(text)
-	if strfind(text, "[%a%-]+ rolls %d+ %(1%-%d+%)") == nil then
+	local regex_find_roll =
+		"[%a%-" .. match_name_chars .. "]+" ..
+		" rolls %d+ %(1%-%d+%)"
+	local regex_find_data =
+		"([%a%-" .. match_name_chars .. "]+)" ..
+		" rolls (%d+) %(1%-(%d+)%)"
+	if strfind(text, regex_find_roll) == nil then
 		return false
 	else
 		local _, _, name, roll, max =
-			strfind(text, "([%a%-]+) rolls (%d+) %(1%-(%d+)%)")
+			strfind(text, regex_find_data)
 		return true, name, roll, max
 	end
 end
