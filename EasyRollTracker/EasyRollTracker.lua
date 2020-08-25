@@ -240,11 +240,14 @@ local const_path_LDB_icon = "Interface\\AddOns\\EasyRollTracker\\rc\\EasyRollTra
 local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
 	type = "launcher",
 	icon = const_path_LDB_icon,
-	OnClick = function ()
+	tocname = "Easy Roll Tracker",
+	label = "Easy Roll Tracker",
+	OnClick = function()
 		ui:Show()
 	end,
-	tocname = "Easy Roll Tracker",
-	label = "Easy Roll Tracker"
+	OnTooltipShow = function(tooltip)
+		tooltip:AddLine(Colorize("Easy", colortable["Erythro"]) .. " Roll Tracker")
+	end
 })
 local EasyRollTrackerDB = { minimap_icon = { hide = false } }
 LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
