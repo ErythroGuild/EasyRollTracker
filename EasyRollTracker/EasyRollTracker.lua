@@ -2,9 +2,9 @@ EasyRollTracker = {}
 
 local LibDB		= LibStub("LibDataBroker-1.1")
 local LibDBIcon	= LibStub("LibDBIcon-1.0")
+local LibWindow = LibStub("LibWindow-1.1")
 local AceEvent	= LibStub("AceEvent-3.0"):Embed(EasyRollTracker)
 local AceGUI	= LibStub("AceGUI-3.0")
--- local LibWindow = LibStub("LibWindow-1.1")
 
 -- Utility variables & functions.
 local rolltable = {}
@@ -252,6 +252,8 @@ local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
 local EasyRollTrackerDB = { minimap_icon = { hide = false } }
 LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
 
--- -- Save/Load position.
--- LibWindow.RegisterConfig(ui, EasyRollTrackerDB)
--- LibWindow.RestorePosition(ui)
+-- Save/Load position.
+-- TODO: RestorePosition() requires waiting for ADDON_LOADED event
+LibWindow.RegisterConfig(ui, EasyRollTrackerDB.window)
+--LibWindow.MakeDraggable(ui)
+--LibWindow.RestorePosition(ui)
