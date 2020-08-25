@@ -1,8 +1,9 @@
 EasyRollTracker = {}
 
-local AceEvent = LibStub("AceEvent-3.0"):Embed(EasyRollTracker)
-local AceGUI = LibStub("AceGUI-3.0")
--- local LibDBIcon = LibStub("LibDBIcon-1.0")
+local LibDB		= LibStub("LibDataBroker-1.1")
+local LibDBIcon	= LibStub("LibDBIcon-1.0")
+local AceEvent	= LibStub("AceEvent-3.0"):Embed(EasyRollTracker)
+local AceGUI	= LibStub("AceGUI-3.0")
 -- local LibWindow = LibStub("LibWindow-1.1")
 
 -- Utility variables & functions.
@@ -231,6 +232,22 @@ SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2 = "/rolltrack", "/rt"
 function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 	ui:Show()
 end
+
+-- Minimap icon.
+local const_name_LDB_icon = "Easy Roll Tracker Icon"
+local const_path_LDB_icon = "Interface\\AddOns\\EasyRollTracker\\rc\\EasyRollTracker - minimap.tga"
+
+local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
+	type = "launcher",
+	icon = const_path_LDB_icon,
+	OnClick = function ()
+		ui:Show()
+	end,
+	tocname = "Easy Roll Tracker",
+	label = "Easy Roll Tracker"
+})
+local EasyRollTrackerDB = { minimap_icon = { hide = false } }
+LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
 
 -- -- Save/Load position.
 -- LibWindow.RegisterConfig(ui, EasyRollTrackerDB)
