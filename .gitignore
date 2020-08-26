@@ -1,3 +1,7 @@
+# Packaged addon
+EasyRollTracker-v*.zip
+EasyRollTracker-v*.7z
+
 # Compiled Lua sources
 luac.out
 
