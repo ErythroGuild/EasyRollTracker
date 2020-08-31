@@ -267,6 +267,9 @@
 					<Anchor point="BOTTOM" y="14"/>
 					<Anchor point="RIGHT" x="-34"/>
 				</Anchors>
+				<Scripts>
+					<OnClick>eRollTracker_ShowOptions();</OnClick>
+				</Scripts>
 
 				<Layers>
 					<Layer level="OVERLAY">

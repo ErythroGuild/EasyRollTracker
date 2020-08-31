@@ -85,9 +85,9 @@ function eRollTracker_GetTitle()
 	return str_name .. " " .. str_version
 end
 
--- local roleicon = {
--- 	TANK	= CreateAtlasMarkup("roleicon-tiny-tank"),
--- 	HEALER	= CreateAtlasMarkup("roleicon-tiny-healer"),
+function eRollTracker_ShowOptions()
+	ShowOptions()
+end
 -- 	DAMAGER	= CreateAtlasMarkup("roleicon-tiny-dps"),
 -- 	NONE	= CreateAtlasMarkup("roleicon-tiny-none"),
 -- }
