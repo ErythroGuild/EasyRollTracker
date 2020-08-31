@@ -29,20 +29,6 @@ local const_colortable = {
 	darkgray	= "414141",
 	white		= "EFEFEF",
 }
-local const_classcolor = {
-	DEATHKNIGHT	= "C41F3B",
-	DEMONHUNTER	= "A330C9",
-	DRUID		= "FF7D0A",
-	HUNTER		= "A9D271",
-	MAGE		= "40C7EB",
-	MONK		= "00FF96",
-	PALADIN		= "F58CBA",
-	PRIEST		= "FFFFFF",
-	ROGUE		= "FFF569",
-	SHAMAN		= "0070DE",
-	WARLOCK		= "8787ED",
-	WARRIOR		= "C79C6E",
-}
 
 local const_namechars =
 	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
@@ -62,10 +48,36 @@ local function Colorize(text, color)
 	end
 	return "|cFF" .. color .. text .. "|r"
 end
+
+local const_classcolor = {
+	DEATHKNIGHT	= "C41F3B",
+	DEMONHUNTER	= "A330C9",
+	DRUID		= "FF7D0A",
+	HUNTER		= "A9D271",
+	MAGE		= "40C7EB",
+	MONK		= "00FF96",
+	PALADIN		= "F58CBA",
+	PRIEST		= "FFFFFF",
+	ROGUE		= "FFF569",
+	SHAMAN		= "0070DE",
+	WARLOCK		= "8787ED",
+	WARRIOR		= "C79C6E",
+}
 local function ColorizeName(name)
 	local classname, _ = UnitClassBase(name)
 	local color = const_classcolor[classname]
 	return Colorize(name, color)
+end
+
+local const_roleicon = {
+	TANK	= CreateAtlasMarkup("roleicon-tiny-tank"),
+	HEALER	= CreateAtlasMarkup("roleicon-tiny-healer"),
+	DAMAGER	= CreateAtlasMarkup("roleicon-tiny-dps"),
+	NONE	= CreateAtlasMarkup("roleicon-tiny-none"),
+}
+local function RoleIconString(name)
+	local role = UnitGroupRolesAssigned(name)
+	return const_roleicon[role]
 end
 
 local function ToggleVisible()
@@ -88,13 +100,6 @@ end
 function eRollTracker_ShowOptions()
 	ShowOptions()
 end
--- 	DAMAGER	= CreateAtlasMarkup("roleicon-tiny-dps"),
--- 	NONE	= CreateAtlasMarkup("roleicon-tiny-none"),
--- }
--- local function RoleIconString(name)
--- 	local role = UnitGroupRolesAssigned(name)
--- 	return roleicon[role]
--- end
 
 -- local function ParseRollText(text)
 -- 	local regex_find_roll =
