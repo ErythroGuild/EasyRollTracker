@@ -106,16 +106,16 @@ local function ShowOptions()
 end
 
 function UpdateItemIcon()
-	local itemLink = eRollTrackerFrame_EditRoll:GetText()
+	local itemLink = eRollTrackerFrame_EditItem:GetText()
 	if (itemLink) then
 		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
 			GetItemInfo(itemLink)
 		if itemRarity ~= nil then
-			ColorizeLayer(eRollTrackerFrame_FrameItem["border"], itemRarity)
+			ColorizeLayer(eRollTrackerFrame_Item["border"], itemRarity)
 		else
-			eRollTrackerFrame_FrameItem["border"]:SetVertexColor(0.85, 0.85, 0.85)
+			eRollTrackerFrame_Item["border"]:SetVertexColor(0.85, 0.85, 0.85)
 		end
-		eRollTrackerFrame_FrameItem_Icon["icon"]:SetTexture(itemIcon)
+		eRollTrackerFrame_Item_Icon["icon"]:SetTexture(itemIcon)
 		-- If itemIcon is nil, SetTexture will hide that layer
 	end
 end
@@ -133,7 +133,7 @@ end
 function eRollTracker_AcceptCursor()
 	local type, itemID, itemLink = GetCursorInfo();
 	if type=="item" and itemLink then
-		eRollTrackerFrame_EditRoll:SetText(itemLink);
+		eRollTrackerFrame_EditItem:SetText(itemLink);
 		ClearCursor();
 	end
 end

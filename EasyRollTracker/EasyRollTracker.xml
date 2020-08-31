@@ -33,7 +33,7 @@
 		
 		<Scripts>
 			<OnLoad>
-				eRollTrackerFrame_TextTitle:SetText(eRollTracker_GetTitle());
+				eRollTrackerFrame_Title:SetText(eRollTracker_GetTitle());
 				self:RegisterForDrag("LeftButton");
 			</OnLoad>
 			<OnDragStart>self:StartMoving();</OnDragStart>
@@ -45,7 +45,7 @@
 				<Texture setAllPoints="true">
 					<Color r="0.05" g="0.05" b="0.05" a="0.70"/>
 				</Texture>
-				<FontString name="$parent_TextTitle" text="Easy Roll Tracker v#.#.#" inherits="GameFontNormal">
+				<FontString name="$parent_Title" text="Easy Roll Tracker v#.#.#" inherits="GameFontNormal">
 					<Anchors><Anchor point="TOP" y="-8"/></Anchors>
 				</FontString>
 			</Layer>
@@ -93,7 +93,7 @@
 			</Button>
 
 			<!-- frameLevel forces FrameItem to be drawn in front of IconItem -->
-			<Frame name="$parent_FrameItem" frameLevel="3" enableMouse="true">
+			<Frame name="$parent_Item" frameLevel="3" enableMouse="true">
 				<Size x="55" y="55"/>
 				<Anchors><Anchor point="TOPLEFT" x="14" y="-36"/></Anchors>
 
@@ -117,7 +117,7 @@
 
 				<Frames>
 					<Frame name="$parent_Icon" frameLevel="2">
-						<Size x="50" y="50"/>
+						<Size x="48" y="48"/>
 						<Anchors><Anchor point="CENTER"/></Anchors>
 						<Layers>
 							<Layer level="ARTWORK">
@@ -126,7 +126,7 @@
 						</Layers>
 					</Frame>
 					<Frame name="$parent_Background" frameLevel="1">
-						<Size x="52" y="52"/>
+						<Size x="50" y="50"/>
 						<Anchors><Anchor point="CENTER"/></Anchors>
 						<Layers>
 							<Layer level="ARTWORK">
@@ -139,14 +139,14 @@
 				</Frames>
 			</Frame>
 
-			<EditBox name="$parent_EditRoll"
+			<EditBox name="$parent_EditItem"
 				autoFocus="false"
 				historyLines="1"
 				multiLine="false">
 				<Anchors>
-					<Anchor point="BOTTOM" relativeTo="$parent_FrameItem" relativePoint="RIGHT" y="2"/>
-					<Anchor point="TOP" relativeTo="$parent_FrameItem" relativePoint="RIGHT" y="26"/>
-					<Anchor point="LEFT" relativeTo="$parent_FrameItem" relativePoint="RIGHT" x="6"/>
+					<Anchor point="BOTTOM" relativeTo="$parent_Item" relativePoint="RIGHT" y="2"/>
+					<Anchor point="TOP" relativeTo="$parent_Item" relativePoint="RIGHT" y="26"/>
+					<Anchor point="LEFT" relativeTo="$parent_Item" relativePoint="RIGHT" x="6"/>
 					<Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="-18"/>
 				</Anchors>
 
@@ -181,14 +181,14 @@
 
 			<Frame name="$parent_ButtonsRoll">
 				<Anchors>
-					<Anchor point="BOTTOM" relativeTo="$parent_FrameItem" relativePoint="RIGHT" y="-26"/>
-					<Anchor point="TOP" relativeTo="$parent_FrameItem" relativePoint="RIGHT" y="-2"/>
-					<Anchor point="LEFT" relativeTo="$parent_FrameItem" relativePoint="RIGHT" x="6"/>
+					<Anchor point="BOTTOM" relativeTo="$parent_Item" relativePoint="RIGHT" y="-26"/>
+					<Anchor point="TOP" relativeTo="$parent_Item" relativePoint="RIGHT" y="-2"/>
+					<Anchor point="LEFT" relativeTo="$parent_Item" relativePoint="RIGHT" x="6"/>
 					<Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="-18"/>
 				</Anchors>
 
 				<Frames>
-					<Button name="$parent_ButtonOpenRoll" text="Open Roll" inherits="eRollTracker_Template_Button_Text">
+					<Button name="$parent_OpenRoll" text="Open Roll" inherits="eRollTracker_Template_Button_Text">
 						<Anchors>
 							<Anchor point="TOP"/>
 							<Anchor point="BOTTOM"/>
@@ -197,7 +197,7 @@
 						</Anchors>
 					</Button>
 
-					<Button name="$parent_ButtonCloseRoll" text="Close Roll" inherits="eRollTracker_Template_Button_Text">
+					<Button name="$parent_CloseRoll" text="Close Roll" inherits="eRollTracker_Template_Button_Text">
 						<Anchors>
 							<Anchor point="TOP"/>
 							<Anchor point="BOTTOM"/>
@@ -215,7 +215,7 @@
 				</Anchors>
 			</Button>
 			
-			<Button name="$parent_ButtonScrollUp" inherits="eRollTracker_Template_Button_Text">
+			<Button name="$parent_ButtonUp" inherits="eRollTracker_Template_Button_Text">
 				<Size x="24" y="24"/>
 				<Anchors>
 					<Anchor point="BOTTOM" y="14"/>
@@ -230,11 +230,11 @@
 					</Layer>
 				</Layers>
 			</Button>
-			<Button name="$parent_ButtonScrollDown" inherits="eRollTracker_Template_Button_Text">
+			<Button name="$parent_ButtonDown" inherits="eRollTracker_Template_Button_Text">
 				<Size x="24" y="24"/>
 				<Anchors>
 					<Anchor point="BOTTOM" y="14"/>
-					<Anchor point="LEFT" relativeTo="$parent_ButtonScrollUp" relativePoint="RIGHT"/>
+					<Anchor point="LEFT" relativeTo="$parent_ButtonUp" relativePoint="RIGHT"/>
 				</Anchors>
 
 				<Layers>
@@ -265,9 +265,9 @@
 				</Layers>
 			</Button>
 
-			<ScrollFrame name="$parent_ScrollFrame">
+			<ScrollFrame name="$parent_Scroll">
 				<Anchors>
-					<Anchor point="TOP" relativeTo="$parent_FrameItem" relativePoint="BOTTOM" y="-12"/>
+					<Anchor point="TOP" relativeTo="$parent_Item" relativePoint="BOTTOM" y="-12"/>
 					<Anchor point="BOTTOM" relativeTo="$parent_ButtonClear" relativePoint="TOP" y="6"/>
 					<Anchor point="RIGHT" x="-8"/>
 					<Anchor point="LEFT" x="8"/>
