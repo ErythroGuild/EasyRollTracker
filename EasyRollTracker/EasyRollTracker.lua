@@ -1,7 +1,7 @@
--- EasyRollTracker = {}
+EasyRollTracker = {}
 
--- local LibDB		= LibStub("LibDataBroker-1.1")
--- local LibDBIcon	= LibStub("LibDBIcon-1.0")
+local LibDB		= LibStub("LibDataBroker-1.1")
+local LibDBIcon	= LibStub("LibDBIcon-1.0")
 -- local LibWindow = LibStub("LibWindow-1.1")
 -- local AceEvent	= LibStub("AceEvent-3.0"):Embed(EasyRollTracker)
 -- local AceGUI	= LibStub("AceGUI-3.0")
@@ -20,49 +20,65 @@
 -- 	return nil
 -- end
 
--- local colortable = {
--- 	Erythro		= "FFCEC9",
--- 	red			= "F53F16",
--- 	gray		= "7A7A7A",
--- 	darkgray	= "414141",
--- }
+local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
 
--- local match_name_chars =
--- 	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
--- 	"ÉÈÊË"   .. "éèêë"   ..
--- 	"ÍÌÎÏ"   .. "íìîï"   ..
--- 	"ÓÒÔÕÖØ" .. "óòôõöø" ..
--- 	"ÚÙÛÜ"   .. "úùûü"   ..
--- 	"ÝŸ"     .. "ýÿ"     ..
--- 	"ÆÇÐÑ"   .. "æçðñ"   .. "ß"
+local const_colortable = {
+	Erythro		= "FFCEC9",
+	red			= "F53F16",
+	gray		= "7A7A7A",
+	darkgray	= "414141",
+	white		= "EFEFEF",
+}
+local const_classcolor = {
+	DEATHKNIGHT	= "C41F3B",
+	DEMONHUNTER	= "A330C9",
+	DRUID		= "FF7D0A",
+	HUNTER		= "A9D271",
+	MAGE		= "40C7EB",
+	MONK		= "00FF96",
+	PALADIN		= "F58CBA",
+	PRIEST		= "FFFFFF",
+	ROGUE		= "FFF569",
+	SHAMAN		= "0070DE",
+	WARLOCK		= "8787ED",
+	WARRIOR		= "C79C6E",
+}
 
--- local function Colorize(text, color)
--- 	if color ~= nil then
--- 		return "|cFF" .. color .. text .. "|r"
--- 	else
--- 		return text
--- 	end
--- end
+local const_namechars =
+	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
+	"ÉÈÊË"   .. "éèêë"   ..
+	"ÍÌÎÏ"   .. "íìîï"   ..
+	"ÓÒÔÕÖØ" .. "óòôõöø" ..
+	"ÚÙÛÜ"   .. "úùûü"   ..
+	"ÝŸ"     .. "ýÿ"     ..
+	"ÆÇÐÑ"   .. "æçðñ"   .. "ß"
 
--- local classcolor = {
--- 	DEATHKNIGHT	= "C41F3B",
--- 	DEMONHUNTER	= "A330C9",
--- 	DRUID		= "FF7D0A",
--- 	HUNTER		= "A9D271",
--- 	MAGE		= "40C7EB",
--- 	MONK		= "00FF96",
--- 	PALADIN		= "F58CBA",
--- 	PRIEST		= "FFFFFF",
--- 	ROGUE		= "FFF569",
--- 	SHAMAN		= "0070DE",
--- 	WARLOCK		= "8787ED",
--- 	WARRIOR		= "C79C6E",
--- }
--- local function ColorizeName(name)
--- 	local classname, _ = UnitClassBase(name)
--- 	local color = classcolor[classname]
--- 	return Colorize(name, color)
--- end
+local function Colorize(text, color)
+	if text == nil then
+		return ""
+	end
+	if color == nil then
+		return text
+	end
+	return "|cFF" .. color .. text .. "|r"
+end
+local function ColorizeName(name)
+	local classname, _ = UnitClassBase(name)
+	local color = const_classcolor[classname]
+	return Colorize(name, color)
+end
+
+local function ToggleVisible()
+	if (eRollTrackerFrame:IsShown()) then
+		eRollTrackerFrame:Hide()
+	else
+		eRollTrackerFrame:Show()
+	end
+end
+
+local function ShowOptions()
+
+end
 
 -- local roleicon = {
 -- 	TANK	= CreateAtlasMarkup("roleicon-tiny-tank"),
@@ -227,30 +243,42 @@
 -- end
 -- button_clearAll:SetCallback("OnClick", ClearAll)
 
--- -- Set slash commands.
--- SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2 = "/rolltrack", "/rt"
--- function SlashCmdList.EASYROLLTRACKER(msg, editBox)
--- 	ui:Show()
--- end
+-- Set slash commands.
+SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
+	"/rolltracker", "/rolltrack", "/rt"
+function SlashCmdList.EASYROLLTRACKER(msg, editBox)
+	ToggleVisible()
+end
 
--- -- Minimap icon.
--- local const_name_LDB_icon = "Easy Roll Tracker Icon"
--- local const_path_LDB_icon = "Interface\\AddOns\\EasyRollTracker\\rc\\EasyRollTracker - minimap.tga"
+-- Minimap icon.
+local const_name_LDB_icon = "Easy Roll Tracker Icon"
+local const_path_LDB_icon = "Interface\\AddOns\\EasyRollTracker\\rc\\EasyRollTracker - minimap.tga"
 
--- local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
--- 	type = "launcher",
--- 	icon = const_path_LDB_icon,
--- 	tocname = "Easy Roll Tracker",
--- 	label = "Easy Roll Tracker",
--- 	OnClick = function()
--- 		ui:Show()
--- 	end,
--- 	OnTooltipShow = function(tooltip)
--- 		tooltip:AddLine(Colorize("Easy", colortable["Erythro"]) .. " Roll Tracker")
--- 	end
--- })
--- local EasyRollTrackerDB = { minimap_icon = { hide = false } }
--- LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
+local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
+	type = "launcher",
+	icon = const_path_LDB_icon,
+	tocname = "EasyRollTracker",
+	label = "Easy Roll Tracker",
+	OnClick = function(clickedFrame, button)
+		if button == "LeftButton" then
+			ToggleVisible()
+		elseif button == "RightButton" then
+			ShowOptions()
+		end
+	end,
+	OnTooltipShow = function(tooltip)
+		tooltip:ClearLines()
+		local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
+		local str_version = Colorize(const_version, const_colortable["gray"])
+		tooltip:AddDoubleLine(str_name, str_version)
+		local str_left = Colorize(" toggle showing the addon window.", const_colortable["white"])
+		local str_right = Colorize(" open the configuration window.", const_colortable["white"])
+		tooltip:AddLine("Left-Click:" .. str_left)
+		tooltip:AddLine("Right-Click:" .. str_right)
+	end
+})
+local EasyRollTrackerDB = { minimap_icon = { hide = false } }
+LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
 
 -- -- Save/Load position.
 -- -- TODO: RestorePosition() requires waiting for ADDON_LOADED event
