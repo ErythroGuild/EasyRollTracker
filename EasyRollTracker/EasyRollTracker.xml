@@ -117,7 +117,7 @@
 
 				<Frames>
 					<Frame name="$parent_Icon" frameLevel="2">
-						<Size x="48" y="48"/>
+						<Size x="50" y="50"/>
 						<Anchors><Anchor point="CENTER"/></Anchors>
 						<Layers>
 							<Layer level="ARTWORK">
@@ -151,9 +151,10 @@
 				</Anchors>
 
 				<Scripts>
-					<OnTabPressed>self:ClearFocus();</OnTabPressed>
-					<OnEnterPressed>self:ClearFocus();</OnEnterPressed>
-					<OnEscapePressed>self:ClearFocus();</OnEscapePressed>
+					<OnTabPressed>eRollTracker_AcceptText();</OnTabPressed>
+					<OnEnterPressed>eRollTracker_AcceptText();</OnEnterPressed>
+					<OnEscapePressed>eRollTracker_AcceptText();</OnEscapePressed>
+					<OnEditFocusLost>eRollTracker_AcceptText();</OnEditFocusLost>
 					<OnMouseUp>eRollTracker_AcceptCursor();</OnMouseUp>
 					<OnReceiveDrag>eRollTracker_AcceptCursor();</OnReceiveDrag>
 					<OnLoad>

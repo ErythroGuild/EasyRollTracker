@@ -1,4 +1,4 @@
-EasyRollTracker = {}
+eRollTracker = {}
 
 local LibDB		= LibStub("LibDataBroker-1.1")
 local LibDBIcon	= LibStub("LibDBIcon-1.0")
@@ -19,6 +19,8 @@ local LibWindow = LibStub("LibWindow-1.1")
 -- 	end
 -- 	return nil
 -- end
+
+eRollTracker.item = nil
 
 local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
 
@@ -106,7 +108,7 @@ local function ShowOptions()
 end
 
 function UpdateItemIcon()
-	local itemLink = eRollTrackerFrame_EditItem:GetText()
+	local itemLink = eRollTracker.item
 	if (itemLink) then
 		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
 			GetItemInfo(itemLink)
@@ -118,6 +120,9 @@ function UpdateItemIcon()
 		eRollTrackerFrame_Item_Icon["icon"]:SetTexture(itemIcon)
 		-- If itemIcon is nil, SetTexture will hide that layer
 	end
+end
+function UpdateItemText()
+	eRollTrackerFrame_EditItem:SetText(eRollTracker.item)
 end
 
 function eRollTracker_GetTitle()
@@ -133,9 +138,16 @@ end
 function eRollTracker_AcceptCursor()
 	local type, itemID, itemLink = GetCursorInfo();
 	if type=="item" and itemLink then
-		eRollTrackerFrame_EditItem:SetText(itemLink);
-		ClearCursor();
+		eRollTracker.item = itemLink
+		ClearCursor()
+		UpdateItemIcon()
+		UpdateItemText()
 	end
+end
+function eRollTracker_AcceptText()
+	eRollTrackerFrame_EditItem:ClearFocus()
+	eRollTracker.item = eRollTrackerFrame_EditItem:GetText()
+	UpdateItemIcon()
 end
 
 -- local function ParseRollText(text)
