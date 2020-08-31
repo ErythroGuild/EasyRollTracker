@@ -101,6 +101,14 @@ function eRollTracker_ShowOptions()
 	ShowOptions()
 end
 
+function eRollTracker_AcceptCursor()
+	local type, itemID, itemLink = GetCursorInfo();
+	if type=="item" and itemLink then
+		eRollTrackerFrame_EditRoll:SetText(itemLink);
+		ClearCursor();
+	end
+end
+
 -- local function ParseRollText(text)
 -- 	local regex_find_roll =
 -- 		"[%a%-" .. match_name_chars .. "]+" ..

@@ -98,25 +98,13 @@
 				<Anchors><Anchor point="TOPLEFT" x="14" y="-36"/></Anchors>
 
 				<Scripts>
-					<OnReceiveDrag>
-						local type, itemID, itemLink = GetCursorInfo();
-						if type=="item" and itemLink then
-							eRollTrackerFrame_EditRoll:SetText(itemLink);
-							ClearCursor();
-						end
-					</OnReceiveDrag>
-					<OnMouseUp>
-						local type, itemID, itemLink = GetCursorInfo();
-						if type=="item" and itemLink then
-							eRollTrackerFrame_EditRoll:SetText(itemLink);
-							ClearCursor();
-						end
-					</OnMouseUp>
+					<OnMouseUp>eRollTracker_AcceptCursor();</OnMouseUp>
+					<OnReceiveDrag>eRollTracker_AcceptCursor();</OnReceiveDrag>
 				</Scripts>
 
 				<Layers>
 					<Layer level="OVERLAY">
-						<Texture setAllPoints="true" file="Interface\AddOns\EasyRollTracker\rc\frame-item.tga">
+						<Texture parentKey="border" setAllPoints="true" file="Interface\AddOns\EasyRollTracker\rc\frame-item.tga">
 							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
 						</Texture>
 					</Layer>
@@ -154,21 +142,11 @@
 				</Anchors>
 
 				<Scripts>
+					<OnTabPressed>self:ClearFocus();</OnTabPressed>
+					<OnEnterPressed>self:ClearFocus();</OnEnterPressed>
 					<OnEscapePressed>self:ClearFocus();</OnEscapePressed>
-					<OnReceiveDrag>
-						local type, itemID, itemLink = GetCursorInfo();
-						if type=="item" and itemLink then
-							self:SetText(itemLink);
-							ClearCursor();
-						end
-					</OnReceiveDrag>
-					<OnMouseUp>
-						local type, itemID, itemLink = GetCursorInfo();
-						if type=="item" and itemLink then
-							self:SetText(itemLink);
-							ClearCursor();
-						end
-					</OnMouseUp>
+					<OnMouseUp>eRollTracker_AcceptCursor();</OnMouseUp>
+					<OnReceiveDrag>eRollTracker_AcceptCursor();</OnReceiveDrag>
 					<OnLoad>
 						hooksecurefunc("ChatEdit_InsertLink", function(itemLink)
 							if self and self:IsVisible() and self:HasFocus() then
