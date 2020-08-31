@@ -98,6 +98,23 @@
 				<Size x="55" y="55"/>
 				<Anchors><Anchor point="TOPLEFT" x="14" y="-36"/></Anchors>
 
+				<Scripts>
+					<OnReceiveDrag>
+						local type, itemID, itemLink = GetCursorInfo();
+						if type=="item" and itemLink then
+							eRollTrackerFrame_EditRoll:SetText(itemLink);
+							ClearCursor();
+						end
+					</OnReceiveDrag>
+					<OnMouseUp>
+						local type, itemID, itemLink = GetCursorInfo();
+						if type=="item" and itemLink then
+							eRollTrackerFrame_EditRoll:SetText(itemLink);
+							ClearCursor();
+						end
+					</OnMouseUp>
+				</Scripts>
+
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface\AddOns\EasyRollTracker\rc\frame-item.tga">
@@ -139,6 +156,30 @@
 
 				<Scripts>
 					<OnEscapePressed>self:ClearFocus();</OnEscapePressed>
+					<OnReceiveDrag>
+						local type, itemID, itemLink = GetCursorInfo();
+						if type=="item" and itemLink then
+							self:SetText(itemLink);
+							ClearCursor();
+						end
+					</OnReceiveDrag>
+					<OnMouseUp>
+						local type, itemID, itemLink = GetCursorInfo();
+						if type=="item" and itemLink then
+							self:SetText(itemLink);
+							ClearCursor();
+						end
+					</OnMouseUp>
+					<!-- <OnLoad>self:RegisterEvent("GLOBAL_MOUSE_DOWN");</OnLoad>
+					<OnEvent>
+						print("clicked")
+						local type, itemID, itemLink = GetCursorInfo();
+						print("type")
+						if type=="item" and itemLink then
+							self:SetText(itemLink);
+							ClearCursor();
+						end
+					</OnEvent> -->
 				</Scripts>
 				
 				<FontString inherits="ChatFontNormal"/>
