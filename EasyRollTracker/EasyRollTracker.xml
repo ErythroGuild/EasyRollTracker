@@ -88,6 +88,7 @@
 				<Scripts>
 					<OnMouseDown>eRollTrackerFrame:StartSizing("BOTTOMRIGHT");</OnMouseDown>
 					<OnMouseUp>eRollTrackerFrame:StopMovingOrSizing();</OnMouseUp>
+					<OnDoubleClick>eRollTrackerFrame:SetSize(eRollTrackerFrame:GetMaxResize());</OnDoubleClick>
 				</Scripts>
 			</Button>
 
