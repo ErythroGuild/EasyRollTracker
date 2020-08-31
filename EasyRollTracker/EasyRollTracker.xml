@@ -151,9 +151,9 @@
 				</Anchors>
 
 				<Scripts>
-					<OnTabPressed>eRollTracker_AcceptText();</OnTabPressed>
-					<OnEnterPressed>eRollTracker_AcceptText();</OnEnterPressed>
-					<OnEscapePressed>eRollTracker_AcceptText();</OnEscapePressed>
+					<OnTabPressed>self:ClearFocus();</OnTabPressed>
+					<OnEnterPressed>self:ClearFocus();</OnEnterPressed>
+					<OnEscapePressed>self:ClearFocus();</OnEscapePressed>
 					<OnEditFocusLost>eRollTracker_AcceptText();</OnEditFocusLost>
 					<OnMouseUp>eRollTracker_AcceptCursor();</OnMouseUp>
 					<OnReceiveDrag>eRollTracker_AcceptCursor();</OnReceiveDrag>
