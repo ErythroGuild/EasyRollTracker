@@ -292,6 +292,6 @@ LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon
 
 -- Save/Load position.
 -- TODO: RestorePosition() requires waiting for ADDON_LOADED event
-LibWindow.RegisterConfig(ui, EasyRollTrackerDB.window)
---LibWindow.MakeDraggable(ui)
---LibWindow.RestorePosition(ui)
+-- LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.window)
+-- LibWindow.MakeDraggable(eRollTrackerFrame)
+-- LibWindow.RestorePosition(eRollTrackerFrame)
