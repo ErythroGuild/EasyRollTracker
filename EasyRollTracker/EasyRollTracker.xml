@@ -169,16 +169,14 @@
 							ClearCursor();
 						end
 					</OnMouseUp>
-					<!-- <OnLoad>self:RegisterEvent("GLOBAL_MOUSE_DOWN");</OnLoad>
-					<OnEvent>
-						print("clicked")
-						local type, itemID, itemLink = GetCursorInfo();
-						print("type")
-						if type=="item" and itemLink then
-							self:SetText(itemLink);
-							ClearCursor();
-						end
-					</OnEvent> -->
+					<OnLoad>
+						hooksecurefunc("ChatEdit_InsertLink", function(itemLink)
+							if self and self:IsVisible() and self:HasFocus() then
+								self:Insert(itemLink);
+								return true;
+							end
+						end);
+					</OnLoad>
 				</Scripts>
 				
 				<FontString inherits="ChatFontNormal"/>
