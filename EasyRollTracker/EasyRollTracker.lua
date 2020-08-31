@@ -105,6 +105,21 @@ end
 local function ShowOptions()
 end
 
+function UpdateItemIcon()
+	local itemLink = eRollTrackerFrame_EditRoll:GetText()
+	if (itemLink) then
+		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
+			GetItemInfo(itemLink)
+		if itemRarity ~= nil then
+			ColorizeLayer(eRollTrackerFrame_FrameItem["border"], itemRarity)
+		else
+			eRollTrackerFrame_FrameItem["border"]:SetVertexColor(0.85, 0.85, 0.85)
+		end
+		eRollTrackerFrame_FrameItem_Icon["icon"]:SetTexture(itemIcon)
+		-- If itemIcon is nil, SetTexture will hide that layer
+	end
+end
+
 function eRollTracker_GetTitle()
 	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])

@@ -93,7 +93,7 @@
 			</Button>
 
 			<!-- frameLevel forces FrameItem to be drawn in front of IconItem -->
-			<Frame name="$parent_FrameItem" frameLevel="2" enableMouse="true">
+			<Frame name="$parent_FrameItem" frameLevel="3" enableMouse="true">
 				<Size x="55" y="55"/>
 				<Anchors><Anchor point="TOPLEFT" x="14" y="-36"/></Anchors>
 
@@ -116,8 +116,17 @@
 				</Layers>
 
 				<Frames>
-					<Frame name="$parent_IconItem" frameLevel="1">
+					<Frame name="$parent_Icon" frameLevel="2">
 						<Size x="50" y="50"/>
+						<Anchors><Anchor point="CENTER"/></Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture parentKey="icon" setAllPoints="true"/>
+							</Layer>
+						</Layers>
+					</Frame>
+					<Frame name="$parent_Background" frameLevel="1">
+						<Size x="52" y="52"/>
 						<Anchors><Anchor point="CENTER"/></Anchors>
 						<Layers>
 							<Layer level="ARTWORK">
