@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd" >
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	
 	<Button name="eRollTracker_Template_Button_Text" virtual="true">
 		<NormalFont style="GameFontNormal"/>
@@ -33,8 +33,8 @@
 		
 		<Scripts>
 			<OnLoad>
-				--tinsert(UISpecialFrames, self:GetName());	-- make frame closeable with `Esc` key
-				self:RegisterForDrag("LeftButton");			-- make frame draggable
+				eRollTrackerFrame_TextTitle:SetText(eRollTracker_GetTitle());
+				self:RegisterForDrag("LeftButton");
 			</OnLoad>
 			<OnDragStart>self:StartMoving();</OnDragStart>
 			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
@@ -45,7 +45,7 @@
 				<Texture setAllPoints="true">
 					<Color r="0.05" g="0.05" b="0.05" a="0.70"/>
 				</Texture>
-				<FontString name="$parent_TextTitle" text="easy Roll Tracker v2.0" inherits="GameFontNormal">
+				<FontString name="$parent_TextTitle" text="Easy Roll Tracker v#.#.#" inherits="GameFontNormal">
 					<Anchors><Anchor point="TOP" y="-8"/></Anchors>
 				</FontString>
 			</Layer>

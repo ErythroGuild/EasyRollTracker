@@ -77,7 +77,12 @@ local function ToggleVisible()
 end
 
 local function ShowOptions()
+end
 
+function eRollTracker_GetTitle()
+	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
+	local str_version = Colorize(const_version, const_colortable["gray"])
+	return str_name .. " " .. str_version
 end
 
 -- local roleicon = {
