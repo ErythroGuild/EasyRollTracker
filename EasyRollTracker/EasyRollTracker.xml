@@ -11,7 +11,7 @@
 			<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
 		</NormalTexture>
 		<PushedTexture setAllPoints="true">
-			<Color r="0.10" g="0.35" b="0.15" a="1.00"/>
+			<Color r="0.10" g="0.25" b="0.35" a="1.00"/>
 		</PushedTexture>
 		<HighlightTexture setAllPoints="true" alphaMode="ADD">
 			<Color r="0.80" g="0.80" b="0.80" a="0.40"/>
