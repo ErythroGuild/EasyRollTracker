@@ -50,18 +50,18 @@ local function Colorize(text, color)
 end
 
 local const_classcolor = {
-	[DEATHKNIGHT]	= "C41F3B",
-	[DEMONHUNTER]	= "A330C9",
-	[DRUID]			= "FF7D0A",
-	[HUNTER]		= "A9D271",
-	[MAGE]			= "40C7EB",
-	[MONK]			= "00FF96",
-	[PALADIN]		= "F58CBA",
-	[PRIEST]		= "FFFFFF",
-	[ROGUE]			= "FFF569",
-	[SHAMAN]		= "0070DE",
-	[WARLOCK]		= "8787ED",
-	[WARRIOR]		= "C79C6E",
+	DEATHKNIGHT	= "C41F3B",
+	DEMONHUNTER	= "A330C9",
+	DRUID		= "FF7D0A",
+	HUNTER		= "A9D271",
+	MAGE		= "40C7EB",
+	MONK		= "00FF96",
+	PALADIN		= "F58CBA",
+	PRIEST		= "FFFFFF",
+	ROGUE		= "FFF569",
+	SHAMAN		= "0070DE",
+	WARLOCK		= "8787ED",
+	WARRIOR		= "C79C6E",
 }
 local function ColorizeName(name)
 	local classname, _ = UnitClassBase(name)
@@ -84,10 +84,10 @@ local function ColorizeLayer(frame, rarity)
 end
 
 local const_roleicon = {
-	[TANK]		= CreateAtlasMarkup("roleicon-tiny-tank"),
-	[HEALER]	= CreateAtlasMarkup("roleicon-tiny-healer"),
-	[DAMAGER]	= CreateAtlasMarkup("roleicon-tiny-dps"),
-	[NONE]		= CreateAtlasMarkup("roleicon-tiny-none"),
+	TANK	= CreateAtlasMarkup("roleicon-tiny-tank"),
+	HEALER	= CreateAtlasMarkup("roleicon-tiny-healer"),
+	DAMAGER	= CreateAtlasMarkup("roleicon-tiny-dps"),
+	NONE	= CreateAtlasMarkup("roleicon-tiny-none"),
 }
 local function RoleIconString(name)
 	local role = UnitGroupRolesAssigned(name)
