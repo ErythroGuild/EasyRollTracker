@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd" >
-	<Script file="EasyRollTracker.lua"/>
 	
 	<Button name="eRollTracker_Template_Button_Text" virtual="true">
 		<NormalFont style="GameFontNormal"/>
@@ -18,9 +17,8 @@
 		</HighlightTexture>
 	</Button>
 
-	<!--TODO: change `hidden` to "true" -->
 	<Frame name="eRollTrackerFrame" parent="UIParent"
-		hidden="false"
+		hidden="true"
 		frameStrata="HIGH"
 		movable="true"
 		resizable="true"
