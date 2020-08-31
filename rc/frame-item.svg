@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 26.458333 26.458333"
+   height="100"
+   width="100"
+   sodipodi:docname="frame-item.svg"
+   inkscape:export-filename="frame-item.png"
+   inkscape:export-xdpi="122.88"
+   inkscape:export-ydpi="122.88">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     borderlayer="true"
+     inkscape:showpageshadow="false"
+     inkscape:pagecheckerboard="true"
+     width="100px"
+     units="px"
+     inkscape:snap-global="true"
+     inkscape:snap-bbox="true"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="560"
+     inkscape:cx="400"
+     inkscape:zoom="0.35"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-page="true" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <rect
+       style="color:#000000;overflow:visible;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="frame"
+       width="22.567148"
+       height="22.567148"
+       x="1.9455924"
+       y="1.9455924"
+       ry="1.9985658" />
+    <g
+       id="corners">
+      <path
+         sodipodi:nodetypes="ccc"
+         d="M 0.52916503,5.9138339 V 0.52916503 H 5.9138339"
+         style="color:#000000;overflow:visible;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="corner_NW" />
+      <path
+         id="corner_NE"
+         style="color:#000000;overflow:visible;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 25.929168,5.9138339 V 0.52916503 H 20.5445"
+         sodipodi:nodetypes="ccc" />
+      <path
+         id="corner_SW"
+         style="color:#000000;overflow:visible;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 0.52916503,20.5445 V 25.929168 H 5.9138338"
+         sodipodi:nodetypes="ccc" />
+      <path
+         sodipodi:nodetypes="ccc"
+         d="M 25.929168,20.5445 V 25.929168 H 20.5445"
+         style="color:#000000;overflow:visible;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="corner_SE" />
+    </g>
+  </g>
+  <inkscape:templateinfo>
+    <inkscape:name>square-icon-100px</inkscape:name>
+    <inkscape:author>Ernest Gu</inkscape:author>
+    <inkscape:date>2020-08-13</inkscape:date>
+  </inkscape:templateinfo>
+</svg>
