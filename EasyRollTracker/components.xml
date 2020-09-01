@@ -7,8 +7,9 @@
 		<Anchors>
 			<Anchor point="TOP"/>
 			<Anchor point="LEFT" x="4"/>
-			<Anchor point="RIGHT" x="-20"/>
+			<Anchor point="RIGHT" relativeTo="$parent_PadRight" relativePoint="LEFT" x="-4"/>
 		</Anchors>
+
 		<Layers>
 			<Layer level="ARTWORK">
 				<Line parentKey="line" thickness="2">
@@ -62,7 +63,7 @@
 		<Anchors>
 			<Anchor point="TOP"/>
 			<Anchor point="LEFT" x="4"/>
-			<Anchor point="RIGHT" x="-20"/>
+			<Anchor point="RIGHT" relativeTo="$parent_PadRight" relativePoint="LEFT" x="-4"/>
 		</Anchors>
 
 		<Layers>

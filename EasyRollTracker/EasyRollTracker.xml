@@ -275,8 +275,39 @@
 				</Layers>
 
 				<ScrollChild>
-					<Frame>
-
+					<Frame name="$parent_Frame" setAllPoints="true">
+						<Frames>
+							<Frame name="$parent_PadTop"
+								parentKey="pad_top"
+								parent="eRollTrackerFrame_Scroll">
+								<Size x="0" y="6"/>
+								<Anchors>
+									<Anchor point="TOP"/>
+									<Anchor point="LEFT"/>
+									<Anchor point="RIGHT"/>
+								</Anchors>
+							</Frame>
+							<Frame name="$parent_PadBottom"
+								parentKey="pad_bottom"
+								parent="eRollTrackerFrame_Scroll">
+								<Size x="0" y="6"/>
+								<Anchors>
+									<Anchor point="TOP" relativeTo="$parent_PadTop" relativePoint="BOTTOM"/>
+									<Anchor point="LEFT"/>
+									<Anchor point="RIGHT"/>
+								</Anchors>
+							</Frame>
+							<Frame name="$parent_PadRight"
+								parentKey="pad_right"
+								parent="eRollTrackerFrame_Scroll">
+								<Anchors>
+									<Anchor point="LEFT" relativeTo="$parent_Bar"/>
+									<Anchor point="RIGHT" relativeTo="$parent_Bar"/>
+									<Anchor point="TOP" relativeTo="$parent_Bar_Up"/>
+									<Anchor point="BOTTOM" relativeTo="$parent_Bar_Down"/>
+								</Anchors>
+							</Frame>
+						</Frames>
 					</Frame>
 				</ScrollChild>
 			</ScrollFrame>
