@@ -41,7 +41,7 @@
 			<OnValueChanged function="UIPanelScrollBar_OnValueChanged"/>
 		</Scripts>
 		<ThumbTexture name="$parent_Thumb" parentKey="ThumbTexture" inherits="UIPanelScrollBarButton">
-			<Size x="12" y="28"/>
+			<Size x="8" y="28"/>
 			<Color r="0.45" g="0.45" b="0.45" a="0.80"/>
 		</ThumbTexture>
 	</Slider>
@@ -52,6 +52,7 @@
 				<Anchors>
 					<Anchor point="TOPRIGHT" y="-16"/>
 					<Anchor point="BOTTOMRIGHT" y="16"/>
+					<Anchor point="RIGHT" x="-24"/>
 				</Anchors>
 			</Slider>
 			<Frame>
