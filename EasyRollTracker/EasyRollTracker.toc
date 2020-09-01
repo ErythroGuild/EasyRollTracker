@@ -10,6 +10,7 @@
 # external libraries + initialization
 embeds.xml
 # locales.xml
+widgets.xml
 
 # core files
 EasyRollTracker.lua
