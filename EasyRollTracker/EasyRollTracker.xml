@@ -1,0 +1,284 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+
+	<Frame name="eRollTrackerFrame" parent="UIParent"
+		hidden="true"
+		frameStrata="HIGH"
+		movable="true"
+		resizable="true"
+		clampedToScreen="true"
+		enableMouse="true">
+		<Size><AbsDimension x="250" y="280"/></Size>
+		<ResizeBounds>
+			<minResize><AbsDimension x="235" y="220"/></minResize>
+			<maxResize><AbsDimension x="300" y="580"/></maxResize>
+		</ResizeBounds>
+		<Anchors><Anchor point="CENTER"/></Anchors>
+		
+		<Scripts>
+			<OnLoad>
+				eRollTrackerFrame_Title:SetText(eRollTracker_GetTitle());
+				self:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+		</Scripts>
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture setAllPoints="true">
+					<Color r="0.05" g="0.05" b="0.05" a="0.70"/>
+				</Texture>
+				<FontString name="$parent_Title" text="Easy Roll Tracker v#.#.#" inherits="GameFontNormal">
+					<Anchors><Anchor point="TOP" y="-8"/></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<Frames>
+			<Button name="$parent_ButtonClose">
+				<Size x="20" y="20"/>
+				<Anchors><Anchor point="TOPRIGHT" x="-6" y="-6"/></Anchors>
+				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.59" g="0.01" b="0.01" a="1.00"/>
+				</PushedTexture>
+				<HighlightTexture alphaMode="BLEND" file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.99" g="0.21" b="0.21" a="0.40"/>
+				</HighlightTexture>
+				<!-- HSL: (0, 97%, 60%) -> (0, 97%, 30%) -->
+
+				<Scripts>
+					<OnClick>eRollTrackerFrame:Hide();</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="$parent_ButtonResize">
+				<Size x="20" y="20"/>
+				<Anchors><Anchor point="BOTTOMRIGHT" x="-4" y="4"/></Anchors>
+				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-resize.tga">
+					<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\EasyRollTracker\rc\button-resize.tga">
+					<Color r="0.01" g="0.48" b="0.59" a="1.00"/>
+				</PushedTexture>
+				<HighlightTexture alphaMode="BLEND" file="Interface\AddOns\EasyRollTracker\rc\button-resize.tga">
+					<Color r="0.21" g="0.85" b="0.99" a="0.40"/>
+				</HighlightTexture>
+				<!-- HSL: (191, 97%, 60%) -> (191, 97%, 30%) -->
+
+				<Scripts>
+					<OnMouseDown>eRollTrackerFrame:StartSizing("BOTTOMRIGHT");</OnMouseDown>
+					<OnMouseUp>eRollTrackerFrame:StopMovingOrSizing();</OnMouseUp>
+					<OnDoubleClick>eRollTrackerFrame:SetSize(eRollTrackerFrame:GetMaxResize());</OnDoubleClick>
+				</Scripts>
+			</Button>
+
+			<!-- frameLevel forces FrameItem to be drawn in front of IconItem -->
+			<Frame name="$parent_Item" frameLevel="3" enableMouse="true">
+				<Size x="55" y="55"/>
+				<Anchors><Anchor point="TOPLEFT" x="14" y="-36"/></Anchors>
+
+				<Scripts>
+					<OnReceiveDrag function="eRollTracker_AcceptCursor"/>
+					<OnMouseDown function="eRollTracker_SendCursor"/>
+					<OnEnter function="eRollTracker_ShowTooltip"/>
+					<OnLeave function="eRollTracker_HideTooltip"/>
+				</Scripts>
+
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture parentKey="border" setAllPoints="true" file="Interface\AddOns\EasyRollTracker\rc\frame-item.tga">
+							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+						</Texture>
+					</Layer>
+					<Layer level="HIGHLIGHT">
+						<Texture setAllPoints="true" alphaMode="ADD" file="Interface\AddOns\EasyRollTracker\rc\frame-item.tga">
+							<Color r="0.45" g="0.45" b="0.45" a="0.40"/>
+						</Texture>
+						<Texture setAllPoints="true" alphaMode="ADD" file="Interface\AddOns\EasyRollTracker\rc\highlight-item.tga">
+							<Color r="1.00" g="1.00" b="1.00" a="0.40"/>
+						</Texture>
+					</Layer>
+				</Layers>
+
+				<Frames>
+					<Frame name="$parent_Icon" frameLevel="2">
+						<Size x="50" y="50"/>
+						<Anchors><Anchor point="CENTER"/></Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture parentKey="icon" setAllPoints="true"/>
+							</Layer>
+						</Layers>
+					</Frame>
+					<Frame name="$parent_Background" frameLevel="1">
+						<Size x="50" y="50"/>
+						<Anchors><Anchor point="CENTER"/></Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture setAllPoints="true">
+									<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
+								</Texture>
+							</Layer>
+						</Layers>
+					</Frame>
+				</Frames>
+			</Frame>
+
+			<EditBox name="$parent_EditItem"
+				autoFocus="false"
+				historyLines="1"
+				multiLine="false">
+				<Anchors>
+					<Anchor point="BOTTOM" relativeTo="$parent_Item" relativePoint="RIGHT" y="2"/>
+					<Anchor point="TOP" relativeTo="$parent_Item" relativePoint="RIGHT" y="26"/>
+					<Anchor point="LEFT" relativeTo="$parent_Item" relativePoint="RIGHT" x="6"/>
+					<Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="-18"/>
+				</Anchors>
+
+				<Scripts>
+					<OnTabPressed>self:ClearFocus();</OnTabPressed>
+					<OnEnterPressed>self:ClearFocus();</OnEnterPressed>
+					<OnEscapePressed>self:ClearFocus();</OnEscapePressed>
+					<OnEditFocusLost function="eRollTracker_AcceptText"/>
+					<OnReceiveDrag function="eRollTracker_AcceptCursor"/>
+					<OnMouseDown function="eRollTracker_AcceptCursor"/>
+					<OnLoad>
+						hooksecurefunc("ChatEdit_InsertLink", function(itemLink)
+							if self and self:IsVisible() and self:HasFocus() then
+								self:Insert(itemLink);
+								return true;
+							end
+						end);
+					</OnLoad>
+				</Scripts>
+				
+				<FontString inherits="ChatFontNormal"/>
+				<HighlightColor r="0.95" g="0.95" b="0.95" a="1.00"/>
+				<TextInsets left="4" right="4"/>
+				
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture setAllPoints="true">
+							<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</EditBox>
+
+			<Frame name="$parent_ButtonsRoll">
+				<Anchors>
+					<Anchor point="BOTTOM" relativeTo="$parent_Item" relativePoint="RIGHT" y="-26"/>
+					<Anchor point="TOP" relativeTo="$parent_Item" relativePoint="RIGHT" y="-2"/>
+					<Anchor point="LEFT" relativeTo="$parent_Item" relativePoint="RIGHT" x="6"/>
+					<Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="-18"/>
+				</Anchors>
+
+				<Frames>
+					<Button name="$parent_OpenRoll" text="Open Roll" inherits="eRollTracker_Template_Button_Text">
+						<Anchors>
+							<Anchor point="TOP"/>
+							<Anchor point="BOTTOM"/>
+							<Anchor point="LEFT"/>
+							<Anchor point="RIGHT" relativePoint="TOP" x="-2"/>
+						</Anchors>
+						<Scripts><OnClick function="eRollTracker_OpenRoll"/></Scripts>
+					</Button>
+
+					<Button name="$parent_CloseRoll" text="Close Roll" inherits="eRollTracker_Template_Button_Text">
+						<Anchors>
+							<Anchor point="TOP"/>
+							<Anchor point="BOTTOM"/>
+							<Anchor point="RIGHT"/>
+							<Anchor point="LEFT" relativePoint="TOP" x="2"/>
+						</Anchors>
+						<Scripts><OnClick function="eRollTracker_CloseRoll"/></Scripts>
+					</Button>
+				</Frames>
+			</Frame>
+			
+			<Button name="$parent_ButtonClear" text="Clear All" inherits="eRollTracker_Template_Button_Text">
+				<Size x="90" y="24"/>
+				<Anchors>
+					<Anchor point="BOTTOM" y="14"/>
+				</Anchors>
+				<Scripts><OnClick function="eRollTracker_ClearAll"/></Scripts>
+			</Button>
+			
+			<Button name="$parent_ButtonUp" inherits="eRollTracker_Template_Button_Text">
+				<Size x="24" y="24"/>
+				<Anchors>
+					<Anchor point="BOTTOM" y="14"/>
+					<Anchor point="LEFT" x="22"/>
+				</Anchors>
+
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-up.tga">
+							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Button>
+			<Button name="$parent_ButtonDown" inherits="eRollTracker_Template_Button_Text">
+				<Size x="24" y="24"/>
+				<Anchors>
+					<Anchor point="BOTTOM" y="14"/>
+					<Anchor point="LEFT" relativeTo="$parent_ButtonUp" relativePoint="RIGHT"/>
+				</Anchors>
+
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-down.tga">
+							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Button>
+
+			<Button name="$parent_ButtonSettings" inherits="eRollTracker_Template_Button_Text">
+				<Size x="24" y="24"/>
+				<Anchors>
+					<Anchor point="BOTTOM" y="14"/>
+					<Anchor point="RIGHT" x="-34"/>
+				</Anchors>
+				<Scripts><OnClick function="eRollTracker_ShowOptions"/></Scripts>
+
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-settings.tga">
+							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Button>
+
+			<ScrollFrame name="$parent_Scroll" inherits="eRollTracker_Template_ScrollFrame">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parent_Item" relativePoint="BOTTOM" y="-12"/>
+					<Anchor point="BOTTOM" relativeTo="$parent_ButtonClear" relativePoint="TOP" y="6"/>
+					<Anchor point="RIGHT" x="-8"/>
+					<Anchor point="LEFT" x="8"/>
+				</Anchors>
+
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture setAllPoints="true">
+							<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
+						</Texture>
+					</Layer>
+				</Layers>
+
+				<ScrollChild>
+					<Frame>
+
+					</Frame>
+				</ScrollChild>
+			</ScrollFrame>
+		</Frames>
+	</Frame>
+</Ui>

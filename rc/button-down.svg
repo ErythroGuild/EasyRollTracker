@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 26.458333 26.458333"
+   height="100"
+   width="100"
+   sodipodi:docname="button-down.svg"
+   inkscape:export-filename="button-down.png"
+   inkscape:export-xdpi="61.439999"
+   inkscape:export-ydpi="61.439999">
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="powermask"
+       id="path-effect1532"
+       is_visible="true"
+       lpeversion="1"
+       uri="#mask-powermask-path-effect1532"
+       invert="false"
+       hide_mask="false"
+       background="true"
+       background_color="#ffffffff" />
+    <mask
+       maskUnits="userSpaceOnUse"
+       id="mask-powermask-path-effect1532">
+      <path
+         d="M 1.645833,1.645833 H 24.812499 V 24.812499 H 1.645833 Z"
+         style="fill:#ffffff;fill-opacity:1"
+         id="mask-powermask-path-effect1532_box" />
+      <path
+         id="path1530"
+         style="color:#000000;overflow:visible;fill:none;stroke:#ff00ff;stroke-width:3.175;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         d="M 13.228916,9.7096862 18.015453,15.694913 C 18.015453,15.694913 13.760718,9.9313705 13.228916,9.7096862 Z M 13.228916,9.7096862 C 12.697115,9.9313705 8.4428808,15.694913 8.4428808,15.694913 Z" />
+    </mask>
+    <filter
+       id="mask-powermask-path-effect1532_inverse"
+       inkscape:label="filtermask-powermask-path-effect1532"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect1532_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect1532_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     borderlayer="true"
+     inkscape:showpageshadow="false"
+     inkscape:pagecheckerboard="true"
+     width="100px"
+     units="px"
+     inkscape:snap-global="true"
+     inkscape:snap-bbox="false"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="560"
+     inkscape:cx="400"
+     inkscape:zoom="0.35"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       transform="matrix(1,0,0,-1,0,26.458332)"
+       style="color:#000000;overflow:visible;fill:#ffffff;stroke:none;stroke-width:3.175;stroke-linecap:round;stroke-linejoin:round"
+       id="icon"
+       mask="url(#mask-powermask-path-effect1532)"
+       inkscape:path-effect="#path-effect1532"
+       sodipodi:type="arc"
+       sodipodi:cx="13.229166"
+       sodipodi:cy="13.229166"
+       sodipodi:rx="10.583333"
+       sodipodi:ry="10.583333"
+       d="M 23.812499,13.229166 A 10.583333,10.583333 0 0 1 13.229166,23.812499 10.583333,10.583333 0 0 1 2.645833,13.229166 10.583333,10.583333 0 0 1 13.229166,2.645833 10.583333,10.583333 0 0 1 23.812499,13.229166 Z" />
+  </g>
+  <inkscape:templateinfo>
+    <inkscape:name>square-icon-100px</inkscape:name>
+    <inkscape:author>Ernest Gu</inkscape:author>
+    <inkscape:date>2020-08-13</inkscape:date>
+  </inkscape:templateinfo>
+</svg>

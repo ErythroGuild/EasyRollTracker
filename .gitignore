@@ -2,6 +2,9 @@
 EasyRollTracker-v*.zip
 EasyRollTracker-v*.7z
 
+# VS Code development
+FrameXML/UI.xsd
+
 # Compiled Lua sources
 luac.out
 

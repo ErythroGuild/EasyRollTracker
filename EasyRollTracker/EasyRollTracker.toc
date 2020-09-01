@@ -1,7 +1,7 @@
 ## Interface: 80300
 ## Title: Easy Roll Tracker
 ## Author: Ernest Gu
-## Version: 1.1.0
+## Version: 2.0.0
 ## Notes: A simple interface to list (and sort) gear rolls.
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
@@ -10,6 +10,9 @@
 # external libraries + initialization
 embeds.xml
 # locales.xml
+widgets.xml
+components.xml
 
 # core files
 EasyRollTracker.lua
+EasyRollTracker.xml

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="61.439999"
+   inkscape:export-xdpi="61.439999"
+   inkscape:export-filename="button-settings.png"
+   sodipodi:docname="button-settings.svg"
+   width="100"
+   height="100"
+   viewBox="0 0 26.458333 26.458333"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       background_color="#ffffffff"
+       background="true"
+       hide_mask="false"
+       invert="false"
+       uri="#mask-powermask-path-effect1532"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect1532"
+       effect="powermask" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="400"
+     inkscape:cy="560"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:snap-global="true"
+     units="px"
+     width="100px"
+     inkscape:pagecheckerboard="true"
+     inkscape:showpageshadow="false"
+     borderlayer="true"
+     inkscape:snap-bbox-midpoints="true" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:nodetypes="ccssscssssssssssssssssssssssssssssssssssssss"
+       id="icon"
+       mask="none"
+       style="color:#000000;overflow:visible;fill:#ffffff;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
+       d="M 49.923828,10 C 27.862191,10.042012 9.9999594,27.938323 10,50 9.9999994,72.09139 27.90861,90.000001 50,90 72.09139,90.000001 90.000001,72.09139 90,50 90.000001,27.90861 72.09139,9.9999994 50,10 Z M 50,20.529405 C 52.382886,20.529536 56.840073,19.308312 56.840073,21.571558 V 30.578268 C 56.840073,33.123802 61.191655,35.638033 63.396316,34.365548 L 71.200542,29.86111 C 73.161277,28.729414 74.331284,33.200375 75.522982,35.264703 76.714314,37.32841 80.000647,40.578843 78.040615,41.710448 L 70.238556,46.214886 C 69.13822,46.850153 70.589685,48.731615 70.58955,50.002166 70.589417,51.271271 69.139473,53.150571 70.238556,53.785114 L 78.040615,58.289552 C 80.001214,59.421484 76.714895,62.671094 75.522982,64.735297 74.331426,66.798876 73.160576,71.270495 71.200542,70.13889 L 63.398482,65.634452 C 61.193739,64.361566 56.840073,66.87376 56.840073,69.419566 V 78.428442 C 56.840073,80.692336 52.383612,79.470721 50,79.470595 47.617109,79.470465 43.159927,80.691683 43.159927,78.428442 V 69.421732 C 43.159927,66.875556 38.806581,64.361381 36.601518,65.634452 L 28.799458,70.13889 C 26.838862,71.27082 25.668716,66.799627 24.477018,64.735297 23.285686,62.671588 19.99935,59.421159 21.959385,58.289552 L 29.761444,53.785114 C 30.860527,53.150571 29.410583,51.271271 29.41045,50.002166 29.410315,48.731615 30.86178,46.850153 29.761444,46.214886 L 21.959385,41.710448 C 19.99879,40.578518 23.285105,37.328908 24.477018,35.264703 25.668577,33.201127 26.839421,28.729503 28.799458,29.86111 L 36.601518,34.365548 C 38.806261,35.638434 43.159927,33.12624 43.159927,30.580434 V 21.571558 C 43.159927,19.30766 47.616388,20.529282 50,20.529405 Z M 50.002166,39.355313 C 44.122612,39.355313 39.356882,44.122612 39.35748,50.002166 39.358078,55.880875 44.123458,60.646853 50.002166,60.646853 55.880875,60.646853 60.646255,55.880875 60.646853,50.002166 60.647451,44.122612 55.881721,39.355313 50.002166,39.355313 Z"
+       transform="scale(0.26458333)" />
+  </g>
+  <inkscape:templateinfo>
+    <inkscape:name>square-icon-100px</inkscape:name>
+    <inkscape:author>Ernest Gu</inkscape:author>
+    <inkscape:date>2020-08-13</inkscape:date>
+  </inkscape:templateinfo>
+</svg>
