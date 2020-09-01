@@ -11,6 +11,7 @@
 embeds.xml
 # locales.xml
 widgets.xml
+components.xml
 
 # core files
 EasyRollTracker.lua
