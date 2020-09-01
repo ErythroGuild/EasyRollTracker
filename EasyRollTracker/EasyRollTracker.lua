@@ -23,6 +23,16 @@ local LibWindow = LibStub("LibWindow-1.1")
 -- this variable should be a valid itemLink
 eRollTracker.item = ""
 eRollTracker.isOpen = false
+eRollTracker.entries = {}
+
+eRollTracker.pools = { heading = nil, entry = nil, separator = nil }
+-- Pools need to have a custom creationfunc (can't use FramePool directly)
+-- in order to set anchors properly.
+-- Anchors cannot be set in template itself, since the template doesn't
+-- know about the rest of the UI yet.
+eRollTracker.pools.heading = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Heading")
+eRollTracker.pools.entry = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Entry")
+eRollTracker.pools.separator = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Separator")
 
 local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
 
@@ -145,6 +155,52 @@ local function ParseRollText(text)
 	end
 end
 
+-- Inserts frame as the new frame at index.
+-- The current frame at index is pushed down by 1.
+local function ScrollInsert(frame, index)
+	local frame_prev = nil
+	if index == 1 then
+		frame_prev = eRollTrackerFrame_Scroll_Layout_PadTop
+	else
+		frame_prev = eRollTracker.entries[index-1]
+	end
+	frame:SetPoint("TOP", frame_prev, "BOTTOM")
+
+	local frame_next = nil
+	if index == #(eRollTracker.entries)+1 then
+		frame_next = eRollTrackerFrame_Scroll_Layout_PadBottom
+	else
+		frame_next = eRollTracker.entries[index+1]
+	end
+	frame_next:SetPoint("TOP", frame, "BOTTOM")
+
+	table.insert(eRollTracker.entries, index, frame)
+	
+	eRollTrackerFrame_Scroll_Layout:AddLayoutChildren(frame)
+	eRollTrackerFrame_Scroll_Layout:Layout()
+end
+local function ScrollAppend(frame)
+	ScrollInsert(frame, #(eRollTracker.entries)+1)
+end
+
+local function ResetEntry(frame)
+	frame:ClearAllPoints()
+	frame:Hide()
+end
+local function InitHeading(frame)
+	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
+end
+local function InitEntry(frame)
+	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
+	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0);
+	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0);
+end
+local function InitSeparator(frame)
+	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
+	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0);
+	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0);
+end
+
 function eRollTracker_GetTitle()
 	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
@@ -204,13 +260,6 @@ function eRollTracker_OpenRoll()
 	eRollTracker.isOpen = true
 	local message = "Roll for " .. eRollTracker.item
 	SendChatMessage(message, "RAID_WARNING")
-	
-	-- 	local heading = AceGUI:Create("Label")
-	-- 	heading:SetFullWidth(true)
-	-- 	local itemID = C_Item.GetItemIconByID(itemtext)
-	-- 	heading:SetText(itemtext)
-	-- 	heading:SetImage(itemID, 0.15, 0.85, 0.15, 0.85)
-	-- 	scrollFrame_main:AddChild(heading)
 end
 
 function eRollTracker_CloseRoll()
@@ -218,10 +267,12 @@ function eRollTracker_CloseRoll()
 	local message = "Closed roll for " .. eRollTracker.item
 	SendChatMessage(message, "RAID_WARNING")
 
-	-- 	local separator = AceGUI:Create("Heading")
-	-- 	separator:SetRelativeWidth(1.0)
-	-- 	scrollFrame_main:AddChild(separator)
-	-- 	rolltable = {}
+	local separator = eRollTracker.pools.separator:Acquire()
+	ResetEntry(separator)
+	InitSeparator(separator)
+	separator:Show()
+	ScrollAppend(separator)
+	eRollTracker.entries = { separator }
 
 	ClearItem()
 end
@@ -233,13 +284,25 @@ function eRollTracker_ClearAll()
 		ClearItem()
 	end
 
-	-- 	scrollFrame_main:ReleaseChildren()
-	-- 	rolltable = {}
-end
+	eRollTrackerFrame_Scroll_Layout_PadBottom:SetPoint("TOP", eRollTrackerFrame_Scroll_Layout_PadTop, "BOTTOM")
 
--- local group_scroll = AceGUI:Create("SimpleGroup")
--- group_scroll:SetFullWidth(true)
--- group_scroll:SetFullHeight(true)
+	eRollTracker.pools.heading:ReleaseAll()
+	eRollTracker.pools.entry:ReleaseAll()
+	eRollTracker.pools.separator:ReleaseAll()
+
+	for _, widget in eRollTracker.pools.heading:EnumerateInactive() do
+		widget:SetParent(nil)
+	end
+	for _, widget in eRollTracker.pools.entry:EnumerateInactive() do
+		widget:SetParent(nil)
+	end
+	for _, widget in eRollTracker.pools.separator:EnumerateInactive() do
+		widget:SetParent(nil)
+	end
+
+	eRollTracker.entries = {}
+	eRollTrackerFrame_Scroll_Layout:Layout()
+end
 -- group_scroll:SetLayout("Fill")
 -- ui:AddChild(group_scroll)
 

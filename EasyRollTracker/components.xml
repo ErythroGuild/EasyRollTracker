@@ -4,12 +4,6 @@
 
 	<Frame name="eRollTracker_Template_Separator" virtual="true">
 		<Size x="0" y="24"/>
-		<Anchors>
-			<Anchor point="TOP"/>
-			<Anchor point="LEFT" x="4"/>
-			<Anchor point="RIGHT" relativeTo="$parent_PadRight" relativePoint="LEFT" x="-4"/>
-		</Anchors>
-
 		<Layers>
 			<Layer level="ARTWORK">
 				<Line parentKey="line" thickness="2">
@@ -23,9 +17,6 @@
 
 	<Frame name="eRollTracker_Template_Heading" virtual="true">
 		<Size x="48" y="48"/>
-		<Anchors>
-			<Anchor point="TOP"/>
-		</Anchors>
 
 		<Scripts>
 			<OnEnter>
@@ -60,12 +51,6 @@
 
 	<Frame name="eRollTracker_Template_Entry" virtual="true" enableMouse="true">
 		<Size x="0" y="24"/>
-		<Anchors>
-			<Anchor point="TOP"/>
-			<Anchor point="LEFT" x="4"/>
-			<Anchor point="RIGHT" relativeTo="$parent_PadRight" relativePoint="LEFT" x="-4"/>
-		</Anchors>
-
 		<Layers>
 			<Layer level="HIGHLIGHT">
 				<Texture setAllPoints="true">

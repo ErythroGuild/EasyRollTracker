@@ -275,38 +275,41 @@
 				</Layers>
 
 				<ScrollChild>
-					<Frame name="$parent_Frame" setAllPoints="true">
+					<Frame name="$parent_Layout" inherits="ResizeLayoutFrame">
 						<Frames>
-							<Frame name="$parent_PadTop"
-								parentKey="pad_top"
-								parent="eRollTrackerFrame_Scroll">
+							<Frame name="$parent_PadTop">
 								<Size x="0" y="6"/>
 								<Anchors>
 									<Anchor point="TOP"/>
-									<Anchor point="LEFT"/>
-									<Anchor point="RIGHT"/>
+									<Anchor point="LEFT" relativeTo="eRollTrackerFrame_Scroll"/>
+									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll"/>
 								</Anchors>
 							</Frame>
-							<Frame name="$parent_PadBottom"
-								parentKey="pad_bottom"
-								parent="eRollTrackerFrame_Scroll">
+							<Frame name="$parent_PadBottom">
 								<Size x="0" y="6"/>
 								<Anchors>
 									<Anchor point="TOP" relativeTo="$parent_PadTop" relativePoint="BOTTOM"/>
-									<Anchor point="LEFT"/>
-									<Anchor point="RIGHT"/>
+									<Anchor point="LEFT" relativeTo="eRollTrackerFrame_Scroll"/>
+									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll"/>
 								</Anchors>
 							</Frame>
-							<Frame name="$parent_PadRight"
-								parentKey="pad_right"
+							<!-- <Frame name="$parent_separatortest"
+								inherits="eRollTracker_Template_Separator"
+								parent="eRollTrackerFrame_Scroll"/> -->
+							<!-- <Frame name="$parent_headingtest"
+								inherits="eRollTracker_Template_Heading"
 								parent="eRollTrackerFrame_Scroll">
-								<Anchors>
-									<Anchor point="LEFT" relativeTo="$parent_Bar"/>
-									<Anchor point="RIGHT" relativeTo="$parent_Bar"/>
-									<Anchor point="TOP" relativeTo="$parent_Bar_Up"/>
-									<Anchor point="BOTTOM" relativeTo="$parent_Bar_Down"/>
-								</Anchors>
-							</Frame>
+								<Scripts>
+									<OnLoad>
+										eRollTrackerFrame_Scroll_headingtest.texture:SetTexture(132103);
+										self.item = "|cff9d9d9d|Hitem:7073::::::::80:|h[Broken Fang]|h|r";
+									</OnLoad>
+								</Scripts>
+							</Frame> -->
+							<!-- <Frame name="$parent_Entry1"
+								inherits="eRollTracker_Template_Entry"
+								parent="eRollTrackerFrame_Scroll">
+							</Frame> -->
 						</Frames>
 					</Frame>
 				</ScrollChild>
