@@ -112,6 +112,9 @@
 						<Texture setAllPoints="true" alphaMode="ADD" file="Interface\AddOns\EasyRollTracker\rc\frame-item.tga">
 							<Color r="0.45" g="0.45" b="0.45" a="0.40"/>
 						</Texture>
+						<Texture setAllPoints="true" alphaMode="ADD" file="Interface\AddOns\EasyRollTracker\rc\highlight-item.tga">
+							<Color r="1.00" g="1.00" b="1.00" a="0.40"/>
+						</Texture>
 					</Layer>
 				</Layers>
 
