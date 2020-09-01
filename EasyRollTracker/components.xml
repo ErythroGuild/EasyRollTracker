@@ -2,12 +2,30 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 
-	<Frame name="eRollTracker_Template_Frame_Entry" virtual="true" enableMouse="true">
+	<Frame name="eRollTracker_Template_Separator" virtual="true">
+		<Size x="0" y="24"/>
 		<Anchors>
 			<Anchor point="TOP"/>
 			<Anchor point="LEFT" x="4"/>
-			<Anchor point="RIGHT" x="-4"/>
-			<Anchor point="BOTTOM" relativePoint="TOP" y="-24"/>
+			<Anchor point="RIGHT" x="-20"/>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Line thickness="2">
+					<Color r="0.85" g="0.85" b="0.85" a="0.80"/>
+					<StartAnchor x="-45" relativePoint="CENTER"/>
+					<EndAnchor x="45" relativePoint="CENTER"/>
+				</Line>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<Frame name="eRollTracker_Template_Entry" virtual="true" enableMouse="true">
+		<Size x="0" y="24"/>
+		<Anchors>
+			<Anchor point="TOP"/>
+			<Anchor point="LEFT" x="4"/>
+			<Anchor point="RIGHT" x="-20"/>
 		</Anchors>
 
 		<Layers>
