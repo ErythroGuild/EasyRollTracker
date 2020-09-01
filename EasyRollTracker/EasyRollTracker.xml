@@ -85,6 +85,8 @@
 				<Scripts>
 					<OnReceiveDrag function="eRollTracker_AcceptCursor"/>
 					<OnMouseDown function="eRollTracker_SendCursor"/>
+					<OnEnter function="eRollTracker_ShowTooltip"/>
+					<OnLeave function="eRollTracker_HideTooltip"/>
 				</Scripts>
 
 				<Layers>

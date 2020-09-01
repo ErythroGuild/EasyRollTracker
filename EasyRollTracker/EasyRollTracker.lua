@@ -145,6 +145,7 @@ function eRollTracker_AcceptCursor()
 		ClearCursor()
 		UpdateItemIcon()
 		UpdateItemText()
+		eRollTracker_ShowTooltip()
 	end
 end
 function eRollTracker_AcceptText()
@@ -159,12 +160,28 @@ function eRollTracker_SendCursor()
 		ClearCursor()
 		UpdateItemIcon()
 		UpdateItemText()
+		eRollTracker_ShowTooltip()
 	elseif eRollTracker.item ~= "" then
 		PickupItem(eRollTracker.item);
 		eRollTracker.item = ""
 		UpdateItemIcon()
 		UpdateItemText()
+		eRollTracker_HideTooltip()
 	end
+end
+
+function eRollTracker_ShowTooltip()
+	if eRollTracker.item ~= "" then
+		GameTooltip:ClearLines()
+		GameTooltip:SetOwner(_G["eRollTrackerFrame_Item"], "ANCHOR_NONE")
+		GameTooltip:SetPoint("TOPLEFT", eRollTrackerFrame_Item, "BOTTOMLEFT", 0, -4)
+		GameTooltip:SetHyperlink(eRollTracker.item)
+		GameTooltip:Show()
+	end
+end
+function eRollTracker_HideTooltip()
+	GameTooltip:Hide()
+	GameTooltip:ClearLines()
 end
 
 function eRollTracker_OpenRoll()
