@@ -28,4 +28,4 @@ Imgur [here][3].
 
 [1]: https://www.curseforge.com/wow/addons/easy-roll-tracker
 [2]: https://github.com/ErythroGuild/EasyRollTracker/releases/latest
-[3]: 
+[3]: https://imgur.com/a/AZu9CpG
