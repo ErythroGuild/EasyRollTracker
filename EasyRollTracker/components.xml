@@ -11,11 +11,48 @@
 		</Anchors>
 		<Layers>
 			<Layer level="ARTWORK">
-				<Line thickness="2">
+				<Line parentKey="line" thickness="2">
 					<Color r="0.85" g="0.85" b="0.85" a="0.80"/>
 					<StartAnchor x="-45" relativePoint="CENTER"/>
 					<EndAnchor x="45" relativePoint="CENTER"/>
 				</Line>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<Frame name="eRollTracker_Template_Heading" virtual="true">
+		<Size x="48" y="48"/>
+		<Anchors>
+			<Anchor point="TOP"/>
+		</Anchors>
+
+		<Scripts>
+			<OnEnter>
+				if self.item ~= "" then
+					GameTooltip:ClearLines()
+					GameTooltip:SetOwner(_G["eRollTrackerFrame_Scroll"], "ANCHOR_CURSOR")
+					GameTooltip:SetHyperlink(self.item)
+					GameTooltip:Show()
+				end
+			</OnEnter>
+			<OnLeave function="eRollTracker_HideTooltip"/>
+		</Scripts>
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture parentKey="texture">
+					<Size x="28" y="28"/>
+					<Anchors><Anchor point="CENTER"/></Anchors>
+					<Color r="0.25" g="0.65" b="0.45" a="1.00"/>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture parentKey="border"
+					file="Interface\AddOns\EasyRollTracker\rc\frame-item.tga">
+					<Size x="32" y="32"/>
+					<Anchors><Anchor point="CENTER"/></Anchors>
+					<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+				</Texture>
 			</Layer>
 		</Layers>
 	</Frame>
