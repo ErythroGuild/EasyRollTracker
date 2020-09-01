@@ -47,6 +47,9 @@
 	</Slider>
 
 	<ScrollFrame name="eRollTracker_Template_ScrollFrame" inherits="UIPanelScrollFrameCodeTemplate" virtual="true">
+		<Scripts>
+			<OnScrollRangeChanged function="eRollTrackerFrame_Scroll_OnScrollRangeChanged"/>
+		</Scripts>
 		<Frames>
 			<Slider name="$parent_Bar" inherits="eRollTracker_Template_ScrollBar" parentKey="ScrollBar">
 				<Anchors>
