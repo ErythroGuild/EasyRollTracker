@@ -152,6 +152,20 @@ function eRollTracker_AcceptText()
 	eRollTracker.item = eRollTrackerFrame_EditItem:GetText()
 	UpdateItemIcon()
 end
+function eRollTracker_SendCursor()
+	local type, itemID, itemLink = GetCursorInfo();
+	if type=="item" and itemLink then
+		eRollTracker.item = itemLink
+		ClearCursor()
+		UpdateItemIcon()
+		UpdateItemText()
+	elseif eRollTracker.item ~= "" then
+		PickupItem(eRollTracker.item);
+		eRollTracker.item = ""
+		UpdateItemIcon()
+		UpdateItemText()
+	end
+end
 
 function eRollTracker_OpenRoll()
 	eRollTracker.isOpen = true

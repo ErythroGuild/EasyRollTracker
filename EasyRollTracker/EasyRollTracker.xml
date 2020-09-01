@@ -98,8 +98,8 @@
 				<Anchors><Anchor point="TOPLEFT" x="14" y="-36"/></Anchors>
 
 				<Scripts>
-					<OnMouseUp function="eRollTracker_AcceptCursor"/>
 					<OnReceiveDrag function="eRollTracker_AcceptCursor"/>
+					<OnMouseDown function="eRollTracker_SendCursor"/>
 				</Scripts>
 
 				<Layers>
@@ -158,8 +158,8 @@
 					<OnEnterPressed>self:ClearFocus();</OnEnterPressed>
 					<OnEscapePressed>self:ClearFocus();</OnEscapePressed>
 					<OnEditFocusLost function="eRollTracker_AcceptText"/>
-					<OnMouseUp function="eRollTracker_AcceptCursor"/>
 					<OnReceiveDrag function="eRollTracker_AcceptCursor"/>
+					<OnMouseDown function="eRollTracker_AcceptCursor"/>
 					<OnLoad>
 						hooksecurefunc("ChatEdit_InsertLink", function(itemLink)
 							if self and self:IsVisible() and self:HasFocus() then
