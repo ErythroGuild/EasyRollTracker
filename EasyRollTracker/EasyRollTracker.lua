@@ -1,5 +1,3 @@
-eRollTracker = {}
-
 local LibDB		= LibStub("LibDataBroker-1.1")
 local LibDBIcon	= LibStub("LibDBIcon-1.0")
 local LibWindow = LibStub("LibWindow-1.1")
@@ -19,6 +17,8 @@ local LibWindow = LibStub("LibWindow-1.1")
 -- 	end
 -- 	return nil
 -- end
+
+eRollTracker = {}
 
 -- this variable should be a valid itemLink
 eRollTracker.item = ""

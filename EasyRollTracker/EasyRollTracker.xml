@@ -12,7 +12,7 @@
 		<Size><AbsDimension x="250" y="280"/></Size>
 		<ResizeBounds>
 			<minResize><AbsDimension x="235" y="220"/></minResize>
-			<maxResize><AbsDimension x="300" y="580"/></maxResize>
+			<maxResize><AbsDimension x="360" y="600"/></maxResize>
 		</ResizeBounds>
 		<Anchors><Anchor point="CENTER"/></Anchors>
 		
