@@ -129,6 +129,22 @@ local function ClearItem()
 	UpdateItemText()
 end
 
+local function ParseRollText(text)
+	local regex_find_roll =
+		"[%a%-" .. match_name_chars .. "]+" ..
+		" rolls %d+ %(1%-%d+%)"
+	local regex_find_data =
+		"([%a%-" .. match_name_chars .. "]+)" ..
+		" rolls (%d+) %(1%-(%d+)%)"
+	if strfind(text, regex_find_roll) == nil then
+		return false
+	else
+		local _, _, name, roll, max =
+			strfind(text, regex_find_data)
+		return true, name, roll, max
+	end
+end
+
 function eRollTracker_GetTitle()
 	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
@@ -221,65 +237,6 @@ function eRollTracker_ClearAll()
 	-- 	rolltable = {}
 end
 
--- local function ParseRollText(text)
--- 	local regex_find_roll =
--- 		"[%a%-" .. match_name_chars .. "]+" ..
--- 		" rolls %d+ %(1%-%d+%)"
--- 	local regex_find_data =
--- 		"([%a%-" .. match_name_chars .. "]+)" ..
--- 		" rolls (%d+) %(1%-(%d+)%)"
--- 	if strfind(text, regex_find_roll) == nil then
--- 		return false
--- 	else
--- 		local _, _, name, roll, max =
--- 			strfind(text, regex_find_data)
--- 		return true, name, roll, max
--- 	end
--- end
-
--- -- Construct UI.
--- local ui = AceGUI:Create("Window")
--- ui:SetTitle(Colorize("Easy", colortable["Erythro"]) .. " Roll Tracker")
--- ui:SetWidth(320)
--- ui:SetHeight(380)
--- ui:SetLayout("Flow")
--- ui:Hide()
-
--- local group_item = AceGUI:Create("SimpleGroup")
--- group_item:SetFullWidth(true)
--- group_item:SetLayout("Flow")
--- ui:AddChild(group_item)
-
--- local editBox_item = AceGUI:Create("EditBox")
--- editBox_item:SetRelativeWidth(0.65)
--- editBox_item:SetLabel("Item: ")
--- group_item:AddChild(editBox_item)
-
--- local button_clearItem = AceGUI:Create("Button")
--- button_clearItem:SetRelativeWidth(0.35)
--- button_clearItem:SetText("Clear")
--- group_item:AddChild(button_clearItem)
-
--- local group_actions = AceGUI:Create("SimpleGroup")
--- group_actions:SetFullWidth(true)
--- group_actions:SetLayout("Flow")
--- ui:AddChild(group_actions)
-
--- local button_announceRoll = AceGUI:Create("Button")
--- button_announceRoll:SetRelativeWidth(0.4)
--- button_announceRoll:SetText("Announce")
--- group_actions:AddChild(button_announceRoll)
-
--- local button_closeRoll = AceGUI:Create("Button")
--- button_closeRoll:SetRelativeWidth(0.3)
--- button_closeRoll:SetText(Colorize("Close Roll", colortable["red"]))
--- group_actions:AddChild(button_closeRoll)
-
--- local button_clearAll = AceGUI:Create("Button")
--- button_clearAll:SetRelativeWidth(0.3)
--- button_clearAll:SetText(Colorize("Clear All", colortable["red"]))
--- group_actions:AddChild(button_clearAll)
-
 -- local group_scroll = AceGUI:Create("SimpleGroup")
 -- group_scroll:SetFullWidth(true)
 -- group_scroll:SetFullHeight(true)
@@ -334,12 +291,6 @@ end
 -- 	end
 -- end
 -- EasyRollTracker:RegisterEvent("CHAT_MSG_SYSTEM", "RollHandler", text)
-
--- -- Define callbacks.
--- function ClearEditBox()
--- 	editBox_item:SetText()
--- end
--- button_clearItem:SetCallback("OnClick", ClearEditBox)
 
 -- Set slash commands.
 SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
