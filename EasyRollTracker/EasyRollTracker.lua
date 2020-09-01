@@ -20,7 +20,9 @@ local LibWindow = LibStub("LibWindow-1.1")
 -- 	return nil
 -- end
 
-eRollTracker.item = nil
+-- this variable should be a valid itemLink
+eRollTracker.item = ""
+eRollTracker.isOpen = false
 
 local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
 
@@ -104,10 +106,7 @@ local function ToggleVisible()
 	end
 end
 
-local function ShowOptions()
-end
-
-function UpdateItemIcon()
+local function UpdateItemIcon()
 	local itemLink = eRollTracker.item
 	if (itemLink) then
 		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
@@ -121,8 +120,13 @@ function UpdateItemIcon()
 		-- If itemIcon is nil, SetTexture will hide that layer
 	end
 end
-function UpdateItemText()
+local function UpdateItemText()
 	eRollTrackerFrame_EditItem:SetText(eRollTracker.item)
+end
+local function ClearItem()
+	eRollTracker.item = ""
+	UpdateItemIcon()
+	UpdateItemText()
 end
 
 function eRollTracker_GetTitle()
@@ -132,7 +136,6 @@ function eRollTracker_GetTitle()
 end
 
 function eRollTracker_ShowOptions()
-	ShowOptions()
 end
 
 function eRollTracker_AcceptCursor()
@@ -148,6 +151,43 @@ function eRollTracker_AcceptText()
 	eRollTrackerFrame_EditItem:ClearFocus()
 	eRollTracker.item = eRollTrackerFrame_EditItem:GetText()
 	UpdateItemIcon()
+end
+
+function eRollTracker_OpenRoll()
+	eRollTracker.isOpen = true
+	local message = "Roll for " .. eRollTracker.item
+	SendChatMessage(message, "RAID_WARNING")
+	
+	-- 	local heading = AceGUI:Create("Label")
+	-- 	heading:SetFullWidth(true)
+	-- 	local itemID = C_Item.GetItemIconByID(itemtext)
+	-- 	heading:SetText(itemtext)
+	-- 	heading:SetImage(itemID, 0.15, 0.85, 0.15, 0.85)
+	-- 	scrollFrame_main:AddChild(heading)
+end
+
+function eRollTracker_CloseRoll()
+	eRollTracker.isOpen = false
+	local message = "Closed roll for " .. eRollTracker.item
+	SendChatMessage(message, "RAID_WARNING")
+
+	-- 	local separator = AceGUI:Create("Heading")
+	-- 	separator:SetRelativeWidth(1.0)
+	-- 	scrollFrame_main:AddChild(separator)
+	-- 	rolltable = {}
+
+	ClearItem()
+end
+
+function eRollTracker_ClearAll()
+	if eRollTracker.isOpen then
+		eRollTracker_CloseRoll()
+	else
+		ClearItem()
+	end
+
+	-- 	scrollFrame_main:ReleaseChildren()
+	-- 	rolltable = {}
 end
 
 -- local function ParseRollText(text)
@@ -270,38 +310,6 @@ end
 -- end
 -- button_clearItem:SetCallback("OnClick", ClearEditBox)
 
--- function AnnounceRoll()
--- 	local itemtext = editBox_item:GetText()
--- 	local message = "Roll for " .. itemtext
--- 	SendChatMessage(message, "RAID_WARNING")
--- 	local heading = AceGUI:Create("Label")
--- 	heading:SetFullWidth(true)
--- 	local itemID = C_Item.GetItemIconByID(itemtext)
--- 	heading:SetText(itemtext)
--- 	heading:SetImage(itemID, 0.15, 0.85, 0.15, 0.85)
--- 	scrollFrame_main:AddChild(heading)
--- end
--- button_announceRoll:SetCallback("OnClick", AnnounceRoll)
-
--- function CloseRoll()
--- 	local itemtext = editBox_item:GetText()
--- 	local message = "Closed roll for " .. itemtext
--- 	SendChatMessage(message, "RAID_WARNING")
--- 	local separator = AceGUI:Create("Heading")
--- 	separator:SetRelativeWidth(1.0)
--- 	scrollFrame_main:AddChild(separator)
--- 	rolltable = {}
--- 	ClearEditBox()
--- end
--- button_closeRoll:SetCallback("OnClick", CloseRoll)
-
--- function ClearAll()
--- 	scrollFrame_main:ReleaseChildren()
--- 	rolltable = {}
--- 	ClearEditBox()
--- end
--- button_clearAll:SetCallback("OnClick", ClearAll)
-
 -- Set slash commands.
 SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
 	"/rolltracker", "/rolltrack", "/rt"
@@ -322,7 +330,7 @@ local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
 		if button == "LeftButton" then
 			ToggleVisible()
 		elseif button == "RightButton" then
-			ShowOptions()
+			eRollTracker_ShowOptions()
 		end
 	end,
 	OnTooltipShow = function(tooltip)

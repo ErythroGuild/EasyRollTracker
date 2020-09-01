@@ -196,6 +196,7 @@
 							<Anchor point="LEFT"/>
 							<Anchor point="RIGHT" relativePoint="TOP" x="-2"/>
 						</Anchors>
+						<Scripts><OnClick function="eRollTracker_OpenRoll"/></Scripts>
 					</Button>
 
 					<Button name="$parent_CloseRoll" text="Close Roll" inherits="eRollTracker_Template_Button_Text">
@@ -205,6 +206,7 @@
 							<Anchor point="RIGHT"/>
 							<Anchor point="LEFT" relativePoint="TOP" x="2"/>
 						</Anchors>
+						<Scripts><OnClick function="eRollTracker_CloseRoll"/></Scripts>
 					</Button>
 				</Frames>
 			</Frame>
@@ -214,6 +216,7 @@
 				<Anchors>
 					<Anchor point="BOTTOM" y="14"/>
 				</Anchors>
+				<Scripts><OnClick function="eRollTracker_ClearAll"/></Scripts>
 			</Button>
 			
 			<Button name="$parent_ButtonUp" inherits="eRollTracker_Template_Button_Text">
@@ -253,9 +256,7 @@
 					<Anchor point="BOTTOM" y="14"/>
 					<Anchor point="RIGHT" x="-34"/>
 				</Anchors>
-				<Scripts>
-					<OnClick function="eRollTracker_ShowOptions"/>
-				</Scripts>
+				<Scripts><OnClick function="eRollTracker_ShowOptions"/></Scripts>
 
 				<Layers>
 					<Layer level="OVERLAY">
