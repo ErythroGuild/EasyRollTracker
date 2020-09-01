@@ -59,6 +59,7 @@
 			<Button name="$parent_ButtonResize">
 				<Size x="20" y="20"/>
 				<Anchors><Anchor point="BOTTOMRIGHT" x="-4" y="4"/></Anchors>
+				<HitRectInsets right="-6" bottom="-6"/>
 				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-resize.tga">
 					<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
 				</NormalTexture>
