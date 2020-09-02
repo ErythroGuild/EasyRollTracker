@@ -1,11 +1,8 @@
 local LibDB		= LibStub("LibDataBroker-1.1")
 local LibDBIcon	= LibStub("LibDBIcon-1.0")
 local LibWindow = LibStub("LibWindow-1.1")
--- local AceEvent	= LibStub("AceEvent-3.0"):Embed(EasyRollTracker)
--- local AceGUI	= LibStub("AceGUI-3.0")
 
--- -- Utility variables & functions.
-
+-- Utility variables & functions.
 eRollTracker = {}
 
 -- this variable should be a valid itemLink
@@ -14,8 +11,6 @@ eRollTracker.isOpen = false
 eRollTracker.entries = {}
 
 eRollTracker.pools = { heading = nil, entry = nil, separator = nil }
--- Pools need to have a custom creationfunc (can't use FramePool directly)
--- in order to set anchors properly.
 -- Anchors cannot be set in template itself, since the template doesn't
 -- know about the rest of the UI yet.
 eRollTracker.pools.heading = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Heading")
