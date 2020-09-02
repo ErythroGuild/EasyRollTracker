@@ -184,6 +184,8 @@ local function ScrollInsert(frame, index)
 end
 local function ScrollAppend(frame)
 	ScrollInsert(frame, #(eRollTracker.entries)+1)
+	local max_scroll = eRollTrackerFrame_Scroll:GetVerticalScrollRange()
+	eRollTrackerFrame_Scroll:SetVerticalScroll(max_scroll)
 end
 
 local function ResetEntry(frame)
