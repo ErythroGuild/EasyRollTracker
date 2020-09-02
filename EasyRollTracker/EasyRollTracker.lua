@@ -145,10 +145,10 @@ end
 
 local function ParseRollText(text)
 	local regex_find_roll =
-		"[%a%-" .. match_name_chars .. "]+" ..
+		"[%a%-" .. const_namechars .. "]+" ..
 		" rolls %d+ %(1%-%d+%)"
 	local regex_find_data =
-		"([%a%-" .. match_name_chars .. "]+)" ..
+		"([%a%-" .. const_namechars .. "]+)" ..
 		" rolls (%d+) %(1%-(%d+)%)"
 	if strfind(text, regex_find_roll) == nil then
 		return false
