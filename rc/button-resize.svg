@@ -7,40 +7,40 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:export-ydpi="61.439999"
-   inkscape:export-xdpi="61.439999"
-   inkscape:export-filename="button-resize.png"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   id="svg8"
-   version="1.1"
-   viewBox="0 0 26.458333 26.458333"
-   height="100"
+   sodipodi:docname="button-resize.svg"
    width="100"
-   sodipodi:docname="button-resize.svg">
+   height="100"
+   viewBox="0 0 26.458333 26.458333"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   inkscape:export-filename="button-resize.png"
+   inkscape:export-xdpi="61.439999"
+   inkscape:export-ydpi="61.439999">
   <defs
      id="defs2" />
   <sodipodi:namedview
-     borderlayer="true"
-     inkscape:showpageshadow="false"
-     inkscape:pagecheckerboard="true"
-     width="100px"
-     units="px"
-     inkscape:snap-global="true"
-     inkscape:snap-bbox="true"
-     showgrid="false"
-     inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
-     inkscape:document-units="px"
-     inkscape:cy="560"
-     inkscape:cx="400"
-     inkscape:zoom="0.35"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
-     pagecolor="#ffffff"
+     inkscape:snap-bbox-midpoints="true"
      id="base"
-     inkscape:snap-bbox-midpoints="true" />
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="400"
+     inkscape:cy="560"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:snap-global="true"
+     units="px"
+     width="100px"
+     inkscape:pagecheckerboard="true"
+     inkscape:showpageshadow="false"
+     borderlayer="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -54,26 +54,28 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer1"
+     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     inkscape:label="Layer 1">
+     id="layer1">
     <g
-       id="icon"
-       inkscape:export-filename="button-resize.png"
+       style="stroke-width:0.964925"
+       transform="matrix(1.0363501,0,0,1.0363501,-0.19454172,-0.19454171)"
+       inkscape:export-ydpi="61.439999"
        inkscape:export-xdpi="61.439999"
-       inkscape:export-ydpi="61.439999">
+       inkscape:export-filename="button-resize.png"
+       id="icon">
       <path
-         id="path1"
+         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:3.06364;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
          d="M 20.953751,5.3518922 5.3518925,20.953751"
-         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:4.23333;stroke-linecap:round;stroke-linejoin:round" />
+         id="path1" />
       <path
-         id="path2"
-         d="M 22.837732,14.051244 14.051244,22.837732"
-         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:2.64583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:2.55303;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 21.806152,14.051244 14.051244,21.806152"
+         id="path2" />
       <path
-         id="path3"
+         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:2.04243;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
          d="M 23.223104,20.01587 20.015869,23.223104"
-         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+         id="path3" />
     </g>
   </g>
   <inkscape:templateinfo>
