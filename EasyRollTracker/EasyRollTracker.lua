@@ -335,22 +335,27 @@ end
 --------------------
 -- Event Handlers --
 --------------------
+
+-- Dispatcher for arbitrary event types.
 function eRollTrackerFrame_OnEvent(self, event, ...)
-	if event == "CHAT_MSG_SYSTEM" then
-		local text = ...
-		local isRoll, name, roll, max = ParseRollText(text)
-		if isRoll then
-			local entry = eRollTracker.pools.entry:Acquire()
-			ResetEntry(entry)
-			InitEntry(entry)
-			SetupEntry(entry, name, roll, max)
-			entry:Show()
-			local index = GetInsertIndex(tonumber(roll))
-			ScrollInsert(entry, index)
-		end
-	end
+	eRollTracker.events[event](self, ...)
 end
 
+-- Event: CHAT_MSG_SYSTEM
+-- If found, insert a new roll entry into the list.
+function eRollTracker.events:CHAT_MSG_SYSTEM(...)
+	local text = ...
+	local isRoll, name, roll, max = ParseRollText(text)
+	if isRoll then
+		local entry = eRollTracker.pools.entry:Acquire()
+		ResetEntry(entry)
+		InitEntry(entry)
+		SetupEntry(entry, name, roll, max)
+		entry:Show()
+		local index = GetInsertIndex(tonumber(roll))
+		ScrollInsert(entry, index)
+	end
+end
 
 --------------------
 -- Slash Commands --
