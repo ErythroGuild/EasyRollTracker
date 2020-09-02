@@ -50,6 +50,9 @@ local const_namechars =
 	"ÝŸ"     .. "ýÿ"     ..
 	"ÆÇÐÑ"   .. "æçðñ"   .. "ß"
 
+-----------------------
+-- Utility Functions --
+-----------------------
 local const_roleicon = {
 	TANK	= CreateAtlasMarkup("roleicon-tiny-tank"),
 	HEALER	= CreateAtlasMarkup("roleicon-tiny-healer"),
@@ -59,6 +62,22 @@ local const_roleicon = {
 local function RoleIconString(name)
 	local role = UnitGroupRolesAssigned(name)
 	return const_roleicon[role]
+end
+
+local function ParseRollText(text)
+	local regex_find_roll =
+		"[%a%-" .. const_namechars .. "]+" ..
+		" rolls %d+ %(1%-%d+%)"
+	local regex_find_data =
+		"([%a%-" .. const_namechars .. "]+)" ..
+		" rolls (%d+) %(1%-(%d+)%)"
+	if string.find(text, regex_find_roll) == nil then
+		return false
+	else
+		local _,_, name, roll, max =
+		string.find(text, regex_find_data)
+		return true, name, roll, max
+	end
 end
 
 local function GetSpec(player)
@@ -73,6 +92,7 @@ local function ToggleVisible()
 	end
 end
 
+-- View display update functions for the current roll item.
 local function UpdateItemIcon()
 	local itemLink = eRollTracker.item
 	if (itemLink) then
@@ -94,22 +114,6 @@ local function ClearItem()
 	eRollTracker.item = ""
 	UpdateItemIcon()
 	UpdateItemText()
-end
-
-local function ParseRollText(text)
-	local regex_find_roll =
-		"[%a%-" .. const_namechars .. "]+" ..
-		" rolls %d+ %(1%-%d+%)"
-	local regex_find_data =
-		"([%a%-" .. const_namechars .. "]+)" ..
-		" rolls (%d+) %(1%-(%d+)%)"
-	if string.find(text, regex_find_roll) == nil then
-		return false
-	else
-		local _,_, name, roll, max =
-		string.find(text, regex_find_data)
-		return true, name, roll, max
-	end
 end
 
 local function GetInsertIndex(roll)
@@ -154,6 +158,12 @@ local function ScrollAppend(frame)
 	local max_scroll = eRollTrackerFrame_Scroll:GetVerticalScrollRange()
 	eRollTrackerFrame_Scroll:SetVerticalScroll(max_scroll)
 end
+
+--------------------
+-- Template Reset --
+--------------------
+-- This needs to be handled separately because FramePoolMixin provides
+-- very little control over refresh/init/destroy of its children.
 
 local function ResetEntry(frame)
 	if (frame.item) then
@@ -222,15 +232,18 @@ end
 ----------------------
 -- These are easily accessible from XML.
 
+-- A prettified title string, including the AddOn version string.
 function eRollTracker_GetTitle()
 	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
 	return str_name .. " " .. str_version
 end
 
+-- Open the Interface settings menu to the panel for this AddOn.
 function eRollTracker_ShowOptions()
 end
 
+-- Use the item data on the cursor to update internal variables.
 function eRollTracker_AcceptCursor()
 	local type, itemID, itemLink = GetCursorInfo();
 	if type=="item" and itemLink then
@@ -261,8 +274,11 @@ function eRollTracker_SendCursor()
 		UpdateItemText()
 		eRollTracker_HideTooltip()
 	end
+	-- some code repetition is necessary here;
+	-- otherwise we end up in a loop of calling Accept/Send.
 end
 
+-- Tooltip display handling for the main Item.
 function eRollTracker_ShowTooltip()
 	if eRollTracker.item ~= "" then
 		GameTooltip:ClearLines()
@@ -276,6 +292,12 @@ function eRollTracker_HideTooltip()
 	GameTooltip:Hide()
 	GameTooltip:ClearLines()
 end
+
+----------------------------
+-- Global State Functions --
+----------------------------
+-- These functions also handle state transitions for the addon,
+-- setting properties based on whether a roll is currently open.
 
 function eRollTracker_OpenRoll()
 	eRollTracker.isOpen = true
