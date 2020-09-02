@@ -11,13 +11,14 @@
 embeds.xml
 # locales.xml
 
+# lua libraries
+textcolor.lua
+
 # templates
 widgets.lua
 widgets.xml
+components.lua
 components.xml
-
-# lua libraries
-textcolor.lua
 
 # core files
 EasyRollTracker.lua

@@ -27,15 +27,22 @@ eRollTracker.events = {}	-- syntactic sugar for OnEvent handlers
 -- This is the most concise workaround.
 
 -- textcolor.lua
-local const_colortable = eRollTracker.ext.const_colortable
-local const_classcolor = eRollTracker.ext.const_classcolor
-local const_raritycolor = eRollTracker.ext.const_raritycolor
+local const_colortable	= eRollTracker.ext.const_colortable
+local const_classcolor	= eRollTracker.ext.const_classcolor
+local const_raritycolor	= eRollTracker.ext.const_raritycolor
 
 local UncolorizeText = eRollTracker.ext.UncolorizeText
 
-local Colorize = eRollTracker.ext.Colorize
-local ColorizeName = eRollTracker.ext.ColorizeName
-local ColorizeLayer = eRollTracker.ext.ColorizeLayer
+local Colorize		= eRollTracker.ext.Colorize
+local ColorizeName	= eRollTracker.ext.ColorizeName
+local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
+
+-- components.lua
+local ResetEntry = eRollTracker.ext.ResetEntry
+
+local InitHeading	= eRollTracker.ext.InitHeading
+local InitEntry		= eRollTracker.ext.InitEntry
+local InitSeparator	= eRollTracker.ext.InitSeparator
 
 ---------------------
 -- Local Constants --
@@ -159,74 +166,6 @@ local function ScrollAppend(frame)
 	eRollTrackerFrame_Scroll:SetVerticalScroll(max_scroll)
 end
 
---------------------
--- Template Reset --
---------------------
--- This needs to be handled separately because FramePoolMixin provides
--- very little control over refresh/init/destroy of its children.
-
-local function ResetEntry(frame)
-	if (frame.item) then
-		frame.item = nil
-	end
-	if (frame.icon) then
-		frame.icon:SetTexture(nil)
-	end
-	frame:ClearAllPoints()
-	frame:Hide()
-end
--- Anchors cannot be set in template itself, since the template doesn't
--- know about the rest of the UI yet.
-local function InitHeading(frame)
-	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
-	frame.item = eRollTracker.item
-	if (frame.item) then
-		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
-			GetItemInfo(frame.item)
-		if itemRarity ~= nil then
-			ColorizeLayer(frame.border, itemRarity)
-		else
-			frame.border:SetVertexColor(0.85, 0.85, 0.85)
-		end
-		frame.icon:SetTexture(itemIcon)
-		-- If itemIcon is nil, SetTexture will hide that layer
-	end
-end
-local function InitEntry(frame)
-	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
-	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0)
-	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0)
-	frame.role:SetPoint("LEFT", frame, "LEFT", 4, 0)
-	frame.max:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
-	frame.spec:SetPoint("LEFT", frame.role, "RIGHT")
-	frame.roll:SetPoint("RIGHT", frame.max, "LEFT")
-	frame.name:SetPoint("LEFT", frame.spec, "RIGHT")
-	frame.name:SetPoint("RIGHT", frame.roll, "LEFT")
-end
-local function InitSeparator(frame)
-	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
-	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0)
-	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0)
-end
-
-local function SetupEntry(entry, player, roll, max)
-	entry.role:SetText(RoleIconString(player))
-	entry.spec:SetText(GetSpec(player))
-	entry.name:SetText(ColorizeName(player))
-	entry.roll:SetText(roll)
-	local maxnum = tonumber(max)
-	if maxnum == 100 then
-		entry.max:SetText(Colorize(max, const_colortable["gray"]))
-	elseif maxnum > 100 then
-		entry.max:SetText(Colorize(max, const_colortable["red"]))
-		entry.roll:SetText(Colorize(roll, const_colortable["red"]))
-	elseif maxnum < 100 then
-		entry.max:SetText(Colorize(max, const_colortable["darkgray"]))
-	else
-		entry.max:SetText(max)
-	end
-end
-
 ----------------------
 -- Global Functions --
 ----------------------
@@ -306,7 +245,7 @@ function eRollTracker_OpenRoll()
 
 	local heading = eRollTracker.pools.heading:Acquire()
 	ResetEntry(heading)
-	InitHeading(heading)
+	InitHeading(heading, eRollTracker.item)
 	heading:Show()
 	ScrollAppend(heading)
 	eRollTracker.entries = { heading }
@@ -367,12 +306,25 @@ end
 -- If found, insert a new roll entry into the list.
 function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 	local text = ...
-	local isRoll, name, roll, max = ParseRollText(text)
+	local isRoll, player, roll, max = ParseRollText(text)
 	if isRoll then
 		local entry = eRollTracker.pools.entry:Acquire()
 		ResetEntry(entry)
-		InitEntry(entry)
-		SetupEntry(entry, name, roll, max)
+
+		local role = RoleIconString(player)
+		local spec = GetSpec(player)
+		local name = ColorizeName(player)
+		local maxnum = tonumber(max)
+		if maxnum == 100 then
+			max = Colorize(max, const_colortable["gray"])
+		elseif maxnum > 100 then
+			max = Colorize(max, const_colortable["red"])
+			roll = Colorize(roll, const_colortable["red"])
+		elseif maxnum < 100 then
+			max = Colorize(max, const_colortable["darkgray"])
+		end
+
+		InitEntry(entry, role, spec, name, roll, max)
 		entry:Show()
 		local index = GetInsertIndex(tonumber(roll))
 		ScrollInsert(entry, index)
