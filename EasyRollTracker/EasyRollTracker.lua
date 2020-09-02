@@ -5,7 +5,6 @@ local LibWindow = LibStub("LibWindow-1.1")
 -- local AceGUI	= LibStub("AceGUI-3.0")
 
 -- -- Utility variables & functions.
--- local rolltable = {}
 
 -- local function GetInsertWidget(value, scrollFrame)
 -- 	for _, widget in pairs(scrollFrame.children) do
@@ -208,20 +207,19 @@ local function InitHeading(frame)
 		else
 			frame.border:SetVertexColor(0.85, 0.85, 0.85)
 		end
-		print(itemIcon)
 		frame.icon:SetTexture(itemIcon)
 		-- If itemIcon is nil, SetTexture will hide that layer
 	end
 end
 local function InitEntry(frame)
 	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
-	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0);
-	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0);
+	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0)
+	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0)
 end
 local function InitSeparator(frame)
 	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
-	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0);
-	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0);
+	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0)
+	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0)
 end
 
 function eRollTracker_GetTitle()
@@ -249,7 +247,7 @@ function eRollTracker_AcceptText()
 	UpdateItemIcon()
 end
 function eRollTracker_SendCursor()
-	local type, itemID, itemLink = GetCursorInfo();
+	local type, itemID, itemLink = GetCursorInfo()
 	if type=="item" and itemLink then
 		eRollTracker.item = itemLink
 		ClearCursor()
