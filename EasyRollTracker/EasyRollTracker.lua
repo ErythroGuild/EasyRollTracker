@@ -358,6 +358,16 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 	end
 end
 
+-- Event: ADDON_LOADED
+-- Handle anything dependent on loading SavedVariables.
+function eRollTracker.events:ADDON_LOADED(...)
+	-- LibWindow allows resolution-independent positioning.
+	-- Registration needs to happen after addon loads,
+	-- otherwise XML frames aren't defined yet.
+	LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.window)
+	LibWindow.RestorePosition(eRollTrackerFrame)
+end
+
 --------------------
 -- Slash Commands --
 --------------------
@@ -405,13 +415,3 @@ local EasyRollTrackerDB = { minimap_icon = { hide = false } }
 
 -- Bind minimap button to previously-created Data Broker.
 LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
-
------------------------
--- Smart Positioning --
------------------------
--- LibWindow allows DPI-independent position saving.
-
--- TODO: RestorePosition() requires waiting for ADDON_LOADED event
--- LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.window)
--- LibWindow.MakeDraggable(eRollTrackerFrame)
--- LibWindow.RestorePosition(eRollTrackerFrame)
