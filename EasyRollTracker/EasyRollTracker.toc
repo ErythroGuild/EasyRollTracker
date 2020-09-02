@@ -7,10 +7,17 @@
 ## LoadOnDemand: 0
 ## SavedVariables: EasyRollTrackerDB
 
-# external libraries + initialization
+# external libraries
 embeds.xml
 # locales.xml
+
+# lua libraries
+textcolor.lua
+
+# templates
+widgets.lua
 widgets.xml
+components.lua
 components.xml
 
 # core files

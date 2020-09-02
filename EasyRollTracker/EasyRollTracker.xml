@@ -12,7 +12,7 @@
 		<Size><AbsDimension x="250" y="280"/></Size>
 		<ResizeBounds>
 			<minResize><AbsDimension x="235" y="220"/></minResize>
-			<maxResize><AbsDimension x="300" y="580"/></maxResize>
+			<maxResize><AbsDimension x="360" y="600"/></maxResize>
 		</ResizeBounds>
 		<Anchors><Anchor point="CENTER"/></Anchors>
 		
@@ -20,9 +20,11 @@
 			<OnLoad>
 				eRollTrackerFrame_Title:SetText(eRollTracker_GetTitle());
 				self:RegisterForDrag("LeftButton");
+				self:RegisterEvent("CHAT_MSG_SYSTEM");
 			</OnLoad>
 			<OnDragStart>self:StartMoving();</OnDragStart>
 			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnEvent function="eRollTrackerFrame_OnEvent"/>
 		</Scripts>
 
 		<Layers>
@@ -59,6 +61,7 @@
 			<Button name="$parent_ButtonResize">
 				<Size x="20" y="20"/>
 				<Anchors><Anchor point="BOTTOMRIGHT" x="-4" y="4"/></Anchors>
+				<HitRectInsets right="-6" bottom="-6"/>
 				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-resize.tga">
 					<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
 				</NormalTexture>
@@ -72,7 +75,10 @@
 
 				<Scripts>
 					<OnMouseDown>eRollTrackerFrame:StartSizing("BOTTOMRIGHT");</OnMouseDown>
-					<OnMouseUp>eRollTrackerFrame:StopMovingOrSizing();</OnMouseUp>
+					<OnMouseUp>
+						eRollTrackerFrame:StopMovingOrSizing();
+						eRollTrackerFrame_Scroll_Layout:Layout();
+					</OnMouseUp>
 					<OnDoubleClick>eRollTrackerFrame:SetSize(eRollTrackerFrame:GetMaxResize());</OnDoubleClick>
 				</Scripts>
 			</Button>
@@ -274,8 +280,42 @@
 				</Layers>
 
 				<ScrollChild>
-					<Frame>
-
+					<Frame name="$parent_Layout" inherits="ResizeLayoutFrame">
+						<Frames>
+							<Frame name="$parent_PadTop">
+								<Size x="0" y="6"/>
+								<Anchors>
+									<Anchor point="TOP"/>
+									<Anchor point="LEFT" relativeTo="eRollTrackerFrame_Scroll"/>
+									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll" x="-16"/>
+								</Anchors>
+							</Frame>
+							<Frame name="$parent_PadBottom">
+								<Size x="0" y="6"/>
+								<Anchors>
+									<Anchor point="TOP" relativeTo="$parent_PadTop" relativePoint="BOTTOM"/>
+									<Anchor point="LEFT" relativeTo="eRollTrackerFrame_Scroll"/>
+									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll" x="-16"/>
+								</Anchors>
+							</Frame>
+							<!-- <Frame name="$parent_separatortest"
+								inherits="eRollTracker_Template_Separator"
+								parent="eRollTrackerFrame_Scroll"/> -->
+							<!-- <Frame name="$parent_headingtest"
+								inherits="eRollTracker_Template_Heading"
+								parent="eRollTrackerFrame_Scroll">
+								<Scripts>
+									<OnLoad>
+										eRollTrackerFrame_Scroll_headingtest.icon:SetTexture(132103);
+										self.item = "|cff9d9d9d|Hitem:7073::::::::80:|h[Broken Fang]|h|r";
+									</OnLoad>
+								</Scripts>
+							</Frame> -->
+							<!-- <Frame name="$parent_Entry1"
+								inherits="eRollTracker_Template_Entry"
+								parent="eRollTrackerFrame_Scroll">
+							</Frame> -->
+						</Frames>
 					</Frame>
 				</ScrollChild>
 			</ScrollFrame>

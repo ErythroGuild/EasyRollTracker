@@ -1,39 +1,53 @@
-eRollTracker = {}
+if eRollTracker == nil then eRollTracker = {} end
 
+---------------------
+-- Library Imports --
+---------------------
 local LibDB		= LibStub("LibDataBroker-1.1")
 local LibDBIcon	= LibStub("LibDBIcon-1.0")
 local LibWindow = LibStub("LibWindow-1.1")
--- local AceEvent	= LibStub("AceEvent-3.0"):Embed(EasyRollTracker)
--- local AceGUI	= LibStub("AceGUI-3.0")
 
--- -- Utility variables & functions.
--- local rolltable = {}
+----------------------
+-- Member Variables --
+----------------------
+eRollTracker.item = ""		-- this should be a valid itemLink
+eRollTracker.isOpen = false	-- if an item is currently being rolled for
+eRollTracker.entries = {}	-- list of current roll (sorted) entries
+eRollTracker.pools = {
+	heading		= CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Heading"),
+	entry		= CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Entry"),
+	separator	= CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Separator"),
+}	-- reuse frames to prevent excess created frames
+eRollTracker.events = {}	-- syntactic sugar for OnEvent handlers
 
--- local function GetInsertWidget(value, scrollFrame)
--- 	for _, widget in pairs(scrollFrame.children) do
--- 		if rolltable[widget] ~= nil then
--- 			if rolltable[widget] < value then
--- 				return widget
--- 			end
--- 		end
--- 	end
--- 	return nil
--- end
+----------------------
+-- Imported Aliases --
+----------------------
+-- Header `#include`s aren't supported.
+-- This is the most concise workaround.
 
--- this variable should be a valid itemLink
-eRollTracker.item = ""
-eRollTracker.isOpen = false
+-- textcolor.lua
+local const_colortable	= eRollTracker.ext.const_colortable
+local const_classcolor	= eRollTracker.ext.const_classcolor
+local const_raritycolor	= eRollTracker.ext.const_raritycolor
 
+local UncolorizeText = eRollTracker.ext.UncolorizeText
+
+local Colorize		= eRollTracker.ext.Colorize
+local ColorizeName	= eRollTracker.ext.ColorizeName
+local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
+
+-- components.lua
+local ResetEntry = eRollTracker.ext.ResetEntry
+
+local InitHeading	= eRollTracker.ext.InitHeading
+local InitEntry		= eRollTracker.ext.InitEntry
+local InitSeparator	= eRollTracker.ext.InitSeparator
+
+---------------------
+-- Local Constants --
+---------------------
 local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
-
-local const_colortable = {
-	Erythro		= "FFCEC9",
-	red			= "F53F16",
-	gray		= "7A7A7A",
-	darkgray	= "414141",
-	white		= "EFEFEF",
-}
-
 local const_namechars =
 	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
 	"ÉÈÊË"   .. "éèêë"   ..
@@ -43,50 +57,9 @@ local const_namechars =
 	"ÝŸ"     .. "ýÿ"     ..
 	"ÆÇÐÑ"   .. "æçðñ"   .. "ß"
 
-local function Colorize(text, color)
-	if text == nil then
-		return ""
-	end
-	if color == nil then
-		return text
-	end
-	return "|cFF" .. color .. text .. "|r"
-end
-
-local const_classcolor = {
-	DEATHKNIGHT	= "C41F3B",
-	DEMONHUNTER	= "A330C9",
-	DRUID		= "FF7D0A",
-	HUNTER		= "A9D271",
-	MAGE		= "40C7EB",
-	MONK		= "00FF96",
-	PALADIN		= "F58CBA",
-	PRIEST		= "FFFFFF",
-	ROGUE		= "FFF569",
-	SHAMAN		= "0070DE",
-	WARLOCK		= "8787ED",
-	WARRIOR		= "C79C6E",
-}
-local function ColorizeName(name)
-	local classname, _ = UnitClassBase(name)
-	local color = const_classcolor[classname]
-	return Colorize(name, color)
-end
-
-local const_raritycolor = {
-	[LE_ITEM_QUALITY_POOR]		= {0.6157, 0.6157, 0.6157},
-	[LE_ITEM_QUALITY_COMMON]	= {1.0000, 1.0000, 1.0000},
-	[LE_ITEM_QUALITY_UNCOMMON]	= {0.1176, 1.0000, 0.0000},
-	[LE_ITEM_QUALITY_RARE]		= {0.0000, 0.4392, 0.8667},
-	[LE_ITEM_QUALITY_EPIC]		= {0.6392, 0.2078, 0.9333},
-	[LE_ITEM_QUALITY_LEGENDARY]	= {1.0000, 0.5020, 0.0000},
-	[LE_ITEM_QUALITY_ARTIFACT]	= {0.9020, 0.8000, 0.5020},
-	[LE_ITEM_QUALITY_HEIRLOOM]	= {0.0000, 0.8000, 1.0000}
-}
-local function ColorizeLayer(frame, rarity)
-	frame:SetVertexColor(unpack(const_raritycolor[rarity]))
-end
-
+-----------------------
+-- Utility Functions --
+-----------------------
 local const_roleicon = {
 	TANK	= CreateAtlasMarkup("roleicon-tiny-tank"),
 	HEALER	= CreateAtlasMarkup("roleicon-tiny-healer"),
@@ -98,6 +71,26 @@ local function RoleIconString(name)
 	return const_roleicon[role]
 end
 
+local function ParseRollText(text)
+	local regex_find_roll =
+		"[%a%-" .. const_namechars .. "]+" ..
+		" rolls %d+ %(1%-%d+%)"
+	local regex_find_data =
+		"([%a%-" .. const_namechars .. "]+)" ..
+		" rolls (%d+) %(1%-(%d+)%)"
+	if string.find(text, regex_find_roll) == nil then
+		return false
+	else
+		local _,_, name, roll, max =
+		string.find(text, regex_find_data)
+		return true, name, roll, max
+	end
+end
+
+local function GetSpec(player)
+	return ""
+end
+
 local function ToggleVisible()
 	if (eRollTrackerFrame:IsShown()) then
 		eRollTrackerFrame:Hide()
@@ -106,6 +99,7 @@ local function ToggleVisible()
 	end
 end
 
+-- View display update functions for the current roll item.
 local function UpdateItemIcon()
 	local itemLink = eRollTracker.item
 	if (itemLink) then
@@ -129,31 +123,68 @@ local function ClearItem()
 	UpdateItemText()
 end
 
-local function ParseRollText(text)
-	local regex_find_roll =
-		"[%a%-" .. match_name_chars .. "]+" ..
-		" rolls %d+ %(1%-%d+%)"
-	local regex_find_data =
-		"([%a%-" .. match_name_chars .. "]+)" ..
-		" rolls (%d+) %(1%-(%d+)%)"
-	if strfind(text, regex_find_roll) == nil then
-		return false
-	else
-		local _, _, name, roll, max =
-			strfind(text, regex_find_data)
-		return true, name, roll, max
+local function GetInsertIndex(roll)
+	for i, widget in ipairs(eRollTracker.entries) do
+		if widget.roll then
+			local roll_compare =
+				tonumber(UncolorizeText(widget.roll:GetText()))
+			local roll_new =
+				tonumber(UncolorizeText(roll))
+			if roll_compare < roll_new then
+				return i
+			end
+		end
 	end
+	return #(eRollTracker.entries) + 1
 end
 
+-- Inserts frame as the new frame at index.
+-- The current frame at index is pushed down by 1.
+local function ScrollInsert(frame, index)
+	local frame_prev = nil
+	if index == 1 then
+		frame_prev = eRollTrackerFrame_Scroll_Layout_PadTop
+	else
+		frame_prev = eRollTracker.entries[index-1]
+	end
+	frame:SetPoint("TOP", frame_prev, "BOTTOM")
+
+	local frame_next = nil
+	if index == #(eRollTracker.entries)+1 then
+		frame_next = eRollTrackerFrame_Scroll_Layout_PadBottom
+	else
+		frame_next = eRollTracker.entries[index]
+	end
+	frame_next:SetPoint("TOP", frame, "BOTTOM")
+
+	table.insert(eRollTracker.entries, index, frame)
+	
+	eRollTrackerFrame_Scroll_Layout:AddLayoutChildren(frame)
+	eRollTrackerFrame_Scroll_Layout:Layout()
+end
+local function ScrollAppend(frame)
+	ScrollInsert(frame, #(eRollTracker.entries)+1)
+	local max_scroll = eRollTrackerFrame_Scroll:GetVerticalScrollRange()
+	eRollTrackerFrame_Scroll:SetVerticalScroll(max_scroll)
+end
+
+----------------------
+-- Global Functions --
+----------------------
+-- These are easily accessible from XML.
+
+-- A prettified title string, including the AddOn version string.
 function eRollTracker_GetTitle()
 	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
 	return str_name .. " " .. str_version
 end
 
+-- Open the Interface settings menu to the panel for this AddOn.
 function eRollTracker_ShowOptions()
 end
 
+-- Use the item data on the cursor to update internal variables.
 function eRollTracker_AcceptCursor()
 	local type, itemID, itemLink = GetCursorInfo();
 	if type=="item" and itemLink then
@@ -170,7 +201,7 @@ function eRollTracker_AcceptText()
 	UpdateItemIcon()
 end
 function eRollTracker_SendCursor()
-	local type, itemID, itemLink = GetCursorInfo();
+	local type, itemID, itemLink = GetCursorInfo()
 	if type=="item" and itemLink then
 		eRollTracker.item = itemLink
 		ClearCursor()
@@ -184,8 +215,11 @@ function eRollTracker_SendCursor()
 		UpdateItemText()
 		eRollTracker_HideTooltip()
 	end
+	-- some code repetition is necessary here;
+	-- otherwise we end up in a loop of calling Accept/Send.
 end
 
+-- Tooltip display handling for the main Item.
 function eRollTracker_ShowTooltip()
 	if eRollTracker.item ~= "" then
 		GameTooltip:ClearLines()
@@ -200,17 +234,23 @@ function eRollTracker_HideTooltip()
 	GameTooltip:ClearLines()
 end
 
+----------------------------
+-- Global State Functions --
+----------------------------
+-- These functions also handle state transitions for the addon,
+-- setting properties based on whether a roll is currently open.
+
 function eRollTracker_OpenRoll()
 	eRollTracker.isOpen = true
 	local message = "Roll for " .. eRollTracker.item
 	SendChatMessage(message, "RAID_WARNING")
-	
-	-- 	local heading = AceGUI:Create("Label")
-	-- 	heading:SetFullWidth(true)
-	-- 	local itemID = C_Item.GetItemIconByID(itemtext)
-	-- 	heading:SetText(itemtext)
-	-- 	heading:SetImage(itemID, 0.15, 0.85, 0.15, 0.85)
-	-- 	scrollFrame_main:AddChild(heading)
+
+	local heading = eRollTracker.pools.heading:Acquire()
+	ResetEntry(heading)
+	InitHeading(heading, eRollTracker.item)
+	heading:Show()
+	ScrollAppend(heading)
+	eRollTracker.entries = { heading }
 end
 
 function eRollTracker_CloseRoll()
@@ -218,10 +258,12 @@ function eRollTracker_CloseRoll()
 	local message = "Closed roll for " .. eRollTracker.item
 	SendChatMessage(message, "RAID_WARNING")
 
-	-- 	local separator = AceGUI:Create("Heading")
-	-- 	separator:SetRelativeWidth(1.0)
-	-- 	scrollFrame_main:AddChild(separator)
-	-- 	rolltable = {}
+	local separator = eRollTracker.pools.separator:Acquire()
+	ResetEntry(separator)
+	InitSeparator(separator)
+	separator:Show()
+	ScrollAppend(separator)
+	eRollTracker.entries = { separator }
 
 	ClearItem()
 end
@@ -233,103 +275,117 @@ function eRollTracker_ClearAll()
 		ClearItem()
 	end
 
-	-- 	scrollFrame_main:ReleaseChildren()
-	-- 	rolltable = {}
+	eRollTrackerFrame_Scroll_Layout_PadBottom:SetPoint("TOP", eRollTrackerFrame_Scroll_Layout_PadTop, "BOTTOM")
+
+	eRollTracker.pools.heading:ReleaseAll()
+	eRollTracker.pools.entry:ReleaseAll()
+	eRollTracker.pools.separator:ReleaseAll()
+
+	for _, widget in eRollTracker.pools.heading:EnumerateInactive() do
+		widget:SetParent(nil)
+	end
+	for _, widget in eRollTracker.pools.entry:EnumerateInactive() do
+		widget:SetParent(nil)
+	end
+	for _, widget in eRollTracker.pools.separator:EnumerateInactive() do
+		widget:SetParent(nil)
+	end
+
+	eRollTracker.entries = {}
+	eRollTrackerFrame_Scroll_Layout:Layout()
 end
 
--- local group_scroll = AceGUI:Create("SimpleGroup")
--- group_scroll:SetFullWidth(true)
--- group_scroll:SetFullHeight(true)
--- group_scroll:SetLayout("Fill")
--- ui:AddChild(group_scroll)
+--------------------
+-- Event Handlers --
+--------------------
 
--- local scrollFrame_main = AceGUI:Create("ScrollFrame")
--- scrollFrame_main:SetLayout("List")
--- group_scroll:AddChild(scrollFrame_main)
+-- Dispatcher for arbitrary event types.
+function eRollTrackerFrame_OnEvent(self, event, ...)
+	eRollTracker.events[event](self, ...)
+end
 
--- -- Define event listeners.
--- function newEntry(player, roll, max)
--- 	local entry = AceGUI:Create("SimpleGroup")
--- 	entry:SetFullWidth(true)
--- 	entry:SetLayout("Flow")
--- 	local name = AceGUI:Create("Label")
--- 	name:SetText(RoleIconString(player) .. " " .. ColorizeName(player))
--- 	name:SetRelativeWidth(0.65)
--- 	entry:AddChild(name)
--- 	local value = AceGUI:Create("Label")
--- 	value:SetText(roll)
--- 	value:SetRelativeWidth(0.15)
--- 	entry:AddChild(value)
--- 	local maxvalue = AceGUI:Create("Label")
--- 	local maxnum = tonumber(max)
--- 	if maxnum == 100 then
--- 		maxvalue:SetText(Colorize(max, colortable["gray"]))
--- 	elseif maxnum > 100 then
--- 		maxvalue:SetText(Colorize(max, colortable["red"]))
--- 		value:SetText(Colorize(roll, colortable["red"]))
--- 	elseif maxnum < 100 then
--- 		maxvalue:SetText(Colorize(max, colortable["darkgray"]))
--- 	else
--- 		maxvalue:SetText(max)
--- 	end
--- 	maxvalue:SetRelativeWidth(0.15)
--- 	entry:AddChild(maxvalue)
--- 	rolltable[entry] = tonumber(roll)
--- 	return entry
--- end
+-- Event: CHAT_MSG_SYSTEM
+-- If found, insert a new roll entry into the list.
+function eRollTracker.events:CHAT_MSG_SYSTEM(...)
+	local text = ...
+	local isRoll, player, roll, max = ParseRollText(text)
+	if isRoll then
+		local entry = eRollTracker.pools.entry:Acquire()
+		ResetEntry(entry)
 
--- function EasyRollTracker:RollHandler(self, event, text)
--- 	local isRoll, name, roll, max = ParseRollText(text)
--- 	if isRoll then
--- 		local entry = newEntry(name, roll, max)
--- 		local widget = GetInsertWidget(tonumber(roll), scrollFrame_main)
--- 		if widget ~= nil then
--- 			scrollFrame_main:AddChild(entry, widget)
--- 		else
--- 			scrollFrame_main:AddChild(entry)
--- 		end
--- 	end
--- end
--- EasyRollTracker:RegisterEvent("CHAT_MSG_SYSTEM", "RollHandler", text)
+		local role = RoleIconString(player)
+		local spec = GetSpec(player)
+		local name = ColorizeName(player)
+		local maxnum = tonumber(max)
+		if maxnum == 100 then
+			max = Colorize(max, const_colortable["gray"])
+		elseif maxnum > 100 then
+			max = Colorize(max, const_colortable["red"])
+			roll = Colorize(roll, const_colortable["red"])
+		elseif maxnum < 100 then
+			max = Colorize(max, const_colortable["darkgray"])
+		end
 
--- Set slash commands.
+		InitEntry(entry, role, spec, name, roll, max)
+		entry:Show()
+		local index = GetInsertIndex(tonumber(UncolorizeText(roll)))
+		ScrollInsert(entry, index)
+	end
+end
+
+--------------------
+-- Slash Commands --
+--------------------
 SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
 	"/rolltracker", "/rolltrack", "/rt"
 function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 	ToggleVisible()
 end
 
--- Minimap icon.
+--------------------
+-- Minimap Button --
+--------------------
 local const_name_LDB_icon = "Easy Roll Tracker Icon"
 local const_path_LDB_icon = "Interface\\AddOns\\EasyRollTracker\\rc\\EasyRollTracker - minimap.tga"
 
+local function MinimapTooltip(tooltip)
+	tooltip:ClearLines()
+	local name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
+	local version = Colorize(const_version, const_colortable["gray"])
+	tooltip:AddDoubleLine(name, version)
+	local l_click = Colorize(" toggle showing the addon window.", const_colortable["white"])
+	local r_click = Colorize(" open the configuration window.", const_colortable["white"])
+	tooltip:AddLine("Left-Click:" .. l_click)
+	tooltip:AddLine("Right-Click:" .. r_click)
+end
+
+-- First create a Data Broker to bind the minimap button to.
 local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
 	type = "launcher",
 	icon = const_path_LDB_icon,
 	tocname = "EasyRollTracker",
 	label = "Easy Roll Tracker",
-	OnClick = function(clickedFrame, button)
+	OnTooltipShow = MinimapTooltip,
+	OnClick = function(frame, button)
 		if button == "LeftButton" then
 			ToggleVisible()
 		elseif button == "RightButton" then
 			eRollTracker_ShowOptions()
 		end
-	end,
-	OnTooltipShow = function(tooltip)
-		tooltip:ClearLines()
-		local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
-		local str_version = Colorize(const_version, const_colortable["gray"])
-		tooltip:AddDoubleLine(str_name, str_version)
-		local str_left = Colorize(" toggle showing the addon window.", const_colortable["white"])
-		local str_right = Colorize(" open the configuration window.", const_colortable["white"])
-		tooltip:AddLine("Left-Click:" .. str_left)
-		tooltip:AddLine("Right-Click:" .. str_right)
 	end
 })
+
+-- Get minimap button display settings.
 local EasyRollTrackerDB = { minimap_icon = { hide = false } }
+
+-- Bind minimap button to previously-created Data Broker.
 LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
 
--- Save/Load position.
+-----------------------
+-- Smart Positioning --
+-----------------------
+-- LibWindow allows DPI-independent position saving.
+
 -- TODO: RestorePosition() requires waiting for ADDON_LOADED event
 -- LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.window)
 -- LibWindow.MakeDraggable(eRollTrackerFrame)
