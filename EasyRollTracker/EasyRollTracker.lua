@@ -6,17 +6,6 @@ local LibWindow = LibStub("LibWindow-1.1")
 
 -- -- Utility variables & functions.
 
--- local function GetInsertWidget(value, scrollFrame)
--- 	for _, widget in pairs(scrollFrame.children) do
--- 		if rolltable[widget] ~= nil then
--- 			if rolltable[widget] < value then
--- 				return widget
--- 			end
--- 		end
--- 	end
--- 	return nil
--- end
-
 eRollTracker = {}
 
 -- this variable should be a valid itemLink
@@ -96,6 +85,16 @@ local function ColorizeLayer(frame, rarity)
 	frame:SetVertexColor(unpack(const_raritycolor[rarity]))
 end
 
+local function UncolorizeText(colortext)
+	local regex_find_text = "|cFF%x%x%x%x%x%x(.*)|r"
+	local _,_, capture = string.find(colortext, regex_find_text)
+	if capture == nil then
+		return colortext
+	else
+		return capture
+	end
+end
+
 local const_roleicon = {
 	TANK	= CreateAtlasMarkup("roleicon-tiny-tank"),
 	HEALER	= CreateAtlasMarkup("roleicon-tiny-healer"),
@@ -149,13 +148,26 @@ local function ParseRollText(text)
 	local regex_find_data =
 		"([%a%-" .. const_namechars .. "]+)" ..
 		" rolls (%d+) %(1%-(%d+)%)"
-	if strfind(text, regex_find_roll) == nil then
+	if string.find(text, regex_find_roll) == nil then
 		return false
 	else
-		local _, _, name, roll, max =
-			strfind(text, regex_find_data)
+		local _,_, name, roll, max =
+		string.find(text, regex_find_data)
 		return true, name, roll, max
 	end
+end
+
+local function GetInsertIndex(roll)
+	for i, widget in ipairs(eRollTracker.entries) do
+		if widget.roll then
+			local roll_compare =
+				tonumber(UncolorizeText(widget.roll:GetText()))
+			if roll_compare < roll then
+				return i
+			end
+		end
+	end
+	return #(eRollTracker.entries) + 1
 end
 
 -- Inserts frame as the new frame at index.
@@ -173,7 +185,7 @@ local function ScrollInsert(frame, index)
 	if index == #(eRollTracker.entries)+1 then
 		frame_next = eRollTrackerFrame_Scroll_Layout_PadBottom
 	else
-		frame_next = eRollTracker.entries[index+1]
+		frame_next = eRollTracker.entries[index]
 	end
 	frame_next:SetPoint("TOP", frame, "BOTTOM")
 
@@ -385,21 +397,9 @@ function eRollTrackerFrame_OnEvent(self, event, ...)
 			InitEntry(entry)
 			SetupEntry(entry, name, roll, max)
 			entry:Show()
-			ScrollAppend(entry)
+			local index = GetInsertIndex(tonumber(roll))
+			ScrollInsert(entry, index)
 		end
-
-		-- function EasyRollTracker:RollHandler(self, event, text)
-		-- 	local isRoll, name, roll, max = ParseRollText(text)
-		-- 	if isRoll then
-		-- 		local entry = newEntry(name, roll, max)
-		-- 		local widget = GetInsertWidget(tonumber(roll), scrollFrame_main)
-		-- 		if widget ~= nil then
-		-- 			scrollFrame_main:AddChild(entry, widget)
-		-- 		else
-		-- 			scrollFrame_main:AddChild(entry)
-		-- 		end
-		-- 	end
-		-- end
 	end
 end
 
