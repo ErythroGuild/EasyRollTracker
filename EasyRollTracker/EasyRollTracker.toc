@@ -10,6 +10,9 @@
 # external libraries + initialization
 embeds.xml
 # locales.xml
+
+# templates
+widgets.lua
 widgets.xml
 components.xml
 
