@@ -189,7 +189,7 @@
 				<Frames>
 					<Button name="$parent_ButtonClear" parentKey="buttonClear" hidden="true">
 						<Size x="18" y="18"/>
-						<Anchors><Anchor point="RIGHT" x="-2"/></Anchors>
+						<Anchors><Anchor point="RIGHT" x="-4"/></Anchors>
 		
 						<Scripts>
 							<OnClick>
@@ -200,11 +200,14 @@
 						</Scripts>
 		
 						<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
+							<Color r="0.85" g="0.85" b="0.85" a="0.45"/>
 						</NormalTexture>
 						<PushedTexture file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
 							<Color r="0.59" g="0.01" b="0.01" a="1.00"/>
 						</PushedTexture>
+						<HighlightTexture alphaMode="ADD" file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
+							<Color r="0.85" g="0.85" b="0.85" a="0.45"/>
+						</HighlightTexture>
 						<HighlightTexture alphaMode="BLEND" file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
 							<Color r="0.99" g="0.21" b="0.21" a="0.40"/>
 						</HighlightTexture>
