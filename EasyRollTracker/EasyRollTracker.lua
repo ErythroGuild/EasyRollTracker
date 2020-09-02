@@ -422,10 +422,12 @@ end
 -- Slash Commands --
 --------------------
 SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
-	"/rolltracker", "/rolltrack", "/rt"
+	"/erolltracker", "/rolltrack", "/rt"
 function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 	local cmd = string.lower(msg)
-	if cmd == "close" then
+	if cmd == "config" or cmd == "opt" or cmd == "options" then
+		eRollTracker_ShowOptions()
+	elseif cmd == "close" then
 		eRollTrackerFrame_ButtonsRoll_CloseRoll:Click()
 	elseif cmd == "clear" then
 		eRollTrackerFrame_ButtonClear:Click()
