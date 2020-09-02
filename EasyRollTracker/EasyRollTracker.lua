@@ -38,7 +38,9 @@ local ColorizeName	= eRollTracker.ext.ColorizeName
 local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
 
 -- components.lua
-local ResetEntry = eRollTracker.ext.ResetEntry
+local ResetHeading		= eRollTracker.ext.ResetHeading
+local ResetEntry		= eRollTracker.ext.ResetEntry
+local ResetSeparator	= eRollTracker.ext.ResetSeparator
 
 local InitHeading	= eRollTracker.ext.InitHeading
 local InitEntry		= eRollTracker.ext.InitEntry
@@ -246,7 +248,7 @@ function eRollTracker_OpenRoll()
 	SendChatMessage(message, "RAID_WARNING")
 
 	local heading = eRollTracker.pools.heading:Acquire()
-	ResetEntry(heading)
+	ResetHeading(heading)
 	InitHeading(heading, eRollTracker.item)
 	heading:Show()
 	ScrollAppend(heading)
@@ -259,7 +261,7 @@ function eRollTracker_CloseRoll()
 	SendChatMessage(message, "RAID_WARNING")
 
 	local separator = eRollTracker.pools.separator:Acquire()
-	ResetEntry(separator)
+	ResetSeparator(separator)
 	InitSeparator(separator)
 	separator:Show()
 	ScrollAppend(separator)

@@ -22,17 +22,33 @@ local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
 ---------------------
 -- Functions to reset Frame templates to a cleared state.
 
+local function ResetHeading(frame)
+	frame.item = nil
+	frame.icon:SetTexture(nil)
+	frame.border:SetVertexColor(0.85, 0.85, 0.85)
+
+	frame:ClearAllPoints()
+	frame:Hide()
+end
+eRollTracker.ext.ResetHeading = ResetHeading
+
 local function ResetEntry(frame)
-	if (frame.item) then
-		frame.item = nil
-	end
-	if (frame.icon) then
-		frame.icon:SetTexture(nil)
-	end
+	frame.role:SetText("")
+	frame.spec:SetText("")
+	frame.name:SetText("")
+	frame.roll:SetText("")
+	frame.max:SetText("")
+
 	frame:ClearAllPoints()
 	frame:Hide()
 end
 eRollTracker.ext.ResetEntry = ResetEntry
+
+local function ResetSeparator(frame)
+	frame:ClearAllPoints()
+	frame:Hide()
+end
+eRollTracker.ext.ResetSeparator = ResetSeparator
 
 --------------------
 -- Init Functions --
