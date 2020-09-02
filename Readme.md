@@ -14,7 +14,7 @@ window with `/rt` or `/rolltrack` (or `/rolltracker`).
 - Minimap button for quick access
 - Displaying spec and role icon
 - Formatting names with class color
-- Highlighting the number rolled out of
+- Highlighting out-of-bounds rolls
 - Drag-and-drop or shift-click items
 - Tooltip preview of items
 - Resizable window
