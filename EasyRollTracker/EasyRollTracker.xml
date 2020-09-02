@@ -10,20 +10,21 @@
 		clampedToScreen="true"
 		enableMouse="true">
 		<Size><AbsDimension x="250" y="280"/></Size>
+		<Anchors><Anchor point="CENTER"/></Anchors>
 		<ResizeBounds>
 			<minResize><AbsDimension x="235" y="220"/></minResize>
 			<maxResize><AbsDimension x="360" y="600"/></maxResize>
 		</ResizeBounds>
-		<Anchors><Anchor point="CENTER"/></Anchors>
 		
 		<Scripts>
 			<OnLoad>
 				eRollTrackerFrame_Title:SetText(eRollTracker_GetTitle());
 				self:RegisterForDrag("LeftButton");
 				self:RegisterEvent("CHAT_MSG_SYSTEM");
+				self:RegisterEvent("ADDON_LOADED");
 			</OnLoad>
 			<OnDragStart>self:StartMoving();</OnDragStart>
-			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnDragStop function="eRollTracker_StopPositioning"/>
 			<OnEvent function="eRollTrackerFrame_OnEvent"/>
 		</Scripts>
 
@@ -42,6 +43,9 @@
 			<Button name="$parent_ButtonClose">
 				<Size x="20" y="20"/>
 				<Anchors><Anchor point="TOPRIGHT" x="-6" y="-6"/></Anchors>
+
+				<Scripts><OnClick>eRollTrackerFrame:Hide();</OnClick></Scripts>
+
 				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
 					<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
 				</NormalTexture>
@@ -52,16 +56,22 @@
 					<Color r="0.99" g="0.21" b="0.21" a="0.40"/>
 				</HighlightTexture>
 				<!-- HSL: (0, 97%, 60%) -> (0, 97%, 30%) -->
-
-				<Scripts>
-					<OnClick>eRollTrackerFrame:Hide();</OnClick>
-				</Scripts>
 			</Button>
 
 			<Button name="$parent_ButtonResize">
 				<Size x="20" y="20"/>
 				<Anchors><Anchor point="BOTTOMRIGHT" x="-4" y="4"/></Anchors>
 				<HitRectInsets right="-6" bottom="-6"/>
+
+				<Scripts>
+					<OnMouseDown>eRollTrackerFrame:StartSizing("BOTTOMRIGHT");</OnMouseDown>
+					<OnMouseUp>
+						eRollTrackerFrame:StopMovingOrSizing();
+						eRollTrackerFrame_Scroll_Layout:Layout();
+					</OnMouseUp>
+					<OnDoubleClick>eRollTrackerFrame:SetSize(eRollTrackerFrame:GetMaxResize());</OnDoubleClick>
+				</Scripts>
+
 				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-resize.tga">
 					<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
 				</NormalTexture>
@@ -72,15 +82,6 @@
 					<Color r="0.21" g="0.85" b="0.99" a="0.40"/>
 				</HighlightTexture>
 				<!-- HSL: (191, 97%, 60%) -> (191, 97%, 30%) -->
-
-				<Scripts>
-					<OnMouseDown>eRollTrackerFrame:StartSizing("BOTTOMRIGHT");</OnMouseDown>
-					<OnMouseUp>
-						eRollTrackerFrame:StopMovingOrSizing();
-						eRollTrackerFrame_Scroll_Layout:Layout();
-					</OnMouseUp>
-					<OnDoubleClick>eRollTrackerFrame:SetSize(eRollTrackerFrame:GetMaxResize());</OnDoubleClick>
-				</Scripts>
 			</Button>
 
 			<!-- frameLevel forces FrameItem to be drawn in front of IconItem -->
@@ -153,9 +154,10 @@
 				</Anchors>
 
 				<Scripts>
-					<OnTabPressed>self:ClearFocus();</OnTabPressed>
-					<OnEnterPressed>self:ClearFocus();</OnEnterPressed>
-					<OnEscapePressed>self:ClearFocus();</OnEscapePressed>
+					<OnTabPressed method="ClearFocus"/>
+					<OnEnterPressed method="ClearFocus"/>
+					<OnEscapePressed method="ClearFocus"/>
+					<OnEditFocusGained method="HighlightText"/>
 					<OnEditFocusLost function="eRollTracker_AcceptText"/>
 					<OnReceiveDrag function="eRollTracker_AcceptCursor"/>
 					<OnMouseDown function="eRollTracker_AcceptCursor"/>
@@ -169,10 +171,6 @@
 					</OnLoad>
 				</Scripts>
 				
-				<FontString inherits="ChatFontNormal"/>
-				<HighlightColor r="0.95" g="0.95" b="0.95" a="1.00"/>
-				<TextInsets left="4" right="4"/>
-				
 				<Layers>
 					<Layer level="ARTWORK">
 						<Texture setAllPoints="true">
@@ -180,6 +178,10 @@
 						</Texture>
 					</Layer>
 				</Layers>
+				
+				<FontString inherits="ChatFontNormal"/>
+				<HighlightColor r="0.95" g="0.95" b="0.95" a="1.00"/>
+				<TextInsets left="4" right="4"/>
 			</EditBox>
 
 			<Frame name="$parent_ButtonsRoll">

@@ -30,6 +30,7 @@ eRollTracker.events = {}	-- syntactic sugar for OnEvent handlers
 -- consts.lua
 local const_version		= eRollTracker.ext.const_version
 local const_namechars	= eRollTracker.ext.const_namechars
+local const_path_icon_LDB = eRollTracker.ext.const_path_icon_LDB
 local const_path_icon_unknown = eRollTracker.ext.const_path_icon_unknown
 
 -- textcolor.lua
@@ -102,6 +103,7 @@ local function ToggleVisible()
 		eRollTrackerFrame:Hide()
 	else
 		eRollTrackerFrame:Show()
+		LibWindow.RestorePosition(eRollTrackerFrame)
 	end
 end
 
@@ -190,6 +192,12 @@ function eRollTracker_GetTitle()
 	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
 	return str_name .. " " .. str_version
+end
+
+-- Use LibWindow to save the position in a resolution-independent way.
+function eRollTracker_StopPositioning()
+	eRollTrackerFrame:StopMovingOrSizing()
+	LibWindow.SavePosition(eRollTrackerFrame)
 end
 
 -- Open the Interface settings menu to the panel for this AddOn.
@@ -358,60 +366,72 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 	end
 end
 
+-- Event: ADDON_LOADED
+-- Handle anything dependent on loading SavedVariables.
+function eRollTracker.events:ADDON_LOADED(...)
+	local addonName = ...
+	if addonName == "EasyRollTracker" then
+		-- LibWindow: resolution-independent positioning
+		-- Registration needs to happen after addon loads,
+		-- otherwise XML frames aren't defined yet.
+		if EasyRollTrackerDB.libwindow == nil then
+			EasyRollTrackerDB.libwindow = {}
+		end
+		LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.libwindow)
+		LibWindow.RestorePosition(eRollTrackerFrame)
+
+		-- LDBIcon: minimap button
+		local name_LDB_icon = "Easy Roll Tracker Icon"
+
+		local function MinimapTooltip(tooltip)
+			tooltip:ClearLines()
+			local name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
+			local version = Colorize(const_version, const_colortable["gray"])
+			tooltip:AddDoubleLine(name, version)
+			local l_click = Colorize(" toggle showing the addon window.", const_colortable["white"])
+			local r_click = Colorize(" open the configuration window.", const_colortable["white"])
+			tooltip:AddLine("Left-Click:" .. l_click)
+			tooltip:AddLine("Right-Click:" .. r_click)
+		end
+
+		-- First create a Data Broker to bind the minimap button to.
+		local LDB_icon = LibDB:NewDataObject(name_LDB_icon, {
+			type = "launcher",
+			icon = const_path_icon_LDB,
+			tocname = "EasyRollTracker",
+			label = "Easy Roll Tracker",
+			OnTooltipShow = MinimapTooltip,
+			OnClick = function(frame, button)
+				if button == "LeftButton" then
+					ToggleVisible()
+				elseif button == "RightButton" then
+					eRollTracker_ShowOptions()
+				end
+			end
+		})
+
+		if EasyRollTrackerDB.ldbicon == nil then
+			-- default value: *do* show minimap
+			EasyRollTrackerDB.ldbicon = { hide = false }
+		end
+		LibDBIcon:Register(name_LDB_icon, LDB_icon, EasyRollTrackerDB.ldbicon)
+	end
+end
+
 --------------------
 -- Slash Commands --
 --------------------
 SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
-	"/rolltracker", "/rolltrack", "/rt"
+	"/erolltracker", "/rolltrack", "/rt"
 function SlashCmdList.EASYROLLTRACKER(msg, editBox)
-	ToggleVisible()
-end
-
---------------------
--- Minimap Button --
---------------------
-local const_name_LDB_icon = "Easy Roll Tracker Icon"
-local const_path_LDB_icon = "Interface\\AddOns\\EasyRollTracker\\rc\\EasyRollTracker - minimap.tga"
-
-local function MinimapTooltip(tooltip)
-	tooltip:ClearLines()
-	local name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
-	local version = Colorize(const_version, const_colortable["gray"])
-	tooltip:AddDoubleLine(name, version)
-	local l_click = Colorize(" toggle showing the addon window.", const_colortable["white"])
-	local r_click = Colorize(" open the configuration window.", const_colortable["white"])
-	tooltip:AddLine("Left-Click:" .. l_click)
-	tooltip:AddLine("Right-Click:" .. r_click)
-end
-
--- First create a Data Broker to bind the minimap button to.
-local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
-	type = "launcher",
-	icon = const_path_LDB_icon,
-	tocname = "EasyRollTracker",
-	label = "Easy Roll Tracker",
-	OnTooltipShow = MinimapTooltip,
-	OnClick = function(frame, button)
-		if button == "LeftButton" then
-			ToggleVisible()
-		elseif button == "RightButton" then
-			eRollTracker_ShowOptions()
-		end
+	local cmd = string.lower(msg)
+	if cmd == "config" or cmd == "opt" or cmd == "options" then
+		eRollTracker_ShowOptions()
+	elseif cmd == "close" then
+		eRollTrackerFrame_ButtonsRoll_CloseRoll:Click()
+	elseif cmd == "clear" then
+		eRollTrackerFrame_ButtonClear:Click()
+	else
+		ToggleVisible()
 	end
-})
-
--- Get minimap button display settings.
-local EasyRollTrackerDB = { minimap_icon = { hide = false } }
-
--- Bind minimap button to previously-created Data Broker.
-LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
-
------------------------
--- Smart Positioning --
------------------------
--- LibWindow allows DPI-independent position saving.
-
--- TODO: RestorePosition() requires waiting for ADDON_LOADED event
--- LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.window)
--- LibWindow.MakeDraggable(eRollTrackerFrame)
--- LibWindow.RestorePosition(eRollTrackerFrame)
+end
