@@ -18,15 +18,6 @@ eRollTracker.pools.entry = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Lay
 eRollTracker.pools.separator = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Separator")
 
 local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
-
-local const_colortable = {
-	Erythro		= "FFCEC9",
-	red			= "F53F16",
-	gray		= "7A7A7A",
-	darkgray	= "414141",
-	white		= "EFEFEF",
-}
-
 local const_namechars =
 	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
 	"ÉÈÊË"   .. "éèêë"   ..
@@ -35,60 +26,6 @@ local const_namechars =
 	"ÚÙÛÜ"   .. "úùûü"   ..
 	"ÝŸ"     .. "ýÿ"     ..
 	"ÆÇÐÑ"   .. "æçðñ"   .. "ß"
-
-local function Colorize(text, color)
-	if text == nil then
-		return ""
-	end
-	if color == nil then
-		return text
-	end
-	return "|cFF" .. color .. text .. "|r"
-end
-
-local const_classcolor = {
-	DEATHKNIGHT	= "C41F3B",
-	DEMONHUNTER	= "A330C9",
-	DRUID		= "FF7D0A",
-	HUNTER		= "A9D271",
-	MAGE		= "40C7EB",
-	MONK		= "00FF96",
-	PALADIN		= "F58CBA",
-	PRIEST		= "FFFFFF",
-	ROGUE		= "FFF569",
-	SHAMAN		= "0070DE",
-	WARLOCK		= "8787ED",
-	WARRIOR		= "C79C6E",
-}
-local function ColorizeName(name)
-	local classname, _ = UnitClassBase(name)
-	local color = const_classcolor[classname]
-	return Colorize(name, color)
-end
-
-local const_raritycolor = {
-	[LE_ITEM_QUALITY_POOR]		= {0.6157, 0.6157, 0.6157},
-	[LE_ITEM_QUALITY_COMMON]	= {1.0000, 1.0000, 1.0000},
-	[LE_ITEM_QUALITY_UNCOMMON]	= {0.1176, 1.0000, 0.0000},
-	[LE_ITEM_QUALITY_RARE]		= {0.0000, 0.4392, 0.8667},
-	[LE_ITEM_QUALITY_EPIC]		= {0.6392, 0.2078, 0.9333},
-	[LE_ITEM_QUALITY_LEGENDARY]	= {1.0000, 0.5020, 0.0000},
-	[LE_ITEM_QUALITY_ARTIFACT]	= {0.9020, 0.8000, 0.5020},
-	[LE_ITEM_QUALITY_HEIRLOOM]	= {0.0000, 0.8000, 1.0000}
-}
-local function ColorizeLayer(frame, rarity)
-	frame:SetVertexColor(unpack(const_raritycolor[rarity]))
-end
-
-local function UncolorizeText(colortext)
-	local regex_find_text = "|cFF%x%x%x%x%x%x(.*)|r"
-	local _,_, capture = string.find(colortext, regex_find_text)
-	if capture == nil then
-		return colortext
-	else
-		return capture
-	end
-end
 
 local const_roleicon = {
 	TANK	= CreateAtlasMarkup("roleicon-tiny-tank"),
