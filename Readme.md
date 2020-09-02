@@ -16,6 +16,7 @@ window with `/rt` or `/rolltrack` (or `/rolltracker`).
 - Formatting names with class color
 - Highlighting out-of-bounds rolls
 - Drag-and-drop or shift-click items
+- Parses valid plaintext to itemlinks
 - Tooltip preview of items
 - Resizable window
 - Double-click resizing button to maximize window
