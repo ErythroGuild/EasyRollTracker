@@ -1,0 +1,77 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	
+	<Button name="eRollTracker_Template_Button_Text" virtual="true">
+		<NormalFont style="GameFontNormal"/>
+		<PushedTextOffset x="0.2" y="-0.8"/>
+
+		<NormalTexture setAllPoints="true">
+			<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
+		</NormalTexture>
+		<PushedTexture setAllPoints="true">
+			<Color r="0.10" g="0.25" b="0.35" a="1.00"/>
+		</PushedTexture>
+		<HighlightTexture setAllPoints="true" alphaMode="ADD">
+			<Color r="0.80" g="0.80" b="0.80" a="0.40"/>
+		</HighlightTexture>
+	</Button>
+
+	<Slider name="eRollTracker_Template_ScrollBar" virtual="true">
+		<Size x="16" y="0"/>
+		<Frames>
+			<Button name="$parent_Up" parentKey="ScrollUpButton" inherits="UIPanelScrollUpButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOM" relativePoint="TOP"/>
+				</Anchors>
+				<Scripts>
+					<OnClick function="UIPanelScrollBarScrollUpButton_OnClick"/>
+				</Scripts>
+			</Button>
+			<Button name="$parent_Down" parentKey="ScrollDownButton" inherits="UIPanelScrollDownButtonTemplate">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM"/>
+				</Anchors>
+				<Scripts>
+					<OnClick function="UIPanelScrollBarScrollDownButton_OnClick"/>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnValueChanged function="UIPanelScrollBar_OnValueChanged"/>
+		</Scripts>
+		<ThumbTexture name="$parent_Thumb" parentKey="ThumbTexture" inherits="UIPanelScrollBarButton">
+			<Size x="16" y="28"/>
+			<Color r="0.45" g="0.45" b="0.45" a="0.80"/>
+		</ThumbTexture>
+	</Slider>
+
+	<ScrollFrame name="eRollTracker_Template_ScrollFrame" inherits="UIPanelScrollFrameCodeTemplate" virtual="true">
+		<Scripts>
+			<OnScrollRangeChanged function="eRollTrackerFrame_Scroll_OnScrollRangeChanged"/>
+		</Scripts>
+		<Frames>
+			<Slider name="$parent_Bar" inherits="eRollTracker_Template_ScrollBar" parentKey="ScrollBar">
+				<Anchors>
+					<Anchor point="TOPRIGHT" y="-16"/>
+					<Anchor point="BOTTOMRIGHT" y="16"/>
+					<Anchor point="RIGHT" x="-24"/>
+				</Anchors>
+			</Slider>
+			<Frame>
+				<Size x="16" y="0"/>
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parent_Bar_Up" relativePoint="TOP"/>
+					<Anchor point="BOTTOM" relativeTo="$parent_Bar_Down" relativePoint="BOTTOM"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture setAllPoints="true">
+							<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+	</ScrollFrame>
+</Ui>
