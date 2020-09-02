@@ -1,22 +1,45 @@
+if eRollTracker == nil then eRollTracker = {} end
+
+---------------------
+-- Library Imports --
+---------------------
 local LibDB		= LibStub("LibDataBroker-1.1")
 local LibDBIcon	= LibStub("LibDBIcon-1.0")
 local LibWindow = LibStub("LibWindow-1.1")
 
--- Utility variables & functions.
-eRollTracker = {}
+----------------------
+-- Member Variables --
+----------------------
+eRollTracker.item = ""		-- this should be a valid itemLink
+eRollTracker.isOpen = false	-- if an item is currently being rolled for
+eRollTracker.entries = {}	-- list of current roll (sorted) entries
+eRollTracker.pools = {
+	heading		= CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Heading"),
+	entry		= CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Entry"),
+	separator	= CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Separator"),
+}	-- reuse frames to prevent excess created frames
+eRollTracker.events = {}	-- syntactic sugar for OnEvent handlers
 
--- this variable should be a valid itemLink
-eRollTracker.item = ""
-eRollTracker.isOpen = false
-eRollTracker.entries = {}
+----------------------
+-- Imported Aliases --
+----------------------
+-- Header `#include`s aren't supported.
+-- This is the most concise workaround.
 
-eRollTracker.pools = { heading = nil, entry = nil, separator = nil }
--- Anchors cannot be set in template itself, since the template doesn't
--- know about the rest of the UI yet.
-eRollTracker.pools.heading = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Heading")
-eRollTracker.pools.entry = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Entry")
-eRollTracker.pools.separator = CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Separator")
+-- textcolor.lua
+local const_colortable = eRollTracker.ext.const_colortable
+local const_classcolor = eRollTracker.ext.const_classcolor
+local const_raritycolor = eRollTracker.ext.const_raritycolor
 
+local UncolorizeText = eRollTracker.ext.UncolorizeText
+
+local Colorize = eRollTracker.ext.Colorize
+local ColorizeName = eRollTracker.ext.ColorizeName
+local ColorizeLayer = eRollTracker.ext.ColorizeLayer
+
+---------------------
+-- Local Constants --
+---------------------
 local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
 local const_namechars =
 	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
@@ -142,6 +165,8 @@ local function ResetEntry(frame)
 	frame:ClearAllPoints()
 	frame:Hide()
 end
+-- Anchors cannot be set in template itself, since the template doesn't
+-- know about the rest of the UI yet.
 local function InitHeading(frame)
 	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
 	frame.item = eRollTracker.item
@@ -191,6 +216,11 @@ local function SetupEntry(entry, player, roll, max)
 		entry.max:SetText(max)
 	end
 end
+
+----------------------
+-- Global Functions --
+----------------------
+-- These are easily accessible from XML.
 
 function eRollTracker_GetTitle()
 	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
@@ -302,6 +332,9 @@ function eRollTracker_ClearAll()
 	eRollTrackerFrame_Scroll_Layout:Layout()
 end
 
+--------------------
+-- Event Handlers --
+--------------------
 function eRollTrackerFrame_OnEvent(self, event, ...)
 	if event == "CHAT_MSG_SYSTEM" then
 		local text = ...
@@ -318,44 +351,60 @@ function eRollTrackerFrame_OnEvent(self, event, ...)
 	end
 end
 
--- Set slash commands.
+
+--------------------
+-- Slash Commands --
+--------------------
 SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
 	"/rolltracker", "/rolltrack", "/rt"
 function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 	ToggleVisible()
 end
 
--- Minimap icon.
+--------------------
+-- Minimap Button --
+--------------------
 local const_name_LDB_icon = "Easy Roll Tracker Icon"
 local const_path_LDB_icon = "Interface\\AddOns\\EasyRollTracker\\rc\\EasyRollTracker - minimap.tga"
 
+local function MinimapTooltip(tooltip)
+	tooltip:ClearLines()
+	local name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
+	local version = Colorize(const_version, const_colortable["gray"])
+	tooltip:AddDoubleLine(name, version)
+	local l_click = Colorize(" toggle showing the addon window.", const_colortable["white"])
+	local r_click = Colorize(" open the configuration window.", const_colortable["white"])
+	tooltip:AddLine("Left-Click:" .. l_click)
+	tooltip:AddLine("Right-Click:" .. r_click)
+end
+
+-- First create a Data Broker to bind the minimap button to.
 local LDB_icon = LibDB:NewDataObject(const_name_LDB_icon, {
 	type = "launcher",
 	icon = const_path_LDB_icon,
 	tocname = "EasyRollTracker",
 	label = "Easy Roll Tracker",
-	OnClick = function(clickedFrame, button)
+	OnTooltipShow = MinimapTooltip,
+	OnClick = function(frame, button)
 		if button == "LeftButton" then
 			ToggleVisible()
 		elseif button == "RightButton" then
 			eRollTracker_ShowOptions()
 		end
-	end,
-	OnTooltipShow = function(tooltip)
-		tooltip:ClearLines()
-		local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
-		local str_version = Colorize(const_version, const_colortable["gray"])
-		tooltip:AddDoubleLine(str_name, str_version)
-		local str_left = Colorize(" toggle showing the addon window.", const_colortable["white"])
-		local str_right = Colorize(" open the configuration window.", const_colortable["white"])
-		tooltip:AddLine("Left-Click:" .. str_left)
-		tooltip:AddLine("Right-Click:" .. str_right)
 	end
 })
+
+-- Get minimap button display settings.
 local EasyRollTrackerDB = { minimap_icon = { hide = false } }
+
+-- Bind minimap button to previously-created Data Broker.
 LibDBIcon:Register(const_name_LDB_icon, LDB_icon, EasyRollTrackerDB.minimap_icon)
 
--- Save/Load position.
+-----------------------
+-- Smart Positioning --
+-----------------------
+-- LibWindow allows DPI-independent position saving.
+
 -- TODO: RestorePosition() requires waiting for ADDON_LOADED event
 -- LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.window)
 -- LibWindow.MakeDraggable(eRollTrackerFrame)
