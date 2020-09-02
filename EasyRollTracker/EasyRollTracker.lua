@@ -255,7 +255,13 @@ end
 
 function eRollTracker_OpenRoll()
 	eRollTracker.isOpen = true
-	local message = "Roll for " .. eRollTracker.item
+
+	local itemstring = eRollTracker.item
+	local _, itemLink = GetItemInfo(eRollTracker.item)
+	if itemLink ~= nil then
+		itemstring = itemLink
+	end
+	local message = "Roll for " .. itemstring
 	SendChatMessage(message, "RAID_WARNING")
 
 	local heading = eRollTracker.pools.heading:Acquire()
@@ -268,7 +274,13 @@ end
 
 function eRollTracker_CloseRoll()
 	eRollTracker.isOpen = false
-	local message = "Closed roll for " .. eRollTracker.item
+	
+	local itemstring = eRollTracker.item
+	local _, itemLink = GetItemInfo(eRollTracker.item)
+	if itemLink ~= nil then
+		itemstring = itemLink
+	end
+	local message = "Closed roll for " .. itemstring
 	SendChatMessage(message, "RAID_WARNING")
 
 	local separator = eRollTracker.pools.separator:Acquire()
