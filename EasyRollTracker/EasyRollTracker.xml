@@ -20,9 +20,11 @@
 			<OnLoad>
 				eRollTrackerFrame_Title:SetText(eRollTracker_GetTitle());
 				self:RegisterForDrag("LeftButton");
+				self:RegisterEvent("CHAT_MSG_SYSTEM");
 			</OnLoad>
 			<OnDragStart>self:StartMoving();</OnDragStart>
 			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnEvent function="eRollTrackerFrame_OnEvent"/>
 		</Scripts>
 
 		<Layers>

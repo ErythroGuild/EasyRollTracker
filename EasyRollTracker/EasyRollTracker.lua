@@ -217,11 +217,35 @@ local function InitEntry(frame)
 	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
 	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0)
 	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0)
+	frame.role:SetPoint("LEFT", frame, "LEFT", 4, 0)
+	frame.max:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
+	frame.spec:SetPoint("LEFT", frame.role, "RIGHT")
+	frame.roll:SetPoint("RIGHT", frame.max, "LEFT")
+	frame.name:SetPoint("LEFT", frame.spec, "RIGHT")
+	frame.name:SetPoint("RIGHT", frame.roll, "LEFT")
 end
 local function InitSeparator(frame)
 	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
 	frame:SetPoint("LEFT", eRollTrackerFrame_Scroll, "LEFT", 4, 0)
 	frame:SetPoint("RIGHT", eRollTrackerFrame_Scroll, "RIGHT", -20, 0)
+end
+
+local function SetupEntry(entry, player, roll, max)
+	entry.role:SetText(RoleIconString(player))
+	entry.spec:SetText(GetSpec(player))
+	entry.name:SetText(ColorizeName(player))
+	entry.roll:SetText(roll)
+	local maxnum = tonumber(max)
+	if maxnum == 100 then
+		entry.max:SetText(Colorize(max, const_colortable["gray"]))
+	elseif maxnum > 100 then
+		entry.max:SetText(Colorize(max, const_colortable["red"]))
+		entry.roll:SetText(Colorize(roll, const_colortable["red"]))
+	elseif maxnum < 100 then
+		entry.max:SetText(Colorize(max, const_colortable["darkgray"]))
+	else
+		entry.max:SetText(max)
+	end
 end
 
 function eRollTracker_GetTitle()
@@ -351,50 +375,33 @@ function eRollTrackerFrame_Scroll_OnScrollRangeChanged(self, xrange, yrange)
 	ScrollFrame_OnScrollRangeChanged(self, xrange, yrange)
 end
 
--- -- Define event listeners.
--- function newEntry(player, roll, max)
--- 	local entry = AceGUI:Create("SimpleGroup")
--- 	entry:SetFullWidth(true)
--- 	entry:SetLayout("Flow")
--- 	local name = AceGUI:Create("Label")
--- 	name:SetText(RoleIconString(player) .. " " .. ColorizeName(player))
--- 	name:SetRelativeWidth(0.65)
--- 	entry:AddChild(name)
--- 	local value = AceGUI:Create("Label")
--- 	value:SetText(roll)
--- 	value:SetRelativeWidth(0.15)
--- 	entry:AddChild(value)
--- 	local maxvalue = AceGUI:Create("Label")
--- 	local maxnum = tonumber(max)
--- 	if maxnum == 100 then
--- 		maxvalue:SetText(Colorize(max, colortable["gray"]))
--- 	elseif maxnum > 100 then
--- 		maxvalue:SetText(Colorize(max, colortable["red"]))
--- 		value:SetText(Colorize(roll, colortable["red"]))
--- 	elseif maxnum < 100 then
--- 		maxvalue:SetText(Colorize(max, colortable["darkgray"]))
--- 	else
--- 		maxvalue:SetText(max)
--- 	end
--- 	maxvalue:SetRelativeWidth(0.15)
--- 	entry:AddChild(maxvalue)
--- 	rolltable[entry] = tonumber(roll)
--- 	return entry
--- end
+function eRollTrackerFrame_OnEvent(self, event, ...)
+	if event == "CHAT_MSG_SYSTEM" then
+		local text = ...
+		local isRoll, name, roll, max = ParseRollText(text)
+		if isRoll then
+			local entry = eRollTracker.pools.entry:Acquire()
+			ResetEntry(entry)
+			InitEntry(entry)
+			SetupEntry(entry, name, roll, max)
+			entry:Show()
+			ScrollAppend(entry)
+		end
 
--- function EasyRollTracker:RollHandler(self, event, text)
--- 	local isRoll, name, roll, max = ParseRollText(text)
--- 	if isRoll then
--- 		local entry = newEntry(name, roll, max)
--- 		local widget = GetInsertWidget(tonumber(roll), scrollFrame_main)
--- 		if widget ~= nil then
--- 			scrollFrame_main:AddChild(entry, widget)
--- 		else
--- 			scrollFrame_main:AddChild(entry)
--- 		end
--- 	end
--- end
--- EasyRollTracker:RegisterEvent("CHAT_MSG_SYSTEM", "RollHandler", text)
+		-- function EasyRollTracker:RollHandler(self, event, text)
+		-- 	local isRoll, name, roll, max = ParseRollText(text)
+		-- 	if isRoll then
+		-- 		local entry = newEntry(name, roll, max)
+		-- 		local widget = GetInsertWidget(tonumber(roll), scrollFrame_main)
+		-- 		if widget ~= nil then
+		-- 			scrollFrame_main:AddChild(entry, widget)
+		-- 		else
+		-- 			scrollFrame_main:AddChild(entry)
+		-- 		end
+		-- 	end
+		-- end
+	end
+end
 
 -- Set slash commands.
 SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
