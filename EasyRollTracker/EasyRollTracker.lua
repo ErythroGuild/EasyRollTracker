@@ -108,6 +108,10 @@ local function RoleIconString(name)
 	return const_roleicon[role]
 end
 
+local function GetSpec(player)
+	return ""
+end
+
 local function ToggleVisible()
 	if (eRollTrackerFrame:IsShown()) then
 		eRollTrackerFrame:Hide()
