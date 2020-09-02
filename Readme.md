@@ -1,9 +1,9 @@
 Easy Roll Tracker
 ---
 
-A lightweight addon to list `/roll` results in a raid.
-Comes with a few convenience features. Open the tracking
-window with `/rt` or `/rolltrack` (or `/rolltracker`).
+A lightweight addon to track `/roll` results in a raid,
+with many convenience features. Open the tracking window
+with `/rt` or `/rolltrack` (or `/erolltracker`).
 
 **Major features:**
 - Listing and sorting all `/roll` results in group
@@ -19,7 +19,7 @@ window with `/rt` or `/rolltrack` (or `/rolltracker`).
 - Parses valid plaintext to itemlinks
 - Tooltip preview of items
 - Resizable window
-- Double-click resizing button to maximize window
+- Double-click resize button to maximize window
 
 *The project can be found on CurseForge [here][1].*
 
