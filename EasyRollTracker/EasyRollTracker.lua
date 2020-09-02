@@ -1,4 +1,5 @@
 if eRollTracker == nil then eRollTracker = {} end
+if eRollTracker.ext == nil then eRollTracker.ext = {} end
 
 ---------------------
 -- Library Imports --
@@ -26,6 +27,11 @@ eRollTracker.events = {}	-- syntactic sugar for OnEvent handlers
 -- Header `#include`s aren't supported.
 -- This is the most concise workaround.
 
+-- consts.lua
+local const_version		= eRollTracker.ext.const_version
+local const_namechars	= eRollTracker.ext.const_namechars
+local const_path_icon_unknown = eRollTracker.ext.const_path_icon_unknown
+
 -- textcolor.lua
 local const_colortable	= eRollTracker.ext.const_colortable
 local const_classcolor	= eRollTracker.ext.const_classcolor
@@ -45,19 +51,6 @@ local ResetSeparator	= eRollTracker.ext.ResetSeparator
 local InitHeading	= eRollTracker.ext.InitHeading
 local InitEntry		= eRollTracker.ext.InitEntry
 local InitSeparator	= eRollTracker.ext.InitSeparator
-
----------------------
--- Local Constants --
----------------------
-local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
-local const_namechars =
-	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
-	"ÉÈÊË"   .. "éèêë"   ..
-	"ÍÌÎÏ"   .. "íìîï"   ..
-	"ÓÒÔÕÖØ" .. "óòôõöø" ..
-	"ÚÙÛÜ"   .. "úùûü"   ..
-	"ÝŸ"     .. "ýÿ"     ..
-	"ÆÇÐÑ"   .. "æçðñ"   .. "ß"
 
 -----------------------
 -- Utility Functions --
@@ -93,6 +86,17 @@ local function GetSpec(player)
 	return ""
 end
 
+local function SetItem(itemstring)
+	-- Validate item here (if enabled).
+	-- local itemID, itemLink = GetItemInfo(itemstring)
+	-- local is_itemLink = (itemID ~= nil)
+	-- if is_itemLink then
+	-- 	eRollTracker.item = itemLink
+	-- else
+	-- 	eRollTracker.item = itemstring
+	-- end
+end
+
 local function ToggleVisible()
 	if (eRollTrackerFrame:IsShown()) then
 		eRollTrackerFrame:Hide()
@@ -104,16 +108,22 @@ end
 -- View display update functions for the current roll item.
 local function UpdateItemIcon()
 	local itemLink = eRollTracker.item
-	if (itemLink) then
+	if itemLink then
 		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
 			GetItemInfo(itemLink)
 		if itemRarity ~= nil then
-			ColorizeLayer(eRollTrackerFrame_Item["border"], itemRarity)
+			ColorizeLayer(eRollTrackerFrame_Item.border, itemRarity)
 		else
-			eRollTrackerFrame_Item["border"]:SetVertexColor(0.85, 0.85, 0.85)
+			eRollTrackerFrame_Item.border:SetVertexColor(0.85, 0.85, 0.85)
 		end
-		eRollTrackerFrame_Item_Icon["icon"]:SetTexture(itemIcon)
-		-- If itemIcon is nil, SetTexture will hide that layer
+
+		if itemLink == "" then
+			eRollTrackerFrame_Item_Icon.icon:SetTexture(nil)	-- hides texture
+		elseif itemIcon == nil then
+			eRollTrackerFrame_Item_Icon.icon:SetTexture(const_path_icon_unknown)
+		else
+			eRollTrackerFrame_Item_Icon.icon:SetTexture(itemIcon)
+		end
 	end
 end
 local function UpdateItemText()
@@ -223,11 +233,12 @@ end
 
 -- Tooltip display handling for the main Item.
 function eRollTracker_ShowTooltip()
-	if eRollTracker.item ~= "" then
+	local _, itemLink = GetItemInfo(eRollTracker.item)
+	if itemLink ~= nil then
 		GameTooltip:ClearLines()
 		GameTooltip:SetOwner(_G["eRollTrackerFrame_Item"], "ANCHOR_NONE")
 		GameTooltip:SetPoint("TOPLEFT", eRollTrackerFrame_Item, "BOTTOMLEFT", 0, -4)
-		GameTooltip:SetHyperlink(eRollTracker.item)
+		GameTooltip:SetHyperlink(itemLink)
 		GameTooltip:Show()
 	end
 end

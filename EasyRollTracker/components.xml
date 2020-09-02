@@ -20,11 +20,12 @@
 
 		<Scripts>
 			<OnEnter>
-				if self.item ~= "" then
-					GameTooltip:ClearLines()
-					GameTooltip:SetOwner(_G["eRollTrackerFrame_Scroll"], "ANCHOR_CURSOR")
-					GameTooltip:SetHyperlink(self.item)
-					GameTooltip:Show()
+				local _, itemLink = GetItemInfo(self.item);
+				if itemLink ~= nil then
+					GameTooltip:ClearLines();
+					GameTooltip:SetOwner(_G["eRollTrackerFrame_Scroll"], "ANCHOR_CURSOR");
+					GameTooltip:SetHyperlink(itemLink);
+					GameTooltip:Show();
 				end
 			</OnEnter>
 			<OnLeave function="eRollTracker_HideTooltip"/>
