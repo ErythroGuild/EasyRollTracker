@@ -32,7 +32,7 @@
 
 		<Layers>
 			<Layer level="ARTWORK">
-				<Texture parentKey="texture">
+				<Texture parentKey="icon">
 					<Size x="28" y="28"/>
 					<Anchors><Anchor point="CENTER"/></Anchors>
 					<Color r="0.25" g="0.65" b="0.45" a="1.00"/>

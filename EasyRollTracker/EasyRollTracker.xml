@@ -285,7 +285,7 @@
 								<Anchors>
 									<Anchor point="TOP"/>
 									<Anchor point="LEFT" relativeTo="eRollTrackerFrame_Scroll"/>
-									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll"/>
+									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll" x="-16"/>
 								</Anchors>
 							</Frame>
 							<Frame name="$parent_PadBottom">
@@ -293,7 +293,7 @@
 								<Anchors>
 									<Anchor point="TOP" relativeTo="$parent_PadTop" relativePoint="BOTTOM"/>
 									<Anchor point="LEFT" relativeTo="eRollTrackerFrame_Scroll"/>
-									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll"/>
+									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll" x="-16"/>
 								</Anchors>
 							</Frame>
 							<!-- <Frame name="$parent_separatortest"
@@ -304,7 +304,7 @@
 								parent="eRollTrackerFrame_Scroll">
 								<Scripts>
 									<OnLoad>
-										eRollTrackerFrame_Scroll_headingtest.texture:SetTexture(132103);
+										eRollTrackerFrame_Scroll_headingtest.icon:SetTexture(132103);
 										self.item = "|cff9d9d9d|Hitem:7073::::::::80:|h[Broken Fang]|h|r";
 									</OnLoad>
 								</Scripts>

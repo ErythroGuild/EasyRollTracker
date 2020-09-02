@@ -184,11 +184,30 @@ local function ScrollAppend(frame)
 end
 
 local function ResetEntry(frame)
+	if (frame.item) then
+		frame.item = nil
+	end
+	if (frame.icon) then
+		frame.icon:SetTexture(nil)
+	end
 	frame:ClearAllPoints()
 	frame:Hide()
 end
 local function InitHeading(frame)
 	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
+	frame.item = eRollTracker.item
+	if (frame.item) then
+		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
+			GetItemInfo(frame.item)
+		if itemRarity ~= nil then
+			ColorizeLayer(frame.border, itemRarity)
+		else
+			frame.border:SetVertexColor(0.85, 0.85, 0.85)
+		end
+		print(itemIcon)
+		frame.icon:SetTexture(itemIcon)
+		-- If itemIcon is nil, SetTexture will hide that layer
+	end
 end
 local function InitEntry(frame)
 	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
@@ -260,6 +279,13 @@ function eRollTracker_OpenRoll()
 	eRollTracker.isOpen = true
 	local message = "Roll for " .. eRollTracker.item
 	SendChatMessage(message, "RAID_WARNING")
+
+	local heading = eRollTracker.pools.heading:Acquire()
+	ResetEntry(heading)
+	InitHeading(heading)
+	heading:Show()
+	ScrollAppend(heading)
+	eRollTracker.entries = { heading }
 end
 
 function eRollTracker_CloseRoll()
