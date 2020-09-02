@@ -28,6 +28,11 @@
 				end
 			</OnEnter>
 			<OnLeave function="eRollTracker_HideTooltip"/>
+			<OnMouseDown>
+				if self.item ~= "" then
+					PickupItem(self.item)
+				end
+			</OnMouseDown>
 		</Scripts>
 
 		<Layers>
