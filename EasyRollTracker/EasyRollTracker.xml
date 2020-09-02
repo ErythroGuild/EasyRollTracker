@@ -23,7 +23,7 @@
 				self:RegisterEvent("CHAT_MSG_SYSTEM");
 				self:RegisterEvent("ADDON_LOADED");
 			</OnLoad>
-			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStart method="StartMoving"/>
 			<OnDragStop function="eRollTracker_StopPositioning"/>
 			<OnEvent function="eRollTrackerFrame_OnEvent"/>
 		</Scripts>
@@ -154,6 +154,13 @@
 				</Anchors>
 
 				<Scripts>
+					<OnTextChanged>
+						if self:GetText() == "" then
+							self.buttonClear:Hide();
+						else
+							self.buttonClear:Show();
+						end
+					</OnTextChanged>
 					<OnTabPressed method="ClearFocus"/>
 					<OnEnterPressed method="ClearFocus"/>
 					<OnEscapePressed method="ClearFocus"/>
@@ -178,6 +185,32 @@
 						</Texture>
 					</Layer>
 				</Layers>
+
+				<Frames>
+					<Button name="$parent_ButtonClear" parentKey="buttonClear" hidden="true">
+						<Size x="18" y="18"/>
+						<Anchors><Anchor point="RIGHT" x="-2"/></Anchors>
+		
+						<Scripts>
+							<OnClick>
+								self:GetParent():SetText("");
+								eRollTracker_AcceptText();
+								self:GetParent():SetFocus();
+							</OnClick>
+						</Scripts>
+		
+						<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
+							<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
+						</NormalTexture>
+						<PushedTexture file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
+							<Color r="0.59" g="0.01" b="0.01" a="1.00"/>
+						</PushedTexture>
+						<HighlightTexture alphaMode="BLEND" file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
+							<Color r="0.99" g="0.21" b="0.21" a="0.40"/>
+						</HighlightTexture>
+						<!-- HSL: (0, 97%, 60%) -> (0, 97%, 30%) -->
+					</Button>
+				</Frames>
 				
 				<FontString inherits="ChatFontNormal"/>
 				<HighlightColor r="0.95" g="0.95" b="0.95" a="1.00"/>
