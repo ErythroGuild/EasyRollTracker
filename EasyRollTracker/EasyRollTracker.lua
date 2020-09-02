@@ -128,7 +128,9 @@ local function GetInsertIndex(roll)
 		if widget.roll then
 			local roll_compare =
 				tonumber(UncolorizeText(widget.roll:GetText()))
-			if roll_compare < roll then
+			local roll_new =
+				tonumber(UncolorizeText(roll))
+			if roll_compare < roll_new then
 				return i
 			end
 		end
@@ -326,7 +328,7 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 
 		InitEntry(entry, role, spec, name, roll, max)
 		entry:Show()
-		local index = GetInsertIndex(tonumber(roll))
+		local index = GetInsertIndex(tonumber(UncolorizeText(roll)))
 		ScrollInsert(entry, index)
 	end
 end

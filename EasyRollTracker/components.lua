@@ -8,6 +8,15 @@ if eRollTracker.ext == nil then eRollTracker.ext = {} end
 -- The template doesn't know about the rest of the UI before
 -- being created.
 
+----------------------
+-- Imported Aliases --
+----------------------
+-- Header `#include`s aren't supported.
+-- This is the most concise workaround.
+
+-- textcolor.lua
+local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
+
 ---------------------
 -- Reset Functions --
 ---------------------
@@ -58,11 +67,11 @@ local function InitEntry(frame, role, spec, name, roll, max)
 	frame.name:SetPoint("LEFT", frame.spec, "RIGHT")
 	frame.name:SetPoint("RIGHT", frame.roll, "LEFT")
 	
-	entry.role:SetText(role)
-	entry.spec:SetText(spec)
-	entry.name:SetText(name)
-	entry.roll:SetText(roll)
-	entry.max:SetText(max)
+	frame.role:SetText(role)
+	frame.spec:SetText(spec)
+	frame.name:SetText(name)
+	frame.roll:SetText(roll)
+	frame.max:SetText(max)
 end
 eRollTracker.ext.InitEntry = InitEntry
 
