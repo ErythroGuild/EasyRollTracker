@@ -154,9 +154,10 @@
 				</Anchors>
 
 				<Scripts>
-					<OnTabPressed>self:ClearFocus();</OnTabPressed>
-					<OnEnterPressed>self:ClearFocus();</OnEnterPressed>
-					<OnEscapePressed>self:ClearFocus();</OnEscapePressed>
+					<OnTabPressed method="ClearFocus"/>
+					<OnEnterPressed method="ClearFocus"/>
+					<OnEscapePressed method="ClearFocus"/>
+					<OnEditFocusGained method="HighlightText"/>
 					<OnEditFocusLost function="eRollTracker_AcceptText"/>
 					<OnReceiveDrag function="eRollTracker_AcceptCursor"/>
 					<OnMouseDown function="eRollTracker_AcceptCursor"/>
