@@ -14,6 +14,9 @@ if eRollTracker.ext == nil then eRollTracker.ext = {} end
 -- Header `#include`s aren't supported.
 -- This is the most concise workaround.
 
+-- consts.lua
+local const_path_icon_unknown = eRollTracker.ext.const_path_icon_unknown
+
 -- textcolor.lua
 local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
 
@@ -22,17 +25,33 @@ local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
 ---------------------
 -- Functions to reset Frame templates to a cleared state.
 
+local function ResetHeading(frame)
+	frame.item = nil
+	frame.icon:SetTexture(nil)
+	frame.border:SetVertexColor(0.85, 0.85, 0.85)
+
+	frame:ClearAllPoints()
+	frame:Hide()
+end
+eRollTracker.ext.ResetHeading = ResetHeading
+
 local function ResetEntry(frame)
-	if (frame.item) then
-		frame.item = nil
-	end
-	if (frame.icon) then
-		frame.icon:SetTexture(nil)
-	end
+	frame.role:SetText("")
+	frame.spec:SetText("")
+	frame.name:SetText("")
+	frame.roll:SetText("")
+	frame.max:SetText("")
+
 	frame:ClearAllPoints()
 	frame:Hide()
 end
 eRollTracker.ext.ResetEntry = ResetEntry
+
+local function ResetSeparator(frame)
+	frame:ClearAllPoints()
+	frame:Hide()
+end
+eRollTracker.ext.ResetSeparator = ResetSeparator
 
 --------------------
 -- Init Functions --
@@ -50,8 +69,14 @@ local function InitHeading(frame, item)
 		else
 			frame.border:SetVertexColor(0.85, 0.85, 0.85)
 		end
-		frame.icon:SetTexture(itemIcon)
-		-- If itemIcon is nil, SetTexture will hide that layer
+
+		if item == "" then
+			frame.icon:SetTexture(nil)	-- hides texture
+		elseif itemIcon == nil then
+			frame.icon:SetTexture(const_path_icon_unknown)
+		else
+			frame.icon:SetTexture(itemIcon)
+		end
 	end
 end
 eRollTracker.ext.InitHeading = InitHeading

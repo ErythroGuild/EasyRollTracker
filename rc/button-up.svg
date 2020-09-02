@@ -20,6 +20,16 @@
   <defs
      id="defs2">
     <inkscape:path-effect
+       effect="powermask"
+       id="path-effect844"
+       is_visible="true"
+       lpeversion="1"
+       uri="#mask-powermask-path-effect844"
+       invert="false"
+       hide_mask="false"
+       background="true"
+       background_color="#ffffffff" />
+    <inkscape:path-effect
        background_color="#ffffffff"
        background="true"
        hide_mask="false"
@@ -30,34 +40,34 @@
        id="path-effect1532"
        effect="powermask" />
     <mask
-       id="mask-powermask-path-effect1532"
-       maskUnits="userSpaceOnUse">
+       maskUnits="userSpaceOnUse"
+       id="mask-powermask-path-effect844">
       <path
          d="M 1.645833,1.645833 H 24.812499 V 24.812499 H 1.645833 Z"
          style="fill:#ffffff;fill-opacity:1"
-         id="mask-powermask-path-effect1532_box" />
+         id="mask_box" />
       <path
-         d="M 13.228916,9.7096862 18.015453,15.694913 C 18.015453,15.694913 13.760718,9.9313705 13.228916,9.7096862 Z M 13.228916,9.7096862 C 12.697115,9.9313705 8.4428808,15.694913 8.4428808,15.694913 Z"
-         style="color:#000000;overflow:visible;fill:none;stroke:#ff00ff;stroke-width:3.175;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-         id="path1530" />
+         id="path_arrow"
+         style="color:#000000;overflow:visible;fill:none;stroke:#000000;stroke-width:3.175;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         d="M 13.228916,9.7096862 18.015453,15.694913 C 18.015453,15.694913 13.760718,9.9313705 13.228916,9.7096862 Z M 13.228916,9.7096862 C 12.697115,9.9313705 8.4428808,15.694913 8.4428808,15.694913 Z" />
     </mask>
     <filter
-       y="-50"
-       x="-50"
-       width="100"
-       height="100"
+       id="mask-powermask-path-effect844_inverse"
+       inkscape:label="filtermask-powermask-path-effect844"
        style="color-interpolation-filters:sRGB"
-       inkscape:label="filtermask-powermask-path-effect1532"
-       id="mask-powermask-path-effect1532_inverse">
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
       <feColorMatrix
-         result="fbSourceGraphic"
-         type="saturate"
+         id="mask-powermask-path-effect844_primitive1"
          values="1"
-         id="mask-powermask-path-effect1532_primitive1" />
+         type="saturate"
+         result="fbSourceGraphic" />
       <feColorMatrix
-         in="fbSourceGraphic"
+         id="mask-powermask-path-effect844_primitive2"
          values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
-         id="mask-powermask-path-effect1532_primitive2" />
+         in="fbSourceGraphic" />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -98,16 +108,16 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       d="M 23.812499,13.229166 A 10.583333,10.583333 0 0 1 13.229166,23.812499 10.583333,10.583333 0 0 1 2.645833,13.229166 10.583333,10.583333 0 0 1 13.229166,2.645833 10.583333,10.583333 0 0 1 23.812499,13.229166 Z"
-       sodipodi:ry="10.583333"
-       sodipodi:rx="10.583333"
-       sodipodi:cy="13.229166"
-       sodipodi:cx="13.229166"
-       sodipodi:type="arc"
-       inkscape:path-effect="#path-effect1532"
-       mask="url(#mask-powermask-path-effect1532)"
+       mask="url(#mask-powermask-path-effect844)"
        id="icon"
-       style="color:#000000;overflow:visible;fill:#ffffff;stroke:none;stroke-width:3.175;stroke-linecap:round;stroke-linejoin:round" />
+       style="color:#000000;overflow:visible;fill:#ffffff;stroke:none;stroke-width:3.175;stroke-linecap:round;stroke-linejoin:round"
+       inkscape:path-effect="#path-effect844"
+       sodipodi:type="arc"
+       sodipodi:cx="13.229166"
+       sodipodi:cy="13.229166"
+       sodipodi:rx="10.583333"
+       sodipodi:ry="10.583333"
+       d="M 23.812499,13.229166 A 10.583333,10.583333 0 0 1 13.229166,23.812499 10.583333,10.583333 0 0 1 2.645833,13.229166 10.583333,10.583333 0 0 1 13.229166,2.645833 10.583333,10.583333 0 0 1 23.812499,13.229166 Z" />
   </g>
   <inkscape:templateinfo>
     <inkscape:name>square-icon-100px</inkscape:name>
