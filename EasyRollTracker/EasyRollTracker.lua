@@ -102,6 +102,7 @@ local function ToggleVisible()
 		eRollTrackerFrame:Hide()
 	else
 		eRollTrackerFrame:Show()
+		LibWindow.RestorePosition(eRollTrackerFrame)
 	end
 end
 
@@ -190,6 +191,12 @@ function eRollTracker_GetTitle()
 	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
 	return str_name .. " " .. str_version
+end
+
+-- Use LibWindow to save the position in a resolution-independent way.
+function eRollTracker_StopPositioning()
+	eRollTrackerFrame:StopMovingOrSizing()
+	LibWindow.SavePosition(eRollTrackerFrame)
 end
 
 -- Open the Interface settings menu to the panel for this AddOn.
@@ -361,11 +368,18 @@ end
 -- Event: ADDON_LOADED
 -- Handle anything dependent on loading SavedVariables.
 function eRollTracker.events:ADDON_LOADED(...)
-	-- LibWindow allows resolution-independent positioning.
-	-- Registration needs to happen after addon loads,
-	-- otherwise XML frames aren't defined yet.
-	LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.window)
-	LibWindow.RestorePosition(eRollTrackerFrame)
+	local addonName = ...
+	if addonName == "EasyRollTracker" then
+
+		-- LibWindow allows resolution-independent positioning.
+		-- Registration needs to happen after addon loads,
+		-- otherwise XML frames aren't defined yet.
+		if EasyRollTrackerDB.libwindow == nil then
+			EasyRollTrackerDB.libwindow = {}
+		end
+		LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.libwindow)
+		LibWindow.RestorePosition(eRollTrackerFrame)
+	end
 end
 
 --------------------

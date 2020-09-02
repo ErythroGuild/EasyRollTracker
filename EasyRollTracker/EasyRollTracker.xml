@@ -21,9 +21,10 @@
 				eRollTrackerFrame_Title:SetText(eRollTracker_GetTitle());
 				self:RegisterForDrag("LeftButton");
 				self:RegisterEvent("CHAT_MSG_SYSTEM");
+				self:RegisterEvent("ADDON_LOADED");
 			</OnLoad>
 			<OnDragStart>self:StartMoving();</OnDragStart>
-			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnDragStop function="eRollTracker_StopPositioning"/>
 			<OnEvent function="eRollTrackerFrame_OnEvent"/>
 		</Scripts>
 
