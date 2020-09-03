@@ -19,8 +19,9 @@ but comments in other places will get to me eventually.
 *These can be opened with any of the addon aliases:*
 *`/rt`, `/rolltrack`, or `/erolltracker`.*
 
-- `/rt`: opens main window
-- `/rt config`: opens the settings window (`opt` and `options` work as well)
+- `/rt`: toggles main window
+- `/rt help`, `h`, `?`: prints a list of available commands
+- `/rt config`, `opt`, `options`: opens the addon settings
 - `/rt close`: closes the current roll
 - `/rt clear`: clears the main window
 - `/rt reset`: reset all addon data

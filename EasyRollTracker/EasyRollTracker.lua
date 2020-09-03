@@ -28,8 +28,9 @@ eRollTracker.events = {}	-- syntactic sugar for OnEvent handlers
 -- This is the most concise workaround.
 
 -- consts.lua
-local const_version		= eRollTracker.ext.const_version
-local const_namechars	= eRollTracker.ext.const_namechars
+local const_text_addonname	= eRollTracker.ext.const_text_addonname
+local const_version			= eRollTracker.ext.const_version
+local const_namechars		= eRollTracker.ext.const_namechars
 local const_path_icon_LDB = eRollTracker.ext.const_path_icon_LDB
 local const_path_icon_unknown = eRollTracker.ext.const_path_icon_unknown
 
@@ -87,20 +88,46 @@ local function GetSpec(player)
 	return ""
 end
 
-local function ResetAddonData()
-	EasyRollTrackerDB = {
-		libwindow = {},
-		ldbicon = { hide = false },
-	}
+local function ResetAddonData(isAcceptCallback)
+	if isAcceptCallback == nil then
+		StaticPopup_Show("EASYROLLTRACKER_RESET")
+		return
+	elseif isAcceptCallback == true then
+		eRollTracker_ClearAll()
+	
+		EasyRollTrackerDB = {
+			libwindow = {},
+			ldbicon = { hide = false },
+		}
+	
+		eRollTrackerFrame:ClearAllPoints()
+		eRollTrackerFrame:SetPoint("CENTER")
+		eRollTrackerFrame:SetSize(250, 320)
+	
+		LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.libwindow)
+		LibWindow.SavePosition(eRollTrackerFrame)
+	
+		eRollTrackerFrame:Hide()
+	end
+end
 
-	eRollTrackerFrame:ClearAllPoints()
-	eRollTrackerFrame:SetPoint("CENTER")
-	eRollTrackerFrame:SetSize(250, 320)
+local function PrintHelpText()
+	local function ColorCommand(cmd)
+		return Colorize(cmd, const_colortable["Erythro"])
+	end
 
-	LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.libwindow)
-	LibWindow.SavePosition(eRollTrackerFrame)
+	print(
+		const_text_addonname ..
+		" (" .. const_version .. ")" ..
+		" commands:"
+	)
 
-	eRollTrackerFrame:Hide()
+	print(ColorCommand("  /rt:") .. " toggles the main window")
+	print(ColorCommand("  /rt help:")	.. " opens the help window")
+	print(ColorCommand("  /rt config:")	.. " opens the addon settings")
+	print(ColorCommand("  /rt close:")	.. " closes the current roll")
+	print(ColorCommand("  /rt clear:")	.. " clears the main window")
+	print(ColorCommand("  /rt reset:") 	.. " reset all data/settings")
 end
 
 local function SetItem(itemstring)
@@ -205,9 +232,8 @@ end
 
 -- A prettified title string, including the AddOn version string.
 function eRollTracker_OnLoad(self)
-	local str_title = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
-	str_title = str_title .. " " .. str_version
+	str_title = const_text_addonname .. " " .. str_version
 	self.title:SetText(str_title)
 
 	self:RegisterForDrag("LeftButton")
@@ -410,9 +436,8 @@ function eRollTracker.events:ADDON_LOADED(...)
 
 		local function MinimapTooltip(tooltip)
 			tooltip:ClearLines()
-			local name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 			local version = Colorize(const_version, const_colortable["gray"])
-			tooltip:AddDoubleLine(name, version)
+			tooltip:AddDoubleLine(const_text_addonname, version)
 			local l_click = Colorize(" toggle showing the addon window.", const_colortable["white"])
 			local r_click = Colorize(" open the configuration window.", const_colortable["white"])
 			tooltip:AddLine("Left-Click:" .. l_click)
@@ -450,7 +475,9 @@ SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
 	"/erolltracker", "/rolltrack", "/rt"
 function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 	local cmd = string.lower(msg)
-	if cmd == "config" or cmd == "opt" or cmd == "options" then
+		PrintHelpText()
+	if cmd == "help" or cmd == "h" or cmd == "?" then
+	elseif cmd == "config" or cmd == "opt" or cmd == "options" then
 		eRollTracker_ShowOptions()
 	elseif cmd == "close" then
 		eRollTrackerFrame_ButtonsRoll_CloseRoll:Click()
@@ -462,3 +489,24 @@ function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 		ToggleVisible()
 	end
 end
+
+-------------------
+-- Popup Dialogs --
+-------------------
+local const_text_confirmReset =
+	"This will reset all " ..
+	Colorize("Easy", const_colortable["Erythro"]) ..
+	" Roll Tracker data.".. "\n" ..
+	"Are you sure?"
+StaticPopupDialogs["EASYROLLTRACKER_RESET"] = {
+	showAlert = true,
+	text = const_text_confirmReset,
+	button1 = "Yes",
+	button2 = "Cancel",
+	OnAccept = function()
+		ResetAddonData(true)
+	end,
+	whileDead = true,
+	hideOnEscape = true,
+	timeout = 300,
+}
