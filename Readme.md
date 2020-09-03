@@ -1,5 +1,4 @@
-Easy Roll Tracker
----
+# Easy Roll Tracker
 
 A lightweight addon to list `/roll` results in a raid,
 with many convenience features. Open the tracking window
@@ -9,13 +8,13 @@ with `/rt` or `/rolltrack`.
 Open a [new GitHub issue][5] for the fastest response,
 but comments in other places will get to me eventually.
 
-## Major features
+### Major features
 
 - Listing and sorting all `/roll` results in group
 - Tracking the number rolled out of
 - Announcing loot rolls to group as `/rw`
 
-## Commands
+### Commands
 
 *These can be opened with any of the addon aliases:*
 *`/rt`, `/rolltrack`, or `/erolltracker`.*
@@ -26,7 +25,7 @@ but comments in other places will get to me eventually.
 - `/rt clear`: clears the main window
 - `/rt reset`: reset all addon data
 
-## Minor features
+### Minor features
 
 - Slash command (`/rt`) interface
 - Minimap button for quick access
