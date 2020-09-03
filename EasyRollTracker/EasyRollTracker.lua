@@ -212,11 +212,12 @@ function eRollTracker_AcceptCursor()
 		ClearCursor()
 		UpdateItemIcon()
 		UpdateItemText()
-		eRollTracker_ShowTooltip()
+		if MouseIsOver(eRollTrackerFrame_Item) then
+			eRollTracker_ShowTooltip()
+		end
 	end
 end
 function eRollTracker_AcceptText()
-	eRollTrackerFrame_EditItem:ClearFocus()
 	eRollTracker.item = eRollTrackerFrame_EditItem:GetText()
 	UpdateItemIcon()
 end
