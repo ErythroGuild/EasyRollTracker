@@ -87,6 +87,22 @@ local function GetSpec(player)
 	return ""
 end
 
+local function ResetAddonData()
+	EasyRollTrackerDB = {
+		libwindow = {},
+		ldbicon = { hide = false },
+	}
+
+	eRollTrackerFrame:ClearAllPoints()
+	eRollTrackerFrame:SetPoint("CENTER")
+	eRollTrackerFrame:SetSize(250, 320)
+
+	LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.libwindow)
+	LibWindow.SavePosition(eRollTrackerFrame)
+
+	eRollTrackerFrame:Hide()
+end
+
 local function SetItem(itemstring)
 	-- Validate item here (if enabled).
 	-- local itemID, itemLink = GetItemInfo(itemstring)
@@ -440,6 +456,8 @@ function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 		eRollTrackerFrame_ButtonsRoll_CloseRoll:Click()
 	elseif cmd == "clear" then
 		eRollTrackerFrame_ButtonClear:Click()
+	elseif cmd == "reset" then
+		ResetAddonData()
 	else
 		ToggleVisible()
 	end

@@ -9,7 +9,7 @@
 		resizable="true"
 		clampedToScreen="true"
 		enableMouse="true">
-		<Size><AbsDimension x="250" y="280"/></Size>
+		<Size><AbsDimension x="250" y="320"/></Size>
 		<Anchors><Anchor point="CENTER"/></Anchors>
 		<ResizeBounds>
 			<minResize><AbsDimension x="235" y="220"/></minResize>
