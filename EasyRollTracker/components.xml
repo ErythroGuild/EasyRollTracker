@@ -3,20 +3,20 @@
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 
 	<Frame name="eRollTracker_Template_Separator" virtual="true">
-		<Size x="0" y="24"/>
+		<Size x="0" y="20"/>
 		<Layers>
-			<Layer level="ARTWORK">
+			<Layer level="OVERLAY">
 				<Line parentKey="line" thickness="2">
 					<Color r="0.85" g="0.85" b="0.85" a="0.80"/>
-					<StartAnchor x="-45" relativePoint="CENTER"/>
-					<EndAnchor x="45" relativePoint="CENTER"/>
+					<StartAnchor x="-60" relativePoint="CENTER"/>
+					<EndAnchor x="60" relativePoint="CENTER"/>
 				</Line>
 			</Layer>
 		</Layers>
 	</Frame>
 
 	<Frame name="eRollTracker_Template_Heading" virtual="true">
-		<Size x="48" y="48"/>
+		<Size x="180" y="72"/>
 
 		<Scripts>
 			<OnEnter>
@@ -39,18 +39,25 @@
 		<Layers>
 			<Layer level="ARTWORK">
 				<Texture parentKey="icon">
-					<Size x="28" y="28"/>
-					<Anchors><Anchor point="CENTER"/></Anchors>
+					<Size x="33" y="33"/>
+					<Anchors><Anchor point="CENTER" y="8"/></Anchors>
 					<Color r="0.25" g="0.65" b="0.45" a="1.00"/>
 				</Texture>
 			</Layer>
 			<Layer level="OVERLAY">
 				<Texture parentKey="border"
 					file="Interface\AddOns\EasyRollTracker\rc\frame-item.tga">
-					<Size x="32" y="32"/>
-					<Anchors><Anchor point="CENTER"/></Anchors>
+					<Size x="36" y="36"/>
+					<Anchors><Anchor point="CENTER" y="8"/></Anchors>
 					<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
 				</Texture>
+				<FontString name="$parent_Label"
+					parentKey="label"
+					inherits="ChatFontNormal"
+					text="Thunderfury">
+					<Size x="180" y="20"/>
+					<Anchors><Anchor point="BOTTOM" y="2"/></Anchors>
+				</FontString>
 			</Layer>
 		</Layers>
 	</Frame>

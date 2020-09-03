@@ -29,6 +29,7 @@ local function ResetHeading(frame)
 	frame.item = nil
 	frame.icon:SetTexture(nil)
 	frame.border:SetVertexColor(0.85, 0.85, 0.85)
+	frame.label:SetText("")
 
 	frame:ClearAllPoints()
 	frame:Hide()
@@ -58,11 +59,17 @@ eRollTracker.ext.ResetSeparator = ResetSeparator
 --------------------
 -- Functions to init a newly created/acquired Frame template.
 
+local const_heading_label_blank =
+	"|cFFD95777~|r" ..
+	"|cFFD9B857~|r" ..
+	"|cFF77D957~|r" ..
+	"|cFF5777D9~|r" ..
+	"|cFFB857D9~|r"
 local function InitHeading(frame, item)
 	frame:SetParent(eRollTrackerFrame_Scroll_Layout)
 	frame.item = item
 	if item then
-		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
+		local _, itemLink, itemRarity, _,_,_,_,_,_, itemIcon =
 			GetItemInfo(item)
 		if itemRarity ~= nil then
 			ColorizeLayer(frame.border, itemRarity)
@@ -71,11 +78,14 @@ local function InitHeading(frame, item)
 		end
 
 		if item == "" then
-			frame.icon:SetTexture(nil)	-- hides texture
+			frame.icon:SetTexture(const_path_icon_unknown)
+			frame.label:SetText(const_heading_label_blank)
 		elseif itemIcon == nil then
 			frame.icon:SetTexture(const_path_icon_unknown)
+			frame.label:SetText(item)
 		else
 			frame.icon:SetTexture(itemIcon)
+			frame.label:SetText(itemLink)
 		end
 	end
 end

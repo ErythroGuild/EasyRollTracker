@@ -87,6 +87,22 @@ local function GetSpec(player)
 	return ""
 end
 
+local function ResetAddonData()
+	EasyRollTrackerDB = {
+		libwindow = {},
+		ldbicon = { hide = false },
+	}
+
+	eRollTrackerFrame:ClearAllPoints()
+	eRollTrackerFrame:SetPoint("CENTER")
+	eRollTrackerFrame:SetSize(250, 320)
+
+	LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.libwindow)
+	LibWindow.SavePosition(eRollTrackerFrame)
+
+	eRollTrackerFrame:Hide()
+end
+
 local function SetItem(itemstring)
 	-- Validate item here (if enabled).
 	-- local itemID, itemLink = GetItemInfo(itemstring)
@@ -188,10 +204,15 @@ end
 -- These are easily accessible from XML.
 
 -- A prettified title string, including the AddOn version string.
-function eRollTracker_GetTitle()
-	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
+function eRollTracker_OnLoad(self)
+	local str_title = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
-	return str_name .. " " .. str_version
+	str_title = str_title .. " " .. str_version
+	self.title:SetText(str_title)
+
+	self:RegisterForDrag("LeftButton")
+	self:RegisterEvent("CHAT_MSG_SYSTEM")
+	self:RegisterEvent("ADDON_LOADED")
 end
 
 -- Use LibWindow to save the position in a resolution-independent way.
@@ -229,12 +250,15 @@ function eRollTracker_SendCursor()
 		UpdateItemIcon()
 		UpdateItemText()
 		eRollTracker_ShowTooltip()
-	elseif eRollTracker.item ~= "" then
-		PickupItem(eRollTracker.item);
-		eRollTracker.item = ""
-		UpdateItemIcon()
-		UpdateItemText()
-		eRollTracker_HideTooltip()
+	else
+		local _, itemLinkSelf = GetItemInfo(eRollTracker.item)
+		if itemLinkSelf ~= nil then
+			PickupItem(eRollTracker.item);
+			eRollTracker.item = ""
+			UpdateItemIcon()
+			UpdateItemText()
+			eRollTracker_HideTooltip()
+		end
 	end
 	-- some code repetition is necessary here;
 	-- otherwise we end up in a loop of calling Accept/Send.
@@ -432,6 +456,8 @@ function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 		eRollTrackerFrame_ButtonsRoll_CloseRoll:Click()
 	elseif cmd == "clear" then
 		eRollTrackerFrame_ButtonClear:Click()
+	elseif cmd == "reset" then
+		ResetAddonData()
 	else
 		ToggleVisible()
 	end
