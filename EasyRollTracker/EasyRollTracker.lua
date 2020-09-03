@@ -28,8 +28,9 @@ eRollTracker.events = {}	-- syntactic sugar for OnEvent handlers
 -- This is the most concise workaround.
 
 -- consts.lua
-local const_version		= eRollTracker.ext.const_version
-local const_namechars	= eRollTracker.ext.const_namechars
+local const_text_addonname	= eRollTracker.ext.const_text_addonname
+local const_version			= eRollTracker.ext.const_version
+local const_namechars		= eRollTracker.ext.const_namechars
 local const_path_icon_LDB = eRollTracker.ext.const_path_icon_LDB
 local const_path_icon_unknown = eRollTracker.ext.const_path_icon_unknown
 
@@ -212,9 +213,8 @@ end
 
 -- A prettified title string, including the AddOn version string.
 function eRollTracker_OnLoad(self)
-	local str_title = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
-	str_title = str_title .. " " .. str_version
+	str_title = const_text_addonname .. " " .. str_version
 	self.title:SetText(str_title)
 
 	self:RegisterForDrag("LeftButton")
@@ -417,9 +417,8 @@ function eRollTracker.events:ADDON_LOADED(...)
 
 		local function MinimapTooltip(tooltip)
 			tooltip:ClearLines()
-			local name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 			local version = Colorize(const_version, const_colortable["gray"])
-			tooltip:AddDoubleLine(name, version)
+			tooltip:AddDoubleLine(const_text_addonname, version)
 			local l_click = Colorize(" toggle showing the addon window.", const_colortable["white"])
 			local r_click = Colorize(" open the configuration window.", const_colortable["white"])
 			tooltip:AddLine("Left-Click:" .. l_click)
