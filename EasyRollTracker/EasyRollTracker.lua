@@ -88,6 +88,8 @@ local function GetSpec(player)
 end
 
 local function ResetAddonData()
+	eRollTracker_ClearAll()
+
 	EasyRollTrackerDB = {
 		libwindow = {},
 		ldbicon = { hide = false },
