@@ -111,6 +111,25 @@ local function ResetAddonData(isAcceptCallback)
 	end
 end
 
+local function PrintHelpText()
+	local function ColorCommand(cmd)
+		return Colorize(cmd, const_colortable["Erythro"])
+	end
+
+	print(
+		const_text_addonname ..
+		" (" .. const_version .. ")" ..
+		" commands:"
+	)
+
+	print(ColorCommand("  /rt:") .. " toggles the main window")
+	print(ColorCommand("  /rt help:")	.. " opens the help window")
+	print(ColorCommand("  /rt config:")	.. " opens the addon settings")
+	print(ColorCommand("  /rt close:")	.. " closes the current roll")
+	print(ColorCommand("  /rt clear:")	.. " clears the main window")
+	print(ColorCommand("  /rt reset:") 	.. " reset all data/settings")
+end
+
 local function SetItem(itemstring)
 	-- Validate item here (if enabled).
 	-- local itemID, itemLink = GetItemInfo(itemstring)
@@ -456,7 +475,9 @@ SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
 	"/erolltracker", "/rolltrack", "/rt"
 function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 	local cmd = string.lower(msg)
-	if cmd == "config" or cmd == "opt" or cmd == "options" then
+		PrintHelpText()
+	if cmd == "help" or cmd == "h" or cmd == "?" then
+	elseif cmd == "config" or cmd == "opt" or cmd == "options" then
 		eRollTracker_ShowOptions()
 	elseif cmd == "close" then
 		eRollTrackerFrame_ButtonsRoll_CloseRoll:Click()
