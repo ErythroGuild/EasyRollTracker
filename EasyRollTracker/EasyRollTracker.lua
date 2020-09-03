@@ -218,7 +218,6 @@ function eRollTracker_AcceptCursor()
 	end
 end
 function eRollTracker_AcceptText()
-	eRollTrackerFrame_EditItem:ClearFocus()
 	eRollTracker.item = eRollTrackerFrame_EditItem:GetText()
 	UpdateItemIcon()
 end
