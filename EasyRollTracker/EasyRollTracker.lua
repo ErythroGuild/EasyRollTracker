@@ -229,12 +229,15 @@ function eRollTracker_SendCursor()
 		UpdateItemIcon()
 		UpdateItemText()
 		eRollTracker_ShowTooltip()
-	elseif eRollTracker.item ~= "" then
-		PickupItem(eRollTracker.item);
-		eRollTracker.item = ""
-		UpdateItemIcon()
-		UpdateItemText()
-		eRollTracker_HideTooltip()
+	else
+		local _, itemLinkSelf = GetItemInfo(eRollTracker.item)
+		if itemLinkSelf ~= nil then
+			PickupItem(eRollTracker.item);
+			eRollTracker.item = ""
+			UpdateItemIcon()
+			UpdateItemText()
+			eRollTracker_HideTooltip()
+		end
 	end
 	-- some code repetition is necessary here;
 	-- otherwise we end up in a loop of calling Accept/Send.
