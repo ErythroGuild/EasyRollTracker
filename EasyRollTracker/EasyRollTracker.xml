@@ -142,82 +142,19 @@
 				</Frames>
 			</Frame>
 
-			<EditBox name="$parent_EditItem"
-				autoFocus="false"
-				historyLines="1"
-				multiLine="false">
+			<EditBox name="$parent_EditItem" inherits="eRollTracker_Template_EditBox">
 				<Anchors>
 					<Anchor point="BOTTOM" relativeTo="$parent_Item" relativePoint="RIGHT" y="2"/>
 					<Anchor point="TOP" relativeTo="$parent_Item" relativePoint="RIGHT" y="26"/>
 					<Anchor point="LEFT" relativeTo="$parent_Item" relativePoint="RIGHT" x="6"/>
 					<Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="-18"/>
 				</Anchors>
-
+				
 				<Scripts>
-					<OnTextChanged>
-						if self:GetText() == "" then
-							self.buttonClear:Hide();
-						else
-							self.buttonClear:Show();
-						end
-					</OnTextChanged>
-					<OnTabPressed method="ClearFocus"/>
-					<OnEnterPressed method="ClearFocus"/>
-					<OnEscapePressed method="ClearFocus"/>
-					<OnEditFocusGained method="HighlightText"/>
 					<OnEditFocusLost function="eRollTracker_AcceptText"/>
 					<OnReceiveDrag function="eRollTracker_AcceptCursor"/>
 					<OnMouseDown function="eRollTracker_AcceptCursor"/>
-					<OnLoad>
-						hooksecurefunc("ChatEdit_InsertLink", function(itemLink)
-							if self and self:IsVisible() and self:HasFocus() then
-								self:Insert(itemLink);
-								return true;
-							end
-						end);
-					</OnLoad>
 				</Scripts>
-				
-				<Layers>
-					<Layer level="ARTWORK">
-						<Texture setAllPoints="true">
-							<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
-						</Texture>
-					</Layer>
-				</Layers>
-
-				<Frames>
-					<Button name="$parent_ButtonClear" parentKey="buttonClear" hidden="true">
-						<Size x="18" y="18"/>
-						<Anchors><Anchor point="RIGHT" x="-4"/></Anchors>
-		
-						<Scripts>
-							<OnClick>
-								self:GetParent():SetText("");
-								eRollTracker_AcceptText();
-								self:GetParent():SetFocus();
-							</OnClick>
-						</Scripts>
-		
-						<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="0.45"/>
-						</NormalTexture>
-						<PushedTexture file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
-							<Color r="0.59" g="0.01" b="0.01" a="1.00"/>
-						</PushedTexture>
-						<HighlightTexture alphaMode="ADD" file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="0.45"/>
-						</HighlightTexture>
-						<HighlightTexture alphaMode="BLEND" file="Interface\AddOns\EasyRollTracker\rc\button-close-sm.tga">
-							<Color r="0.99" g="0.21" b="0.21" a="0.40"/>
-						</HighlightTexture>
-						<!-- HSL: (0, 97%, 60%) -> (0, 97%, 30%) -->
-					</Button>
-				</Frames>
-				
-				<FontString inherits="ChatFontNormal"/>
-				<HighlightColor r="0.95" g="0.95" b="0.95" a="1.00"/>
-				<TextInsets left="4" right="4"/>
 			</EditBox>
 
 			<Frame name="$parent_ButtonsRoll">
