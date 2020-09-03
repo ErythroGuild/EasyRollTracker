@@ -34,6 +34,7 @@ but comments in other places will get to me eventually.
 - Formatting names with class color
 - Highlighting out-of-bounds rolls
 - Drag-and-drop or shift-click items
+- Items can be dragged onto editbox
 - Parses valid plaintext to itemlinks
 - Tooltip preview of items
 - Resizable window
