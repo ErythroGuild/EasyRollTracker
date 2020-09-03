@@ -127,7 +127,7 @@ local function PrintHelpText()
 	print(ColorCommand("  /rt config:")	.. " opens the addon settings")
 	print(ColorCommand("  /rt close:")	.. " closes the current roll")
 	print(ColorCommand("  /rt clear:")	.. " clears the main window")
-	print(ColorCommand("  /rt reset:") 	.. " reset all data/settings")
+	print(ColorCommand("  /rt reset:")	.. " reset all data/settings")
 end
 
 local function SetItem(itemstring)
@@ -295,7 +295,7 @@ function eRollTracker_ShowTooltip()
 	local _, itemLink = GetItemInfo(eRollTracker.item)
 	if itemLink ~= nil then
 		GameTooltip:ClearLines()
-		GameTooltip:SetOwner(_G["eRollTrackerFrame_Item"], "ANCHOR_NONE")
+		GameTooltip:SetOwner(eRollTrackerFrame_Item, "ANCHOR_NONE")
 		GameTooltip:SetPoint("TOPLEFT", eRollTrackerFrame_Item, "BOTTOMLEFT", 0, -4)
 		GameTooltip:SetHyperlink(itemLink)
 		GameTooltip:Show()
@@ -304,6 +304,7 @@ end
 function eRollTracker_HideTooltip()
 	GameTooltip:Hide()
 	GameTooltip:ClearLines()
+	GameTooltip:ClearAllPoints()
 end
 
 ----------------------------

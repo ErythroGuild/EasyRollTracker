@@ -23,7 +23,8 @@
 				local _, itemLink = GetItemInfo(self.item);
 				if itemLink ~= nil then
 					GameTooltip:ClearLines();
-					GameTooltip:SetOwner(_G["eRollTrackerFrame_Scroll"], "ANCHOR_CURSOR");
+					GameTooltip:SetOwner(_G["eRollTrackerFrame_Scroll"], "ANCHOR_NONE");
+					GameTooltip:SetPoint("BOTTOMLEFT", self.border, "BOTTOMRIGHT", 4, 0)
 					GameTooltip:SetHyperlink(itemLink);
 					GameTooltip:Show();
 				end
