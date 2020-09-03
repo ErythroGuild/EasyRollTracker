@@ -87,22 +87,27 @@ local function GetSpec(player)
 	return ""
 end
 
-local function ResetAddonData()
-	eRollTracker_ClearAll()
-
-	EasyRollTrackerDB = {
-		libwindow = {},
-		ldbicon = { hide = false },
-	}
-
-	eRollTrackerFrame:ClearAllPoints()
-	eRollTrackerFrame:SetPoint("CENTER")
-	eRollTrackerFrame:SetSize(250, 320)
-
-	LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.libwindow)
-	LibWindow.SavePosition(eRollTrackerFrame)
-
-	eRollTrackerFrame:Hide()
+local function ResetAddonData(isAcceptCallback)
+	if isAcceptCallback == nil then
+		StaticPopup_Show("EASYROLLTRACKER_RESET")
+		return
+	elseif isAcceptCallback == true then
+		eRollTracker_ClearAll()
+	
+		EasyRollTrackerDB = {
+			libwindow = {},
+			ldbicon = { hide = false },
+		}
+	
+		eRollTrackerFrame:ClearAllPoints()
+		eRollTrackerFrame:SetPoint("CENTER")
+		eRollTrackerFrame:SetSize(250, 320)
+	
+		LibWindow.RegisterConfig(eRollTrackerFrame, EasyRollTrackerDB.libwindow)
+		LibWindow.SavePosition(eRollTrackerFrame)
+	
+		eRollTrackerFrame:Hide()
+	end
 end
 
 local function SetItem(itemstring)
@@ -464,3 +469,24 @@ function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 		ToggleVisible()
 	end
 end
+
+-------------------
+-- Popup Dialogs --
+-------------------
+local const_text_confirmReset =
+	"This will reset all " ..
+	Colorize("Easy", const_colortable["Erythro"]) ..
+	" Roll Tracker data.".. "\n" ..
+	"Are you sure?"
+StaticPopupDialogs["EASYROLLTRACKER_RESET"] = {
+	showAlert = true,
+	text = const_text_confirmReset,
+	button1 = "Yes",
+	button2 = "Cancel",
+	OnAccept = function()
+		ResetAddonData(true)
+	end,
+	whileDead = true,
+	hideOnEscape = true,
+	timeout = 300,
+}
