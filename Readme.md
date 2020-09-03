@@ -24,9 +24,11 @@ but comments in other places will get to me eventually.
 - `/rt config`: opens the settings window (`opt` and `options` work as well)
 - `/rt close`: closes the current roll
 - `/rt clear`: clears the main window
+- `/rt reset`: reset all addon data
 
 ## Minor features
 
+- Slash command (`/rt`) interface
 - Minimap button for quick access
 - Displaying spec and role icon
 - Formatting names with class color
@@ -36,7 +38,6 @@ but comments in other places will get to me eventually.
 - Tooltip preview of items
 - Resizable window
 - Double-click resize button to maximize window
-- Slash command (`/rt`) interface
 
 *The project can be found on CurseForge [here][1].*
 
