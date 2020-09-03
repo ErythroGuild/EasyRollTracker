@@ -17,23 +17,20 @@
 		</ResizeBounds>
 		
 		<Scripts>
-			<OnLoad>
-				eRollTrackerFrame_Title:SetText(eRollTracker_GetTitle());
-				self:RegisterForDrag("LeftButton");
-				self:RegisterEvent("CHAT_MSG_SYSTEM");
-				self:RegisterEvent("ADDON_LOADED");
-			</OnLoad>
+			<OnLoad function="eRollTracker_OnLoad"/>
 			<OnDragStart method="StartMoving"/>
 			<OnDragStop function="eRollTracker_StopPositioning"/>
 			<OnEvent function="eRollTrackerFrame_OnEvent"/>
 		</Scripts>
 
 		<Layers>
-			<Layer level="ARTWORK">
+			<Layer level="BACKGROUND">
 				<Texture setAllPoints="true">
 					<Color r="0.05" g="0.05" b="0.05" a="0.70"/>
 				</Texture>
-				<FontString name="$parent_Title" text="Easy Roll Tracker v#.#.#" inherits="GameFontNormal">
+				<FontString name="$parent_Title" inherits="GameFontNormal"
+					parentKey="title"
+					text="Easy Roll Tracker v#.#.#">
 					<Anchors><Anchor point="TOP" y="-8"/></Anchors>
 				</FontString>
 			</Layer>
@@ -123,7 +120,7 @@
 						<Size x="50" y="50"/>
 						<Anchors><Anchor point="CENTER"/></Anchors>
 						<Layers>
-							<Layer level="ARTWORK">
+							<Layer level="OVERLAY">
 								<Texture parentKey="icon" setAllPoints="true"/>
 							</Layer>
 						</Layers>
@@ -132,7 +129,7 @@
 						<Size x="50" y="50"/>
 						<Anchors><Anchor point="CENTER"/></Anchors>
 						<Layers>
-							<Layer level="ARTWORK">
+							<Layer level="OVERLAY">
 								<Texture setAllPoints="true">
 									<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
 								</Texture>
@@ -279,23 +276,6 @@
 									<Anchor point="RIGHT" relativeTo="eRollTrackerFrame_Scroll" x="-16"/>
 								</Anchors>
 							</Frame>
-							<!-- <Frame name="$parent_separatortest"
-								inherits="eRollTracker_Template_Separator"
-								parent="eRollTrackerFrame_Scroll"/> -->
-							<!-- <Frame name="$parent_headingtest"
-								inherits="eRollTracker_Template_Heading"
-								parent="eRollTrackerFrame_Scroll">
-								<Scripts>
-									<OnLoad>
-										eRollTrackerFrame_Scroll_headingtest.icon:SetTexture(132103);
-										self.item = "|cff9d9d9d|Hitem:7073::::::::80:|h[Broken Fang]|h|r";
-									</OnLoad>
-								</Scripts>
-							</Frame> -->
-							<!-- <Frame name="$parent_Entry1"
-								inherits="eRollTracker_Template_Entry"
-								parent="eRollTrackerFrame_Scroll">
-							</Frame> -->
 						</Frames>
 					</Frame>
 				</ScrollChild>

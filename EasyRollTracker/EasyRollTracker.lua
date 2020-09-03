@@ -188,10 +188,15 @@ end
 -- These are easily accessible from XML.
 
 -- A prettified title string, including the AddOn version string.
-function eRollTracker_GetTitle()
-	local str_name = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
+function eRollTracker_OnLoad(self)
+	local str_title = Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 	local str_version = Colorize(const_version, const_colortable["gray"])
-	return str_name .. " " .. str_version
+	str_title = str_title .. " " .. str_version
+	self.title:SetText(str_title)
+
+	self:RegisterForDrag("LeftButton")
+	self:RegisterEvent("CHAT_MSG_SYSTEM")
+	self:RegisterEvent("ADDON_LOADED")
 end
 
 -- Use LibWindow to save the position in a resolution-independent way.
