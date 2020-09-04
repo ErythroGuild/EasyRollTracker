@@ -8,6 +8,12 @@ with `/rt` or `/rolltrack`.
 Open a [new GitHub issue][5] for the fastest response,
 but comments in other places will get to me eventually.
 
+### Limitations
+- Can only handle one roll at a time
+- Cannot show order of duplicate rolls; I recommend
+making a rule to only count lowest roll in this case
+(or go back to chat logs and check)
+
 ### Major features
 
 - Listing and sorting all `/roll` results in group
