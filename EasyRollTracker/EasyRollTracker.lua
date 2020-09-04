@@ -28,11 +28,13 @@ eRollTracker.events = {}	-- syntactic sugar for OnEvent handlers
 -- This is the most concise workaround.
 
 -- consts.lua
-local const_text_addonname	= eRollTracker.ext.const_text_addonname
-local const_version			= eRollTracker.ext.const_version
-local const_namechars		= eRollTracker.ext.const_namechars
-local const_path_icon_LDB = eRollTracker.ext.const_path_icon_LDB
-local const_path_icon_unknown = eRollTracker.ext.const_path_icon_unknown
+local const_text_addonname		= eRollTracker.ext.const_text_addonname
+local const_version				= eRollTracker.ext.const_version
+local const_namechars			= eRollTracker.ext.const_namechars
+local const_time_doubleclick	= eRollTracker.ext.const_time_doubleclick
+local const_frame_size_ignore	= eRollTracker.ext.const_frame_size_ignore
+local const_path_icon_LDB		= eRollTracker.ext.const_path_icon_LDB
+local const_path_icon_unknown	= eRollTracker.ext.const_path_icon_unknown
 
 -- textcolor.lua
 local const_colortable	= eRollTracker.ext.const_colortable
@@ -241,6 +243,46 @@ function eRollTracker_OnLoad(self)
 	self:RegisterForDrag("LeftButton")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
 	self:RegisterEvent("ADDON_LOADED")
+end
+
+-- Toggle maximizing the window. Saves previous size to SavedVariables.
+function eRollTracker_ToggleMaximize()
+	local width, height = eRollTrackerFrame:GetSize()
+	local width_max, height_max = eRollTrackerFrame:GetMaxResize()
+
+	local function IsEqual(x, y)
+		return math.abs(x - y) < const_frame_size_ignore
+	end
+
+	if IsEqual(width, width_max) and IsEqual(height, height_max) then
+		local width, height = 250, 320
+		if EasyRollTrackerDB.unmaximize ~= nil then
+			width = EasyRollTrackerDB.unmaximize["width"]
+			height = EasyRollTrackerDB.unmaximize["height"]
+		end
+		eRollTrackerFrame:SetSize(width, height)
+	else
+		EasyRollTrackerDB.unmaximize = {
+			["width"] = width,
+			["height"] = height
+		}
+		eRollTrackerFrame:SetSize(width_max, height_max)
+	end
+end
+
+-- Detect double clicks on window titlebar.
+function eRollTracker_OnMouseDown(self, button)
+	if eRollTrackerFrame_TitleHitbox:IsMouseOver() then
+		local click = GetTime()
+		-- 500ms is Windows' default interval
+		if click - self.clickprev < const_time_doubleclick then
+			eRollTracker_ToggleMaximize()
+			-- clear double click buffer by setting threshold back in time
+			self.clickprev = GetTime() - const_time_doubleclick
+		else
+			self.clickprev = GetTime()
+		end
+	end
 end
 
 -- Use LibWindow to save the position in a resolution-independent way.
