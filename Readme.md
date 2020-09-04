@@ -38,7 +38,7 @@ but comments in other places will get to me eventually.
 - Parses valid plaintext to itemlinks
 - Tooltip preview of items
 - Resizable window
-- Double-click resize button to maximize window
+- Maximize by double-clicking titlebar / resize handle
 
 *The project can be found on CurseForge [here][1].*
 
