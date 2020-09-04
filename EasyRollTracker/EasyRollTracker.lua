@@ -96,6 +96,7 @@ local function ResetAddonData(isAcceptCallback)
 		eRollTracker_ClearAll()
 	
 		EasyRollTrackerDB = {
+			unmaximize = { width = 250, height = 320 },
 			libwindow = {},
 			ldbicon = { hide = false },
 		}
@@ -235,6 +236,7 @@ function eRollTracker_OnLoad(self)
 	local str_version = Colorize(const_version, const_colortable["gray"])
 	str_title = const_text_addonname .. " " .. str_version
 	self.title:SetText(str_title)
+	self.clickprev = GetTime();
 
 	self:RegisterForDrag("LeftButton")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")

@@ -18,6 +18,36 @@
 		
 		<Scripts>
 			<OnLoad function="eRollTracker_OnLoad"/>
+			<!-- 500ms is Windows' default interval -->
+			<OnMouseDown>
+			<![CDATA[
+				if eRollTrackerFrame_TitleHitbox:IsMouseOver() then
+					local click = GetTime();
+					if click - self.clickprev < 0.500 then
+						local width, height = self:GetSize();
+						local width_max, height_max = self:GetMaxResize();
+						if math.abs(width-width_max) < 2.0 and math.abs(height-height_max) < 2.0 then
+							local width = 250;
+							local height = 320;
+							if EasyRollTrackerDB.unmaximize ~= nil then
+								width = EasyRollTrackerDB.unmaximize["width"];
+								height = EasyRollTrackerDB.unmaximize["height"];
+							end
+							self:SetSize(width, height);
+						else
+							EasyRollTrackerDB.unmaximize = {
+								["width"] = width,
+								["height"] = height
+							};
+							self:SetSize(width_max, height_max);
+						end
+						self.clickprev = GetTime() - 1.000;
+					else
+						self.clickprev = GetTime();
+					end
+				end
+			]]>
+			</OnMouseDown>
 			<OnDragStart method="StartMoving"/>
 			<OnDragStop function="eRollTracker_StopPositioning"/>
 			<OnEvent function="eRollTrackerFrame_OnEvent"/>
@@ -33,6 +63,14 @@
 					text="Easy Roll Tracker v#.#.#">
 					<Anchors><Anchor point="TOP" y="-8"/></Anchors>
 				</FontString>
+				<Texture name="$parent_TitleHitbox">
+					<Anchors>
+						<Anchor point="TOP"/>
+						<Anchor point="BOTTOM" relativeTo="$parent_Title" y="-8"/>
+						<Anchor point="LEFT"/>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</Texture>
 			</Layer>
 		</Layers>
 
