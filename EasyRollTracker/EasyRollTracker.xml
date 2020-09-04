@@ -18,6 +18,7 @@
 		
 		<Scripts>
 			<OnLoad function="eRollTracker_OnLoad"/>
+			<OnMouseDown function="eRollTracker_OnMouseDown"/>
 			<OnDragStart method="StartMoving"/>
 			<OnDragStop function="eRollTracker_StopPositioning"/>
 			<OnEvent function="eRollTrackerFrame_OnEvent"/>
@@ -33,6 +34,14 @@
 					text="Easy Roll Tracker v#.#.#">
 					<Anchors><Anchor point="TOP" y="-8"/></Anchors>
 				</FontString>
+				<Texture name="$parent_TitleHitbox">
+					<Anchors>
+						<Anchor point="TOP"/>
+						<Anchor point="BOTTOM" relativeTo="$parent_Title" y="-8"/>
+						<Anchor point="LEFT"/>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</Texture>
 			</Layer>
 		</Layers>
 
@@ -66,7 +75,7 @@
 						eRollTrackerFrame:StopMovingOrSizing();
 						eRollTrackerFrame_Scroll_Layout:Layout();
 					</OnMouseUp>
-					<OnDoubleClick>eRollTrackerFrame:SetSize(eRollTrackerFrame:GetMaxResize());</OnDoubleClick>
+					<OnDoubleClick function="eRollTracker_ToggleMaximize"/>
 				</Scripts>
 
 				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-resize.tga">

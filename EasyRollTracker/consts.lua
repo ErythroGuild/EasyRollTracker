@@ -17,6 +17,8 @@ local Colorize = eRollTracker.ext.Colorize
 local const_text_addonname =
 	Colorize("Easy", const_colortable["Erythro"]) .. " Roll Tracker"
 local const_version = "v" .. GetAddOnMetadata("EasyRollTracker", "Version")
+local const_time_doubleclick = 0.500	-- Windows' default value
+local const_frame_size_ignore = 2.0		-- threshold for counting frame sizes as equal
 local const_namechars =
 	"ÁÀÂÃÄÅ" .. "áàâãäå" ..
 	"ÉÈÊË"   .. "éèêë"   ..
@@ -32,6 +34,8 @@ local const_path_icon_unknown =
 
 eRollTracker.ext.const_text_addonname = const_text_addonname
 eRollTracker.ext.const_version = const_version
+eRollTracker.ext.const_time_doubleclick = const_time_doubleclick
+eRollTracker.ext.const_frame_size_ignore = const_frame_size_ignore
 eRollTracker.ext.const_namechars = const_namechars
 eRollTracker.ext.const_path_icon_LDB = const_path_icon_LDB
 eRollTracker.ext.const_path_icon_unknown = const_path_icon_unknown
