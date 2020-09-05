@@ -520,8 +520,8 @@ SLASH_EASYROLLTRACKER1, SLASH_EASYROLLTRACKER2, SLASH_EASYROLLTRACKER3 =
 	"/erolltracker", "/rolltrack", "/rt"
 function SlashCmdList.EASYROLLTRACKER(msg, editBox)
 	local cmd = string.lower(msg)
-		PrintHelpText()
 	if cmd == "help" or cmd == "h" or cmd == "?" then
+		PrintHelpText()
 	elseif cmd == "config" or cmd == "opt" or cmd == "options" then
 		eRollTracker_ShowOptions()
 	elseif cmd == "close" then
