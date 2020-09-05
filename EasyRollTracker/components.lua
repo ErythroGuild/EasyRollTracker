@@ -17,7 +17,7 @@ if eRollTracker.ext == nil then eRollTracker.ext = {} end
 -- consts.lua
 local const_path_icon_unknown = eRollTracker.ext.const_path_icon_unknown
 
--- textcolor.lua
+-- color.lua
 local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
 
 ---------------------

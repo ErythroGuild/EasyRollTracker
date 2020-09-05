@@ -80,8 +80,6 @@ local const_specclass = {
 	[1454] = "WARLOCK"    , [ 265] = "WARLOCK"    , [ 266] = "WARLOCK"    , [ 267] = "WARLOCK"    ,
 	[1446] = "WARRIOR"    , [  71] = "WARRIOR"    , [  72] = "WARRIOR"    , [  73] = "WARRIOR"    ,
 }
-eRollTracker.ext.const_specclass = const_specclass
-
 -- Colorize a spec by class color.
 local function ColorizeSpec(spec, specID)
 	local class = const_specclass[specID]
@@ -89,6 +87,29 @@ local function ColorizeSpec(spec, specID)
 	return Colorize(spec, color)
 end
 eRollTracker.ext.ColorizeSpec = ColorizeSpec
+
+-- Black: Death Knight, Demon Hunter, Shaman
+-- White: everything else
+local const_specbw = {
+	[1455] = "000000", [ 250] = "000000", [ 251] = "000000", [ 252] = "000000",
+	[1456] = "000000", [ 577] = "000000", [ 581] = "000000",
+	[1447] = "FFFFFF", [ 102] = "FFFFFF", [ 103] = "FFFFFF", [ 104] = "FFFFFF", [ 105] = "FFFFFF",
+	[1448] = "FFFFFF", [ 253] = "FFFFFF", [ 254] = "FFFFFF", [ 255] = "FFFFFF",
+	[1449] = "FFFFFF", [  62] = "FFFFFF", [  63] = "FFFFFF", [  64] = "FFFFFF",
+	[1450] = "FFFFFF", [ 268] = "FFFFFF", [ 270] = "FFFFFF", [ 269] = "FFFFFF",
+	[1451] = "FFFFFF", [  65] = "FFFFFF", [  66] = "FFFFFF", [  70] = "FFFFFF",
+	[1452] = "FFFFFF", [ 256] = "FFFFFF", [ 257] = "FFFFFF", [ 258] = "FFFFFF",
+	[1453] = "FFFFFF", [ 259] = "FFFFFF", [ 260] = "FFFFFF", [ 261] = "FFFFFF",
+	[1444] = "000000", [ 262] = "000000", [ 263] = "000000", [ 264] = "000000",
+	[1454] = "FFFFFF", [ 265] = "FFFFFF", [ 266] = "FFFFFF", [ 267] = "FFFFFF",
+	[1446] = "FFFFFF", [  71] = "FFFFFF", [  72] = "FFFFFF", [  73] = "FFFFFF",
+}
+-- A contrasting text color with the class color itself.
+local function ColorizeSpecBW(spec, specID)
+	local color = const_specbw[specID]
+	return Colorize(spec, color)
+end
+eRollTracker.ext.ColorizeSpecBW = ColorizeSpecBW
 
 -- List of official rarity colors.
 -- Indexed by Blizz's internal constants for readability.

@@ -12,7 +12,7 @@ embeds.xml
 # locales.xml
 
 # lua libraries
-textcolor.lua
+color.lua
 consts.lua
 
 # templates
