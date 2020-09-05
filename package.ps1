@@ -29,3 +29,6 @@ $PATH_7Z = "C:/Program Files/7-Zip"
 
 # Cleanup license file
 Remove-Item "EasyRollTracker/License.md"
+
+# Cleanup acknowledgements file
+Remove-Item "EasyRollTracker/Acknowledgements.md"
