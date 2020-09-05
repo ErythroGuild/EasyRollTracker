@@ -1,8 +1,8 @@
-**Thanks to:**
+**Thanks to:** (in no particular order)
 
 Meorawr, Arkoniel, and the rest of the WoW Addons; discord server for helping me with all of my questions.
 
-Neko and Amber, for testing this addon.
+Amber, Neko, Kirison, and Naulti, for testing this addon.
 
 Neko and Easley, for feedback on using this addon in raid.
 
