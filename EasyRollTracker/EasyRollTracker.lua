@@ -14,6 +14,8 @@ local LibWindow = LibStub("LibWindow-1.1")
 eRollTracker.item = ""		-- this should be a valid itemLink
 eRollTracker.isOpen = false	-- if an item is currently being rolled for
 eRollTracker.entries = {}	-- list of current roll (sorted) entries
+eRollTracker.specqueue = {}	-- list of players to query specs
+eRollTracker.isInspecting = false	-- whether or not an inspect request has been sent already
 eRollTracker.pools = {
 	heading		= CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Heading"),
 	entry		= CreateFramePool("Frame", eRollTrackerFrame_Scroll_Layout,"eRollTracker_Template_Entry"),
@@ -39,12 +41,14 @@ local const_path_icon_unknown	= eRollTracker.ext.const_path_icon_unknown
 -- textcolor.lua
 local const_colortable	= eRollTracker.ext.const_colortable
 local const_classcolor	= eRollTracker.ext.const_classcolor
+local const_specclass	= eRollTracker.ext.const_specclass
 local const_raritycolor	= eRollTracker.ext.const_raritycolor
 
 local UncolorizeText = eRollTracker.ext.UncolorizeText
 
 local Colorize		= eRollTracker.ext.Colorize
 local ColorizeName	= eRollTracker.ext.ColorizeName
+local ColorizeSpec	= eRollTracker.ext.ColorizeSpec
 local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
 
 -- components.lua
@@ -86,8 +90,50 @@ local function ParseRollText(text)
 	end
 end
 
-local function GetSpec(player)
-	return ""
+local const_spectable = {
+	[1455] = "new",	-- Death Knight
+	[ 250] = "BDK", [ 251] = "FRS", [ 252] = "UNH",
+	[1456] = "new",	-- Demon Hunter
+	[ 577] = "HAV", [ 581] = "VDH",
+	[1447] = "new",	-- Druid
+	[ 102] = "OWL", [ 103] = "CAT", [ 104] = "BR" , [ 105] = "RST",
+	[1448] = "new",	-- Hunter
+	[ 253] = "BM" , [ 254] = "MM" , [ 255] = "SV" ,
+	[1449] = "new",	-- Mage
+	[  62] = "ARC", [  63] = "HOT", [  64] = "FRS",
+	[1450] = "new",	-- Monk
+	[ 268] = "BRM", [ 270] = "MW" , [ 269] = "WW" ,
+	[1451] = "new",	-- Paladin
+	[  65] = "HLY", [  66] = "PT" , [  70] = "RET",
+	[1452] = "new",	-- Priest
+	[ 256] = "DSC", [ 257] = "HLY", [ 258] = "SHA",
+	[1453] = "new",	-- Rogue
+	[ 259] = "SIN", [ 260] = "OUT", [ 261] = "SUB",
+	[1444] = "new",	-- Shaman
+	[ 262] = "ELE", [ 263] = "ENH", [ 264] = "RST",
+	[1454] = "new",	-- Warlock
+	[ 265] = "AFF", [ 266] = "DMN", [ 267] = "DST",
+	[1446] = "new",	-- Warrior
+	[  71] = "ARM", [  72] = "FY" , [  73] = "PT" ,
+}
+local function GetSpec(player, frame)
+	local spec = ""
+	local specID = GetInspectSpecialization(player)
+	if specID ~= 0 then
+		spec = const_spectable[specID]
+		spec = ColorizeSpec(spec, specID)
+	else
+		local GUID = UnitGUID(player)
+		eRollTracker.specqueue[GUID] = {
+			["name"] = player,
+			["frame"] = frame,
+		}
+		if eRollTracker.isInspecting == false then
+			NotifyInspect(player)
+			eRollTracker.isInspecting = true
+		end
+	end
+	return spec
 end
 
 local function ResetAddonData(isAcceptCallback)
@@ -126,7 +172,7 @@ local function PrintHelpText()
 	)
 
 	print(ColorCommand("  /rt:") .. " toggles the main window")
-	print(ColorCommand("  /rt help:")	.. " opens the help window")
+	print(ColorCommand("  /rt help:")	.. " lists available commands")
 	print(ColorCommand("  /rt config:")	.. " opens the addon settings")
 	print(ColorCommand("  /rt close:")	.. " closes the current roll")
 	print(ColorCommand("  /rt clear:")	.. " clears the main window")
@@ -239,10 +285,12 @@ function eRollTracker_OnLoad(self)
 	str_title = const_text_addonname .. " " .. str_version
 	self.title:SetText(str_title)
 	self.clickprev = GetTime();
-
+	
 	self:RegisterForDrag("LeftButton")
-	self:RegisterEvent("CHAT_MSG_SYSTEM")
+
 	self:RegisterEvent("ADDON_LOADED")
+	self:RegisterEvent("CHAT_MSG_SYSTEM")
+	self:RegisterEvent("INSPECT_READY")
 end
 
 -- Toggle maximizing the window. Saves previous size to SavedVariables.
@@ -433,6 +481,32 @@ function eRollTrackerFrame_OnEvent(self, event, ...)
 	eRollTracker.events[event](self, ...)
 end
 
+-- Event: INSPECT_READY
+-- Updates any spec info that still needs to be filled in.
+function eRollTracker.events:INSPECT_READY(...)
+	local inspecteeGUID = ...
+	local frame_inspectee = eRollTracker.specqueue[inspecteeGUID]
+	if frame_inspectee ~= nil then
+		local spec = ""
+		local player = eRollTracker.specqueue[inspecteeGUID].name
+		local specID = GetInspectSpecialization(player)
+		spec = const_spectable[specID]
+		spec = ColorizeSpec(spec, specID)
+		eRollTracker.specqueue[inspecteeGUID].frame:SetText(spec)
+		eRollTracker.specqueue[inspecteeGUID] = nil
+		ClearInspectPlayer()
+		if #(eRollTracker.specqueue) > 0 then
+			for k,v in pairs(eRollTracker.specqueue) do
+				NotifyInspect(v.name)
+				eRollTracker.isInspecting = true
+				break
+			end
+		else
+			eRollTracker.isInspecting = false
+		end
+	end
+end
+
 -- Event: CHAT_MSG_SYSTEM
 -- If found, insert a new roll entry into the list.
 function eRollTracker.events:CHAT_MSG_SYSTEM(...)
@@ -443,7 +517,7 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 		ResetEntry(entry)
 
 		local role = RoleIconString(player)
-		local spec = GetSpec(player)
+		local spec = GetSpec(player, entry.spec)
 		local name = ColorizeName(player)
 		local maxnum = tonumber(max)
 		if maxnum == 100 then

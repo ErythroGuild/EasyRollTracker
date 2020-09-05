@@ -13,6 +13,8 @@ but comments in other places will get to me eventually.
 - Cannot show order of duplicate rolls; I recommend
 making a rule to only count lowest roll in this case
 (or go back to chat logs and check)
+- Specs are fetched one-at-a-time, and subject to server
+limits (need to send inspect request and be in range)
 
 ### Major features
 

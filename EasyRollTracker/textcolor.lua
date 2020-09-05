@@ -65,6 +65,31 @@ local function ColorizeName(name)
 end
 eRollTracker.ext.ColorizeName = ColorizeName
 
+-- List of Blizz's internal class constants, by specID.
+local const_specclass = {
+	[1455] = "DEATHKNIGHT", [ 250] = "DEATHKNIGHT", [ 251] = "DEATHKNIGHT", [ 252] = "DEATHKNIGHT",
+	[1456] = "DEMONHUNTER", [ 577] = "DEMONHUNTER", [ 581] = "DEMONHUNTER",
+	[1447] = "DRUID"      , [ 102] = "DRUID"      , [ 103] = "DRUID"      , [ 104] = "DRUID"      , [ 105] = "DRUID"      ,
+	[1448] = "HUNTER"     , [ 253] = "HUNTER"     , [ 254] = "HUNTER"     , [ 255] = "HUNTER"     ,
+	[1449] = "MAGE"       , [  62] = "MAGE"       , [  63] = "MAGE"       , [  64] = "MAGE"       ,
+	[1450] = "MONK"       , [ 268] = "MONK"       , [ 270] = "MONK"       , [ 269] = "MONK"       ,
+	[1451] = "PALADIN"    , [  65] = "PALADIN"    , [  66] = "PALADIN"    , [  70] = "PALADIN"    ,
+	[1452] = "PRIEST"     , [ 256] = "PRIEST"     , [ 257] = "PRIEST"     , [ 258] = "PRIEST"     ,
+	[1453] = "ROGUE"      , [ 259] = "ROGUE"      , [ 260] = "ROGUE"      , [ 261] = "ROGUE"      ,
+	[1444] = "SHAMAN"     , [ 262] = "SHAMAN"     , [ 263] = "SHAMAN"     , [ 264] = "SHAMAN"     ,
+	[1454] = "WARLOCK"    , [ 265] = "WARLOCK"    , [ 266] = "WARLOCK"    , [ 267] = "WARLOCK"    ,
+	[1446] = "WARRIOR"    , [  71] = "WARRIOR"    , [  72] = "WARRIOR"    , [  73] = "WARRIOR"    ,
+}
+eRollTracker.ext.const_specclass = const_specclass
+
+-- Colorize a spec by class color.
+local function ColorizeSpec(spec, specID)
+	local class = const_specclass[specID]
+	local color = const_classcolor[class]
+	return Colorize(spec, color)
+end
+eRollTracker.ext.ColorizeSpec = ColorizeSpec
+
 -- List of official rarity colors.
 -- Indexed by Blizz's internal constants for readability.
 -- NOTE: these are converted from hex values, and contain
