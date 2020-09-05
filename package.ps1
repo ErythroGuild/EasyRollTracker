@@ -19,6 +19,9 @@ if ($VERSION -match "(\d+\.\d+)\.0") {
 # Copy license file into package
 Copy-Item "License.md" -Destination "EasyRollTracker/License.md"
 
+# Copy acknowledgements into package
+Copy-Item "Acknowledgements.md" -Destination "EasyRollTracker/Acknowledgements.md"
+
 # Create new packages
 $PATH_7Z = "C:/Program Files/7-Zip"
 &"$PATH_7Z/7z.exe" a -tzip -mmt -mx9 -r "EasyRollTracker-v$VERSION.zip" "EasyRollTracker/"
