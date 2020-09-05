@@ -71,26 +71,34 @@
 					<Color r="0.85" g="0.85" b="0.85" a="0.20"/>
 				</Texture>
 			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parent_SpecBackground"
+					parentKey="specBackground">
+					<Size x="28" y="16"/>
+					<Anchors><Anchor point="CENTER"/></Anchors>
+					<Color r="1.0" g="1.0" b="1.0" a="1.0"/>
+				</Texture>
+			</Layer>
 			<Layer level="OVERLAY">
 				<FontString name="$parent_Role"
 					parentKey="role"
 					inherits="ChatFontNormal"
 					text="#">
-					<Size><AbsDimension x="24" y="24"/></Size>
+					<Size x="20" y="24"/>
 				</FontString>
 				<FontString name="$parent_Spec"
 					parentKey="spec"
-					inherits="ChatFontNormal"
-					justifyH="LEFT"
+					inherits="ChatFontSmall"
+					justifyH="CENTER"
 					text="RST">
-					<Size><AbsDimension x="36" y="24"/></Size>
+					<Size x="32" y="24"/>
 				</FontString>
 				<FontString name="$parent_Max"
 					parentKey="max"
 					inherits="ChatFontNormal"
 					justifyH="RIGHT"
 					text="100">
-					<Size><AbsDimension x="50" y="24"/></Size>
+					<Size x="50" y="24"/>
 					<Anchors><Anchor point="RIGHT" x="-14"/></Anchors>
 				</FontString>
 				<FontString name="$parent_Roll"
@@ -98,14 +106,14 @@
 					inherits="ChatFontNormal"
 					justifyH="RIGHT"
 					text="42">
-					<Size><AbsDimension x="40" y="24"/></Size>
+					<Size x="40" y="24"/>
 				</FontString>
 				<FontString name="$parent_Name"
 					parentKey="name"
 					inherits="ChatFontNormal"
 					justifyH="LEFT"
 					text="Edeilinna">
-					<Size><AbsDimension x="0" y="24"/></Size>
+					<Size x="0" y="24"/>
 				</FontString>
 			</Layer>
 		</Layers>

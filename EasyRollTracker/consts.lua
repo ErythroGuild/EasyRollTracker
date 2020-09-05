@@ -7,7 +7,7 @@ if eRollTracker.ext == nil then eRollTracker.ext = {} end
 -- Header `#include`s aren't supported.
 -- This is the most concise workaround.
 
--- textcolor.lua
+-- color.lua
 local const_colortable = eRollTracker.ext.const_colortable
 local Colorize = eRollTracker.ext.Colorize
 

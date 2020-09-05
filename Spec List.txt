@@ -1,0 +1,71 @@
+Death Knight
+	1455 [new] -Death Knight-
+	250  [BDK] Blood
+	251  [FRS] Frost
+	252  [UNH] Unholy
+
+Demon Hunter
+	1456 [new] -Demon Hunter-
+	577  [HAV] Havoc
+	581  [VDH] Vengeance
+
+Druid
+	1447 [new] -Druid-
+	102  [OWL] Balance
+	103  [CAT] Feral
+	104  [BR ] Guardian
+	105  [RST] Restoration
+
+Hunter
+	1448 [new] -Hunter-
+	253  [BM ] Beast Mastery
+	254  [MM ] Marksmanship
+	255  [SV ] Survival
+
+Mage
+	1449 [new] -Mage-
+	62   [ARC] Arcane
+	63   [HOT] Fire
+	64   [FRS] Frost
+
+Monk
+	1450 [new] -Monk-
+	268  [BRM] Brewmaster
+	270  [MW ] Mistweaver
+	269  [WW ] Windwalker
+
+Paladin
+	1451 [new] -Paladin-
+	65   [HLY] Holy
+	66   [PT ] Protection
+	70   [RET] Retribution
+
+Priest
+	1452 [new] -Priest-
+	256  [DSC] Discipline
+	257  [HLY] Holy
+	258  [SHA] Shadow
+
+Rogue
+	1453 [new] -Rogue-
+	259  [SIN] Assassination
+	260  [OUT] Outlaw
+	261  [SUB] Subtlety
+
+Shaman
+	1444 [new] -Shaman-
+	262  [ELE] Elemental
+	263  [ENH] Enhancement
+	264  [RST] Restoration
+
+Warlock
+	1454 [new] -Warlock-
+	265  [AFF] Affliction
+	266  [DMN] Demonology
+	267  [DST] Destruction
+
+Warrior
+	1446 [new] -Warrior-
+	71   [ARM] Arms
+	72   [FY ] Fury
+	73   [PT ] Protection
