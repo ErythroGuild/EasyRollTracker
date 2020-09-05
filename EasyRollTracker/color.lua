@@ -57,6 +57,24 @@ local const_classcolor = {
 }
 eRollTracker.ext.const_classcolor = const_classcolor
 
+-- Official class colors, but in the range [0.0, 1.0].
+-- Table entries are formatted as {r, g, b, a}.
+local const_classcolordec = {
+	[0]			= {0.00, 0.00, 0.00, 0.00},
+	DEATHKNIGHT	= {0.77, 0.12, 0.23, 1.00},
+	DEMONHUNTER	= {0.64, 0.19, 0.79, 1.00},
+	DRUID		= {1.00, 0.49, 0.04, 1.00},
+	HUNTER		= {0.67, 0.83, 0.45, 1.00},
+	MAGE		= {0.25, 0.78, 0.92, 1.00},
+	MONK		= {0.00, 1.00, 0.59, 1.00},
+	PALADIN		= {0.96, 0.55, 0.73, 1.00},
+	PRIEST		= {1.00, 1.00, 1.00, 1.00},
+	ROGUE		= {1.00, 0.96, 0.41, 1.00},
+	SHAMAN		= {0.00, 0.44, 0.87, 1.00},
+	WARLOCK		= {0.53, 0.53, 0.93, 1.00},
+	WARRIOR		= {0.78, 0.61, 0.43, 1.00},
+}
+
 -- Colorize a name by class color.
 local function ColorizeName(name)
 	local classname, _ = UnitClassBase(name)
@@ -91,18 +109,18 @@ eRollTracker.ext.ColorizeSpec = ColorizeSpec
 -- Black: Death Knight, Demon Hunter, Shaman
 -- White: everything else
 local const_specbw = {
-	[1455] = "000000", [ 250] = "000000", [ 251] = "000000", [ 252] = "000000",
-	[1456] = "000000", [ 577] = "000000", [ 581] = "000000",
-	[1447] = "FFFFFF", [ 102] = "FFFFFF", [ 103] = "FFFFFF", [ 104] = "FFFFFF", [ 105] = "FFFFFF",
-	[1448] = "FFFFFF", [ 253] = "FFFFFF", [ 254] = "FFFFFF", [ 255] = "FFFFFF",
-	[1449] = "FFFFFF", [  62] = "FFFFFF", [  63] = "FFFFFF", [  64] = "FFFFFF",
-	[1450] = "FFFFFF", [ 268] = "FFFFFF", [ 270] = "FFFFFF", [ 269] = "FFFFFF",
-	[1451] = "FFFFFF", [  65] = "FFFFFF", [  66] = "FFFFFF", [  70] = "FFFFFF",
-	[1452] = "FFFFFF", [ 256] = "FFFFFF", [ 257] = "FFFFFF", [ 258] = "FFFFFF",
-	[1453] = "FFFFFF", [ 259] = "FFFFFF", [ 260] = "FFFFFF", [ 261] = "FFFFFF",
-	[1444] = "000000", [ 262] = "000000", [ 263] = "000000", [ 264] = "000000",
-	[1454] = "FFFFFF", [ 265] = "FFFFFF", [ 266] = "FFFFFF", [ 267] = "FFFFFF",
-	[1446] = "FFFFFF", [  71] = "FFFFFF", [  72] = "FFFFFF", [  73] = "FFFFFF",
+	[1455] = "FFFFFF", [ 250] = "FFFFFF", [ 251] = "FFFFFF", [ 252] = "FFFFFF",
+	[1456] = "FFFFFF", [ 577] = "FFFFFF", [ 581] = "FFFFFF",
+	[1447] = "000000", [ 102] = "000000", [ 103] = "000000", [ 104] = "000000", [ 105] = "000000",
+	[1448] = "000000", [ 253] = "000000", [ 254] = "000000", [ 255] = "000000",
+	[1449] = "000000", [  62] = "000000", [  63] = "000000", [  64] = "000000",
+	[1450] = "000000", [ 268] = "000000", [ 270] = "000000", [ 269] = "000000",
+	[1451] = "000000", [  65] = "000000", [  66] = "000000", [  70] = "000000",
+	[1452] = "000000", [ 256] = "000000", [ 257] = "000000", [ 258] = "000000",
+	[1453] = "000000", [ 259] = "000000", [ 260] = "000000", [ 261] = "000000",
+	[1444] = "FFFFFF", [ 262] = "FFFFFF", [ 263] = "FFFFFF", [ 264] = "FFFFFF",
+	[1454] = "000000", [ 265] = "000000", [ 266] = "000000", [ 267] = "000000",
+	[1446] = "000000", [  71] = "000000", [  72] = "000000", [  73] = "000000",
 }
 -- A contrasting text color with the class color itself.
 local function ColorizeSpecBW(spec, specID)
@@ -110,6 +128,13 @@ local function ColorizeSpecBW(spec, specID)
 	return Colorize(spec, color)
 end
 eRollTracker.ext.ColorizeSpecBW = ColorizeSpecBW
+
+-- Colorize a <LayeredRegion> by class color.
+local function ColorizeLayerSpec(frame, specID)
+	local class = const_specclass[specID]
+	frame:SetVertexColor(unpack(const_classcolordec[class]))
+end
+eRollTracker.ext.ColorizeLayerSpec = ColorizeLayerSpec
 
 -- List of official rarity colors.
 -- Indexed by Blizz's internal constants for readability.
@@ -128,7 +153,7 @@ local const_raritycolor = {
 eRollTracker.ext.const_raritycolor = const_raritycolor
 
 -- Colorize a <LayeredRegion> by rarity level.
-local function ColorizeLayer(frame, rarity)
+local function ColorizeLayerRarity(frame, rarity)
 	frame:SetVertexColor(unpack(const_raritycolor[rarity]))
 end
-eRollTracker.ext.ColorizeLayer = ColorizeLayer
+eRollTracker.ext.ColorizeLayerRarity = ColorizeLayerRarity

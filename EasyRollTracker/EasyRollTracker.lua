@@ -49,7 +49,8 @@ local Colorize		= eRollTracker.ext.Colorize
 local ColorizeName	= eRollTracker.ext.ColorizeName
 local ColorizeSpec	= eRollTracker.ext.ColorizeSpec
 local ColorizeSpecBW = eRollTracker.ext.ColorizeSpecBW
-local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
+local ColorizeLayerSpec		= eRollTracker.ext.ColorizeLayerSpec
+local ColorizeLayerRarity	= eRollTracker.ext.ColorizeLayerRarity
 
 -- components.lua
 local ResetHeading		= eRollTracker.ext.ResetHeading
@@ -116,17 +117,18 @@ local const_spectable = {
 	[1446] = "new",	-- Warrior
 	[  71] = "ARM", [  72] = "FY" , [  73] = "PT" ,
 }
-local function GetSpec(player, frame)
+local function GetSpec(player, entry)
 	local spec = ""
 	local specID = GetInspectSpecialization(player)
 	if specID ~= 0 then
 		spec = const_spectable[specID]
-		spec = ColorizeSpec(spec, specID)
+		spec = ColorizeSpecBW(spec, specID)
+		ColorizeLayerSpec(entry.specBackground, specID)
 	else
 		local GUID = UnitGUID(player)
 		eRollTracker.specqueue[GUID] = {
 			["name"] = player,
-			["frame"] = frame,
+			["entry"] = entry,
 		}
 		if eRollTracker.isInspecting == false then
 			NotifyInspect(player)
@@ -206,7 +208,7 @@ local function UpdateItemIcon()
 		local _,_, itemRarity, _,_,_,_,_,_, itemIcon =
 			GetItemInfo(itemLink)
 		if itemRarity ~= nil then
-			ColorizeLayer(eRollTrackerFrame_Item.border, itemRarity)
+			ColorizeLayerRarity(eRollTrackerFrame_Item.border, itemRarity)
 		else
 			eRollTrackerFrame_Item.border:SetVertexColor(0.85, 0.85, 0.85)
 		end
@@ -491,8 +493,9 @@ function eRollTracker.events:INSPECT_READY(...)
 		local player = eRollTracker.specqueue[inspecteeGUID].name
 		local specID = GetInspectSpecialization(player)
 		spec = const_spectable[specID]
-		spec = ColorizeSpec(spec, specID)
-		eRollTracker.specqueue[inspecteeGUID].frame:SetText(spec)
+		spec = ColorizeSpecBW(spec, specID)
+		eRollTracker.specqueue[inspecteeGUID].entry.spec:SetText(spec)
+		ColorizeLayerSpec(eRollTracker.specqueue[inspecteeGUID].entry.specBackground, specID)
 		eRollTracker.specqueue[inspecteeGUID] = nil
 		ClearInspectPlayer()
 		if #(eRollTracker.specqueue) > 0 then
@@ -517,7 +520,7 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 		ResetEntry(entry)
 
 		local role = RoleIconString(player)
-		local spec = GetSpec(player, entry.spec)
+		local spec = GetSpec(player, entry)
 		local name = ColorizeName(player)
 		local maxnum = tonumber(max)
 		if maxnum == 100 then

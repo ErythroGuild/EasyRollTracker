@@ -18,7 +18,8 @@ if eRollTracker.ext == nil then eRollTracker.ext = {} end
 local const_path_icon_unknown = eRollTracker.ext.const_path_icon_unknown
 
 -- color.lua
-local ColorizeLayer	= eRollTracker.ext.ColorizeLayer
+local ColorizeLayerSpec		= eRollTracker.ext.ColorizeLayerSpec
+local ColorizeLayerRarity	= eRollTracker.ext.ColorizeLayerRarity
 
 ---------------------
 -- Reset Functions --
@@ -42,6 +43,8 @@ local function ResetEntry(frame)
 	frame.name:SetText("")
 	frame.roll:SetText("")
 	frame.max:SetText("")
+	
+	frame.specBackground:SetVertexColor(0, 0, 0, 0)
 
 	frame:ClearAllPoints()
 	frame:Hide()
@@ -72,7 +75,7 @@ local function InitHeading(frame, item)
 		local _, itemLink, itemRarity, _,_,_,_,_,_, itemIcon =
 			GetItemInfo(item)
 		if itemRarity ~= nil then
-			ColorizeLayer(frame.border, itemRarity)
+			ColorizeLayerRarity(frame.border, itemRarity)
 		else
 			frame.border:SetVertexColor(0.85, 0.85, 0.85)
 		end
@@ -99,9 +102,13 @@ local function InitEntry(frame, role, spec, name, roll, max)
 	frame.max:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
 	frame.spec:SetPoint("LEFT", frame.role, "RIGHT")
 	frame.roll:SetPoint("RIGHT", frame.max, "LEFT")
-	frame.name:SetPoint("LEFT", frame.spec, "RIGHT")
+	frame.name:SetPoint("LEFT", frame.spec, "RIGHT", 2, 0)
 	frame.name:SetPoint("RIGHT", frame.roll, "LEFT")
+	frame.specBackground:SetPoint("CENTER", frame.spec)
 	
+	frame.spec:SetShadowColor(0, 0, 0, 0)
+	frame.spec:SetShadowOffset(0, 0)
+
 	frame.role:SetText(role)
 	frame.spec:SetText(spec)
 	frame.name:SetText(name)
