@@ -122,12 +122,14 @@ local function GetSpec(player, entry)
 	if eRollTracker.specqueue[GUID] == nil then
 		eRollTracker.specqueue[GUID] = {
 			["name"] = player,
-			["entry"] = entry,
+			["entry"] = { entry },
 		}
-		if eRollTracker.isInspecting == false then
-			NotifyInspect(player)
-			eRollTracker.isInspecting = true
-		end
+	else
+		table.insert(eRollTracker.specqueue[GUID].entry, entry)
+	end
+	if eRollTracker.isInspecting == false then
+		NotifyInspect(player)
+		eRollTracker.isInspecting = true
 	end
 	return ""
 end
@@ -489,8 +491,12 @@ function eRollTracker.events:INSPECT_READY(...)
 		local specID = GetInspectSpecialization(player)
 		spec = const_spectable[specID]
 		spec = ColorizeSpecBW(spec, specID)
-		eRollTracker.specqueue[inspecteeGUID].entry.spec:SetText(spec)
-		ColorizeLayerSpec(eRollTracker.specqueue[inspecteeGUID].entry.specBackground, specID)
+
+		for _, entry in pairs(eRollTracker.specqueue[inspecteeGUID].entry) do
+			entry.spec:SetText(spec)
+			ColorizeLayerSpec(entry.specBackground, specID)
+		end
+		
 		eRollTracker.specqueue[inspecteeGUID] = nil
 		ClearInspectPlayer()
 		if #(eRollTracker.specqueue) > 0 then
