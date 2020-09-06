@@ -118,14 +118,8 @@ local const_spectable = {
 	[  71] = "ARM", [  72] = "FY" , [  73] = "PT" ,
 }
 local function GetSpec(player, entry)
-	local spec = ""
-	local specID = GetInspectSpecialization(player)
-	if specID ~= 0 then
-		spec = const_spectable[specID]
-		spec = ColorizeSpecBW(spec, specID)
-		ColorizeLayerSpec(entry.specBackground, specID)
-	else
-		local GUID = UnitGUID(player)
+	local GUID = UnitGUID(player)
+	if eRollTracker.specqueue[GUID] == nil then
 		eRollTracker.specqueue[GUID] = {
 			["name"] = player,
 			["entry"] = entry,
@@ -135,7 +129,7 @@ local function GetSpec(player, entry)
 			eRollTracker.isInspecting = true
 		end
 	end
-	return spec
+	return ""
 end
 
 local function ResetAddonData(isAcceptCallback)
