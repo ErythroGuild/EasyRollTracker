@@ -130,6 +130,13 @@ local function GetSpec(player, entry)
 	if eRollTracker.isInspecting == false then
 		NotifyInspect(player)
 		eRollTracker.isInspecting = true
+		local function reinspect()
+			if eRollTracker.isInspecting then
+				NotifyInspect(player)
+				C_Timer.After(1.000, reinspect)
+			end
+		end
+		C_Timer.After(1.000, reinspect)
 	end
 	return ""
 end
@@ -503,6 +510,13 @@ function eRollTracker.events:INSPECT_READY(...)
 			for k,v in pairs(eRollTracker.specqueue) do
 				NotifyInspect(v.name)
 				eRollTracker.isInspecting = true
+				local function reinspect()
+					if eRollTracker.isInspecting then
+						NotifyInspect(player)
+						C_Timer.After(1.000, reinspect)
+					end
+				end
+				C_Timer.After(1.000, reinspect)
 				break
 			end
 		else
