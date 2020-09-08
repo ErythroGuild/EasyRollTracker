@@ -24,3 +24,5 @@ components.xml
 # core files
 EasyRollTracker.lua
 EasyRollTracker.xml
+ExportLogs.lua
+ExportLogs.xml
