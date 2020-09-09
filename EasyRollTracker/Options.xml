@@ -57,7 +57,7 @@
 					<Anchor point="BOTTOM" y="8"/>
 					<Anchor point="RIGHT" x="-12"/>
 				</Anchors>
-				<Scripts><OnClick>self:GetParent():Hide();</OnClick></Scripts>
+				<Scripts><OnClick function="eRollTrackerFrame_Options_OnAccept"/></Scripts>
 			</Button>
 			<Button name="$parent_ButtonCancel" text="Cancel" inherits="eRollTracker_Template_Button_Text">
 				<Size x="80" y="24"/>

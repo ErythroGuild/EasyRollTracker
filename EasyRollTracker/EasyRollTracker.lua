@@ -150,6 +150,13 @@ local function ResetAddonData(isAcceptCallback)
 		eRollTracker_ClearAll()
 	
 		EasyRollTrackerDB = {
+			options = {
+				maxRollThreshold = 100,
+				onlyAllowValidItems = true,
+				autoCloseRoll = false,
+				autoCloseDelay = 150,
+				exportOnClear = false,
+			},
 			unmaximize = { width = 250, height = 320 },
 			libwindow = {},
 			ldbicon = { hide = false },
@@ -607,6 +614,26 @@ end
 function eRollTracker.events:ADDON_LOADED(...)
 	local addonName = ...
 	if addonName == "EasyRollTracker" then
+		-- Default options
+		if EasyRollTrackerDB.options == nil then
+			EasyRollTrackerDB.options = {}
+		end
+		if EasyRollTrackerDB.options.maxRollThreshold == nil then
+			EasyRollTrackerDB.options.maxRollThreshold = 100
+		end
+		if EasyRollTrackerDB.options.onlyAllowValidItems == nil then
+			EasyRollTrackerDB.options.onlyAllowValidItems = true
+		end
+		if EasyRollTrackerDB.options.autoCloseRoll == nil then
+			EasyRollTrackerDB.options.autoCloseRoll = false
+		end
+		if EasyRollTrackerDB.options.autoCloseDelay == nil then
+			EasyRollTrackerDB.options.autoCloseDelay = 150
+		end
+		if EasyRollTrackerDB.options.exportOnClear == nil then
+			EasyRollTrackerDB.options.exportOnClear = false
+		end
+
 		-- LibWindow: resolution-independent positioning
 		-- Registration needs to happen after addon loads,
 		-- otherwise XML frames aren't defined yet.
