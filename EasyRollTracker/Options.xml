@@ -13,10 +13,7 @@
 
 		<Scripts>
 			<OnLoad>self:RegisterForDrag("LeftButton");</OnLoad>
-			<OnShow>
-				self:ClearAllPoints();
-				self:SetPoint("CENTER", eRollTrackerFrame);
-			</OnShow>
+			<OnShow function="eRollTrackerFrame_Options_OnShow"/>
 			<OnDragStart method="StartMoving"/>
 			<OnDragStop method="StopMovingOrSizing"/>
 		</Scripts>
@@ -76,7 +73,7 @@
 					<Anchor point="BOTTOM" y="8"/>
 					<Anchor point="LEFT" x="12"/>
 				</Anchors>
-				<Scripts><OnClick></OnClick></Scripts>
+				<Scripts><OnClick function="eRollTrackerFrame_Options_SetDefaults"/></Scripts>
 			</Button>
 
 			<CheckButton name="$parent_ShowMinimapButton" inherits="eRollTracker_Template_Checkbox"
