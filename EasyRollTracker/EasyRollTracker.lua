@@ -142,6 +142,16 @@ local function GetSpec(player, entry)
 	return ""
 end
 
+local function getItemLink(itemtext)
+	local regex_find_itemlink = "(|c[fF][fF]%x%x%x%x%x%x|Hitem:[:%d]-|h.-|h|r)"
+	local _,_, itemlink = string.find(itemtext, regex_find_itemlink)
+	if itemlink == nil then
+		return ""
+	else
+		return itemlink
+	end
+end
+
 local function ResetAddonData(isAcceptCallback)
 	if isAcceptCallback == nil then
 		StaticPopup_Show("EASYROLLTRACKER_RESET")
@@ -418,7 +428,12 @@ function eRollTracker_AcceptCursor()
 	end
 end
 function eRollTracker_AcceptText()
-	eRollTracker.item = eRollTrackerFrame_EditItem:GetText()
+	local itemtext = eRollTrackerFrame_EditItem:GetText()
+	if EasyRollTrackerDB.options.onlyAllowValidItems then
+		itemtext = getItemLink(itemtext)
+		eRollTrackerFrame_EditItem:SetText(itemtext)
+	end
+	eRollTracker.item = itemtext
 	UpdateItemIcon()
 end
 function eRollTracker_SendCursor()
