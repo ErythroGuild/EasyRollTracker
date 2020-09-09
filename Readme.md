@@ -47,6 +47,7 @@ limits (need to send inspect request and be in range)
 - Parses valid plaintext to itemlinks
 - Option to only allow valid itemlinks
 - Tooltip preview of items
+- Option to automatically close rolls after a delay
 - Export logs of all items/rolls onscreen
 - Option to auto-export when history is cleared
 - Resizable window
