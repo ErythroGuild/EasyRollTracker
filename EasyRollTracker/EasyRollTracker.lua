@@ -349,6 +349,33 @@ end
 function eRollTracker_ShowOptions()
 end
 
+-- Show the export logs window (fully populated).
+function eRollTracker_ExportLogs()
+	if eRollTrackerFrame_ExportLogs:IsShown() then
+		eRollTrackerFrame_ExportLogs:Hide()
+	end
+	
+	local log = "Exported on: " .. date("%F %T") .. "|n|n"
+	local entries = { eRollTrackerFrame_Scroll_Layout:GetChildren() }
+	for _, entry in pairs(entries) do
+		if entry.entryType ~= nil then
+			if entry.entryType == "HEADING" then
+				log = log .. entry.item .. "|n"
+			elseif entry.entryType == "SEPARATOR" then
+				log = log .. "|n"
+			elseif entry.entryType == "ENTRY" then
+				local name = entry.name:GetText()
+				local roll = entry.roll:GetText()
+				local max  = entry.max:GetText()
+				log = log .. "> " .. name .. ": " .. roll .. "/" .. max .. "|n"
+			end
+		end
+	end
+
+	eRollTrackerFrame_ExportLogs_Scroll_Logs.text = log
+	eRollTrackerFrame_ExportLogs:Show()
+end
+
 -- Use the item data on the cursor to update internal variables.
 function eRollTracker_AcceptCursor()
 	local type, itemID, itemLink = GetCursorInfo();
