@@ -12,6 +12,7 @@ local LibWindow = LibStub("LibWindow-1.1")
 -- Member Variables --
 ----------------------
 eRollTracker.wasMainWindowShown = false	-- whether main window should be shown after closing options window
+eRollTracker.isAutoClosing = false		-- whether roll will be closed automatically
 eRollTracker.item = ""		-- this should be a valid itemLink
 eRollTracker.isOpen = false	-- if an item is currently being rolled for
 eRollTracker.entries = {}	-- list of current roll (sorted) entries
@@ -140,6 +141,16 @@ local function GetSpec(player, entry)
 		C_Timer.After(2.000, reinspect)
 	end
 	return ""
+end
+
+local function getItemLink(itemtext)
+	local regex_find_itemlink = "(|c[fF][fF]%x%x%x%x%x%x|Hitem:[:%d]-|h.-|h|r)"
+	local _,_, itemlink = string.find(itemtext, regex_find_itemlink)
+	if itemlink == nil then
+		return ""
+	else
+		return itemlink
+	end
 end
 
 local function ResetAddonData(isAcceptCallback)
@@ -418,7 +429,12 @@ function eRollTracker_AcceptCursor()
 	end
 end
 function eRollTracker_AcceptText()
-	eRollTracker.item = eRollTrackerFrame_EditItem:GetText()
+	local itemtext = eRollTrackerFrame_EditItem:GetText()
+	if EasyRollTrackerDB.options.onlyAllowValidItems then
+		itemtext = getItemLink(itemtext)
+		eRollTrackerFrame_EditItem:SetText(itemtext)
+	end
+	eRollTracker.item = itemtext
 	UpdateItemIcon()
 end
 function eRollTracker_SendCursor()
@@ -483,10 +499,20 @@ function eRollTracker_OpenRoll()
 	heading:Show()
 	ScrollAppend(heading)
 	eRollTracker.entries = { heading }
+
+	if EasyRollTrackerDB.options.autoCloseRoll then
+		eRollTracker.isAutoClosing = true
+		C_Timer.After(EasyRollTrackerDB.options.autoCloseDelay, function()
+			if eRollTracker.isAutoClosing then
+				eRollTracker_CloseRoll()
+			end
+		end)
+	end
 end
 
 function eRollTracker_CloseRoll()
 	eRollTracker.isOpen = false
+	eRollTracker.isAutoClosing = false;
 	
 	local itemstring = eRollTracker.item
 	local _, itemLink = GetItemInfo(eRollTracker.item)
@@ -511,6 +537,10 @@ function eRollTracker_ClearAll()
 		eRollTracker_CloseRoll()
 	else
 		ClearItem()
+	end
+
+	if EasyRollTrackerDB.options.exportOnClear then
+		eRollTracker_ExportLogs()
 	end
 
 	eRollTrackerFrame_Scroll_Layout_PadBottom:SetPoint("TOP", eRollTrackerFrame_Scroll_Layout_PadTop, "BOTTOM")
@@ -593,12 +623,13 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 		local spec = GetSpec(player, entry)
 		local name = ColorizeName(player)
 		local maxnum = tonumber(max)
-		if maxnum == 100 then
+		local threshold = EasyRollTrackerDB.options.maxRollThreshold
+		if maxnum == threshold then
 			max = Colorize(max, const_colortable["gray"])
-		elseif maxnum > 100 then
+		elseif maxnum > threshold then
 			max = Colorize(max, const_colortable["red"])
 			roll = Colorize(roll, const_colortable["red"])
-		elseif maxnum < 100 then
+		elseif maxnum < threshold then
 			max = Colorize(max, const_colortable["darkgray"])
 		end
 

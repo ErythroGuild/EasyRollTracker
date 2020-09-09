@@ -93,7 +93,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<FontString name="$parent_Label" inherits="GameFontNormal"
-							text="Default roll threshold:">
+							text="Highlight roll threshold:">
 							<Anchors><Anchor point="LEFT" x="4"/></Anchors>
 						</FontString>
 					</Layer>
