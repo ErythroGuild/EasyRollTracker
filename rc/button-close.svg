@@ -7,39 +7,39 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:export-ydpi="61.439999"
-   inkscape:export-xdpi="61.439999"
-   inkscape:export-filename="button-close.png"
-   sodipodi:docname="button-close.svg"
-   width="100"
-   height="100"
-   viewBox="0 0 26.458333 26.458333"
-   version="1.1"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    id="svg8"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+   version="1.1"
+   viewBox="0 0 26.458333 26.458333"
+   height="100"
+   width="100"
+   sodipodi:docname="button-close.svg"
+   inkscape:export-filename="button-close.png"
+   inkscape:export-xdpi="61.439999"
+   inkscape:export-ydpi="61.439999">
   <defs
      id="defs2" />
   <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="400"
-     inkscape:cy="560"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     inkscape:document-rotation="0"
-     showgrid="false"
-     inkscape:snap-bbox="false"
-     inkscape:snap-global="true"
-     units="px"
-     width="100px"
-     inkscape:pagecheckerboard="true"
+     borderlayer="true"
      inkscape:showpageshadow="false"
-     borderlayer="true" />
+     inkscape:pagecheckerboard="true"
+     width="100px"
+     units="px"
+     inkscape:snap-global="true"
+     inkscape:snap-bbox="false"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="560"
+     inkscape:cx="400"
+     inkscape:zoom="0.35"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -48,24 +48,24 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Layer 1"
+     id="layer1"
      inkscape:groupmode="layer"
-     id="layer1">
+     inkscape:label="Layer 1">
     <g
        id="icon">
       <path
-         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:4.13157;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="M 4.7116416,4.7116134 21.746691,21.74672"
-         id="path1" />
+         id="path1"
+         d="M 5.8208333,5.8208075 20.6375,20.637526"
+         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:6.35;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <path
-         id="path2"
-         d="M 21.746691,4.7116133 4.7116416,21.74672"
-         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:4.13157;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:6.35;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 20.6375,5.8208074 5.8208333,20.637526"
+         id="path2" />
     </g>
   </g>
   <inkscape:templateinfo>
