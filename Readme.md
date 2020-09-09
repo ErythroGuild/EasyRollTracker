@@ -21,6 +21,7 @@ limits (need to send inspect request and be in range)
 - Listing and sorting all `/roll` results in group
 - Tracking the number rolled out of
 - Announcing loot rolls to group as `/rw`
+- A variety of customizable options
 
 ### Commands
 
