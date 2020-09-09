@@ -19,8 +19,8 @@
 				self:SetPoint("CENTER");
 				eRollTrackerFrame_ExportLogs_Scroll_Logs:SetFocus();
 			</OnShow>
-			<OnDragStart>self:StartMoving();</OnDragStart>
-			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnDragStart method="StartMoving"/>
+			<OnDragStop method="StopMovingOrSizing"/>
 		</Scripts>
 
 		<Layers>
@@ -113,7 +113,7 @@
 								self.text = "";
 								self:SetText("");
 							</OnHide>
-							<OnEditFocusGained>self:HighlightText();</OnEditFocusGained>
+							<OnEditFocusGained method="HighlightText"/>
 							<OnEditFocusLost>self:HighlightText(0,0);</OnEditFocusLost>
 							<OnTextChanged>self:SetText(self.text);</OnTextChanged>
 							<OnTabPressed method="ClearFocus"/>

@@ -374,6 +374,9 @@ function eRollTracker_ExportLogs()
 
 	eRollTrackerFrame_ExportLogs_Scroll_Logs.text = log
 	eRollTrackerFrame_ExportLogs:Show()
+	if eRollTrackerFrame:IsShown() == false then
+		eRollTrackerFrame:Show()
+	end
 end
 
 -- Use the item data on the cursor to update internal variables.
