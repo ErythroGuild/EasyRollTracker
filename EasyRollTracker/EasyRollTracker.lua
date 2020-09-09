@@ -354,8 +354,13 @@ function eRollTracker_ShowOptions()
 			eRollTrackerFrame:Show()
 		end
 	end)
-	eRollTrackerFrame_Options:HookScript("OnShow", function()
-		eRollTrackerFrame_Options:Raise()
+	eRollTrackerFrame:HookScript("OnShow", function()
+		wasMainWindowShown = true
+		local frameLevel_main = eRollTrackerFrame:GetFrameLevel()
+		eRollTrackerFrame_Options:SetFrameLevel(frameLevel_main + 1)
+	end)
+	eRollTrackerFrame:HookScript("OnHide", function()
+		wasMainWindowShown = false
 	end)
 
 	if eRollTrackerFrame_Options:IsShown() == false then
