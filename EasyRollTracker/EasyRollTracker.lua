@@ -292,7 +292,7 @@ function eRollTracker_OnLoad(self)
 	self.clickprev = GetTime();
 	
 	self:RegisterForDrag("LeftButton")
-	table.insert(UISpecialFrames, eRollTrackerFrame)
+	table.insert(UISpecialFrames, "eRollTrackerFrame")
 
 	self:RegisterEvent("ADDON_LOADED")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
