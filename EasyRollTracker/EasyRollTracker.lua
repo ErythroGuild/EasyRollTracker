@@ -347,6 +347,20 @@ end
 
 -- Open the Interface settings menu to the panel for this AddOn.
 function eRollTracker_ShowOptions()
+	local wasMainWindowShown = eRollTrackerFrame:IsShown()
+	eRollTrackerFrame:Hide()
+	eRollTrackerFrame_Options:HookScript("OnHide", function()
+		if wasMainWindowShown then
+			eRollTrackerFrame:Show()
+		end
+	end)
+	eRollTrackerFrame_Options:HookScript("OnShow", function()
+		eRollTrackerFrame_Options:Raise()
+	end)
+
+	if eRollTrackerFrame_Options:IsShown() == false then
+		eRollTrackerFrame_Options:Show()
+	end
 end
 
 -- Show the export logs window (fully populated).

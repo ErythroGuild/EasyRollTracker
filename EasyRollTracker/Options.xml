@@ -2,4 +2,56 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	
+	<Frame name="eRollTrackerFrame_Options" parent="UIParent"
+		hidden="true"
+		frameStrata="HIGH"
+		movable="true"
+		clampedToScreen="true"
+		enableMouse="true">
+		<Size x="450" y="320"/>
+		<Anchors><Anchor point="CENTER"/></Anchors>
+
+		<Scripts>
+			<OnLoad>self:RegisterForDrag("LeftButton");</OnLoad>
+			<OnShow>
+				self:ClearAllPoints();
+				self:SetPoint("CENTER");
+			</OnShow>
+			<OnDragStart method="StartMoving"/>
+			<OnDragStop method="StopMovingOrSizing"/>
+		</Scripts>
+
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<Color r="0.05" g="0.05" b="0.05" a="0.70"/>
+				</Texture>
+				<FontString name="$parent_Title" inherits="GameFontNormal"
+					parentKey="title"
+					text="Easy Roll Tracker Options">
+					<Anchors><Anchor point="TOP" y="-8"/></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<Frames>
+			<Button name="$parent_ButtonClose">
+				<Size x="20" y="20"/>
+				<Anchors><Anchor point="TOPRIGHT" x="-6" y="-6"/></Anchors>
+
+				<Scripts><OnClick>self:GetParent():Hide();</OnClick></Scripts>
+
+				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.59" g="0.01" b="0.01" a="1.00"/>
+				</PushedTexture>
+				<HighlightTexture alphaMode="BLEND" file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.99" g="0.21" b="0.21" a="0.40"/>
+				</HighlightTexture>
+				<!-- HSL: (0, 97%, 60%) -> (0, 97%, 30%) -->
+			</Button>
+		</Frames>
+	</Frame>
 </Ui>
