@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 26.458333 26.458333"
+   height="100"
+   width="100"
+   inkscape:export-filename="button-logs.png"
+   inkscape:export-xdpi="61.439999"
+   inkscape:export-ydpi="61.439999"
+   sodipodi:docname="button-logs.svg">
+  <defs
+     id="defs">
+    <inkscape:path-effect
+       background_color="#ffffffff"
+       background="true"
+       hide_mask="false"
+       invert="false"
+       uri="#mask-powermask-path-effect894"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect894"
+       effect="powermask" />
+    <mask
+       id="mask-powermask-path-effect894"
+       maskUnits="userSpaceOnUse">
+      <path
+         d="M 3.7719488,3.7719488 H 22.686383 V 22.686383 H 3.7719488 Z"
+         style="fill:#ffffff;fill-opacity:1"
+         id="mask-powermask-path-effect894_box" />
+      <g
+         transform="matrix(0.79910717,0,0,0.79910717,2.6576442,2.6576442)"
+         style="stroke-width:1.25139"
+         id="g892">
+        <g
+           style="stroke-width:1.25139"
+           id="g878">
+          <circle
+             d="M 9.1568919,9.3106375 A 1.1156894,1.1156894 0 0 1 8.0412025,10.426327 1.1156894,1.1156894 0 0 1 6.9255131,9.3106375 1.1156894,1.1156894 0 0 1 8.0412025,8.1949481 1.1156894,1.1156894 0 0 1 9.1568919,9.3106375"
+             r="1.1156894"
+             cy="9.3106375"
+             cx="8.0412025"
+             id="circle874"
+             style="color:#000000;overflow:visible;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.6488;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             id="path876"
+             d="M 11.434679,9.3106382 H 18.474485"
+             style="color:#000000;overflow:visible;fill:none;stroke:#000000;stroke-width:1.98659;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+        <g
+           style="stroke-width:1.25139"
+           id="g884">
+          <circle
+             d="M 9.1568919,13.229166 A 1.1156894,1.1156894 0 0 1 8.0412025,14.344855 1.1156894,1.1156894 0 0 1 6.9255131,13.229166 1.1156894,1.1156894 0 0 1 8.0412025,12.113477 1.1156894,1.1156894 0 0 1 9.1568919,13.229166"
+             r="1.1156894"
+             cy="13.229166"
+             cx="8.0412025"
+             id="circle880"
+             style="color:#000000;overflow:visible;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.6488;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             id="path882"
+             d="M 11.434679,13.229167 H 18.474485"
+             style="color:#000000;overflow:visible;fill:none;stroke:#000000;stroke-width:1.98659;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+        <g
+           style="stroke-width:1.25139"
+           id="g890">
+          <circle
+             d="M 9.1568919,17.147696 A 1.1156894,1.1156894 0 0 1 8.0412025,18.263385 1.1156894,1.1156894 0 0 1 6.9255131,17.147696 1.1156894,1.1156894 0 0 1 8.0412025,16.032006 1.1156894,1.1156894 0 0 1 9.1568919,17.147696"
+             style="color:#000000;overflow:visible;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.6488;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             id="circle886"
+             cx="8.0412025"
+             cy="17.147696"
+             r="1.1156894" />
+          <path
+             style="color:#000000;overflow:visible;fill:none;stroke:#000000;stroke-width:1.98659;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="M 11.434679,17.147696 H 18.474485"
+             id="path888" />
+        </g>
+      </g>
+    </mask>
+    <filter
+       y="-50"
+       x="-50"
+       width="100"
+       height="100"
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="filtermask-powermask-path-effect894"
+       id="mask-powermask-path-effect894_inverse">
+      <feColorMatrix
+         result="fbSourceGraphic"
+         type="saturate"
+         values="1"
+         id="mask-powermask-path-effect894_primitive1" />
+      <feColorMatrix
+         in="fbSourceGraphic"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         id="mask-powermask-path-effect894_primitive2" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     borderlayer="true"
+     inkscape:showpageshadow="false"
+     inkscape:pagecheckerboard="true"
+     width="100px"
+     units="px"
+     inkscape:snap-global="true"
+     inkscape:snap-bbox="false"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="560"
+     inkscape:cx="400"
+     inkscape:zoom="0.35"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <circle
+       d="M 21.686383,13.229166 A 8.4572172,8.4572172 0 0 1 13.229166,21.686383 8.4572172,8.4572172 0 0 1 4.7719488,13.229166 8.4572172,8.4572172 0 0 1 13.229166,4.7719488 8.4572172,8.4572172 0 0 1 21.686383,13.229166"
+       sodipodi:ry="8.4572172"
+       sodipodi:rx="8.4572172"
+       sodipodi:cy="13.229166"
+       sodipodi:cx="13.229166"
+       sodipodi:type="arc"
+       inkscape:path-effect="#path-effect894"
+       style="color:#000000;overflow:visible;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.69145;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="icon"
+       mask="url(#mask-powermask-path-effect894)"
+       transform="matrix(1.2513966,0,0,1.2513966,-3.3257669,-3.3257669)" />
+  </g>
+  <inkscape:templateinfo>
+    <inkscape:name>square-icon-100px</inkscape:name>
+    <inkscape:author>Ernest Gu</inkscape:author>
+    <inkscape:date>2020-08-13</inkscape:date>
+  </inkscape:templateinfo>
+</svg>

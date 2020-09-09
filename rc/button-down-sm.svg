@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="100"
+   viewBox="0 0 26.458333 26.458333"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="button-down-sm.svg"
+   inkscape:export-filename="button-down-sm.png"
+   inkscape:export-xdpi="61.439999"
+   inkscape:export-ydpi="61.439999">
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-fillet"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,1,1,0,2.5,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,1,1,0,2.5,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,1,1,0,2.5,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 | F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="2.5"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="true"
+       hide_knots="false" />
+  </defs>
+  <sodipodi:namedview
+     borderlayer="true"
+     inkscape:showpageshadow="false"
+     inkscape:pagecheckerboard="true"
+     width="100px"
+     units="px"
+     inkscape:snap-global="true"
+     inkscape:snap-bbox="true"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="560"
+     inkscape:cx="400"
+     inkscape:zoom="0.35"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:snap-bbox-midpoints="true" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       id="icon"
+       style="color:#000000;overflow:visible;fill:#ffffff;stroke-width:1.05833;stroke-linecap:round;stroke-linejoin:round"
+       d="M 11.951169,23.068087 10.032919,19.842994 3.6404262,9.0954949 1.7221767,5.8704021 A 1.4218224,1.4218224 119.62814 0 1 2.9441797,3.7217459 H 6.836673 19.621659 23.514153 A 1.4218223,1.4218223 60.371859 0 1 24.736156,5.8704021 L 22.817906,9.0954949 16.425412,19.842994 14.507163,23.068087 A 1.4869724,1.4869724 180 0 1 11.951169,23.068087 Z M 13.229166,14.436174 C 15.243811,14.436174 16.877089,12.802896 16.877089,10.78825 16.877089,8.7736049 15.243811,7.1403259 13.229166,7.1403259 11.21452,7.1403259 9.5812432,8.7736049 9.5812432,10.78825 9.5812432,12.802896 11.21452,14.436174 13.229166,14.436174 Z"
+       sodipodi:nodetypes="cccccccccczzzzz"
+       inkscape:path-effect="#path-fillet"
+       inkscape:original-d="M 13.229166,25.216743 10.032919,19.842994 3.6404262,9.0954949 0.44417966,3.7217459 H 6.836673 19.621659 26.014153 L 22.817906,9.0954949 C 20.687074,12.677995 18.556243,16.260496 16.425412,19.842994 Z M 13.229166,14.436174 C 15.243811,14.436174 16.877089,12.802896 16.877089,10.78825 16.877089,8.7736049 15.243811,7.1403259 13.229166,7.1403259 11.21452,7.1403259 9.5812432,8.7736049 9.5812432,10.78825 9.5812432,12.802896 11.21452,14.436174 13.229166,14.436174 Z" />
+  </g>
+  <inkscape:templateinfo>
+    <inkscape:name>square-icon-100px</inkscape:name>
+    <inkscape:author>Ernest Gu</inkscape:author>
+    <inkscape:date>2020-08-13</inkscape:date>
+  </inkscape:templateinfo>
+</svg>
