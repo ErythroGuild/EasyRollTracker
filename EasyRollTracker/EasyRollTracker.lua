@@ -513,6 +513,10 @@ function eRollTracker_ClearAll()
 		ClearItem()
 	end
 
+	if EasyRollTrackerDB.options.exportOnClear then
+		eRollTracker_ExportLogs()
+	end
+
 	eRollTrackerFrame_Scroll_Layout_PadBottom:SetPoint("TOP", eRollTrackerFrame_Scroll_Layout_PadTop, "BOTTOM")
 
 	eRollTracker.pools.heading:ReleaseAll()
