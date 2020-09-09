@@ -12,6 +12,7 @@ local LibWindow = LibStub("LibWindow-1.1")
 -- Member Variables --
 ----------------------
 eRollTracker.wasMainWindowShown = false	-- whether main window should be shown after closing options window
+eRollTracker.isAutoClosing = false		-- whether roll will be closed automatically
 eRollTracker.item = ""		-- this should be a valid itemLink
 eRollTracker.isOpen = false	-- if an item is currently being rolled for
 eRollTracker.entries = {}	-- list of current roll (sorted) entries
@@ -498,10 +499,20 @@ function eRollTracker_OpenRoll()
 	heading:Show()
 	ScrollAppend(heading)
 	eRollTracker.entries = { heading }
+
+	if EasyRollTrackerDB.options.autoCloseRoll then
+		eRollTracker.isAutoClosing = true
+		C_Timer.After(EasyRollTrackerDB.options.autoCloseDelay, function()
+			if eRollTracker.isAutoClosing then
+				eRollTracker_CloseRoll()
+			end
+		end)
+	end
 end
 
 function eRollTracker_CloseRoll()
 	eRollTracker.isOpen = false
+	eRollTracker.isAutoClosing = false;
 	
 	local itemstring = eRollTracker.item
 	local _, itemLink = GetItemInfo(eRollTracker.item)
