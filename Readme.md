@@ -38,13 +38,14 @@ limits (need to send inspect request and be in range)
 
 - Slash command (`/rt`) interface
 - Minimap button for quick access
-- Displaying spec and role icon
+- Displaying spec and role indicators
 - Formatting names with class color
 - Highlighting out-of-bounds rolls
 - Drag-and-drop or shift-click items
 - Items can be dragged onto editbox
 - Parses valid plaintext to itemlinks
 - Tooltip preview of items
+- Export logs of all items/rolls onscreen
 - Resizable window
 - Maximize by double-clicking titlebar / resize handle
 
