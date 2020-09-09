@@ -1,6 +1,8 @@
 if eRollTracker == nil then eRollTracker = {} end
 if eRollTracker.ext == nil then eRollTracker.ext = {} end
 
+local LibDBIcon	= LibStub("LibDBIcon-1.0")
+
 function eRollTrackerFrame_Options_OnShow(self)
 	self:ClearAllPoints()
 	self:SetPoint("CENTER", eRollTrackerFrame)
@@ -39,6 +41,12 @@ function eRollTrackerFrame_Options_OnAccept(self, button, down)
 	EasyRollTrackerDB.options.autoCloseRoll = window.autoCloseRoll:GetChecked()
 	EasyRollTrackerDB.options.autoCloseDelay = window.autoCloseDelay.editbox:GetNumber()
 	EasyRollTrackerDB.options.exportOnClear = window.exportOnClear:GetChecked()
+
+	if EasyRollTrackerDB.ldbicon.hide then
+		LibDBIcon:Hide("Easy Roll Tracker Icon")
+	else
+		LibDBIcon:Show("Easy Roll Tracker Icon")
+	end
 
 	window:Hide()
 end
