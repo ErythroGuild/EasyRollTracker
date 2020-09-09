@@ -211,7 +211,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-up.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+							<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
 						</Texture>
 					</Layer>
 				</Layers>
@@ -226,7 +226,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-down.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+							<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
 						</Texture>
 					</Layer>
 				</Layers>
@@ -243,7 +243,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-settings.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+							<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
 						</Texture>
 					</Layer>
 				</Layers>
@@ -259,7 +259,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-logs.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+							<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
 						</Texture>
 					</Layer>
 				</Layers>
