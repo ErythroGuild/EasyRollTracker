@@ -11,6 +11,7 @@ local LibWindow = LibStub("LibWindow-1.1")
 ----------------------
 -- Member Variables --
 ----------------------
+eRollTracker.wasMainWindowShown = false	-- whether main window should be shown after closing options window
 eRollTracker.item = ""		-- this should be a valid itemLink
 eRollTracker.isOpen = false	-- if an item is currently being rolled for
 eRollTracker.entries = {}	-- list of current roll (sorted) entries
@@ -347,20 +348,18 @@ end
 
 -- Open the Interface settings menu to the panel for this AddOn.
 function eRollTracker_ShowOptions()
-	local wasMainWindowShown = eRollTrackerFrame:IsShown()
+	eRollTracker.wasMainWindowShown = eRollTrackerFrame:IsShown()
 	eRollTrackerFrame:Hide()
 	eRollTrackerFrame_Options:HookScript("OnHide", function()
-		if wasMainWindowShown then
+		if eRollTracker.wasMainWindowShown then
 			eRollTrackerFrame:Show()
 		end
 	end)
 	eRollTrackerFrame:HookScript("OnShow", function()
-		wasMainWindowShown = true
-		local frameLevel_main = eRollTrackerFrame:GetFrameLevel()
-		eRollTrackerFrame_Options:SetFrameLevel(frameLevel_main + 1)
-	end)
-	eRollTrackerFrame:HookScript("OnHide", function()
-		wasMainWindowShown = false
+		if eRollTrackerFrame_Options:IsShown() then
+			eRollTracker.wasMainWindowShown = true
+			eRollTrackerFrame:Hide()
+		end
 	end)
 
 	if eRollTrackerFrame_Options:IsShown() == false then
