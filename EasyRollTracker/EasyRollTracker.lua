@@ -593,12 +593,13 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 		local spec = GetSpec(player, entry)
 		local name = ColorizeName(player)
 		local maxnum = tonumber(max)
-		if maxnum == 100 then
+		local threshold = EasyRollTrackerDB.options.maxRollThreshold
+		if maxnum == threshold then
 			max = Colorize(max, const_colortable["gray"])
-		elseif maxnum > 100 then
+		elseif maxnum > threshold then
 			max = Colorize(max, const_colortable["red"])
 			roll = Colorize(roll, const_colortable["red"])
-		elseif maxnum < 100 then
+		elseif maxnum < threshold then
 			max = Colorize(max, const_colortable["darkgray"])
 		end
 
