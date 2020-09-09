@@ -376,7 +376,7 @@ function eRollTracker_ExportLogs()
 			if entry.entryType == "HEADING" then
 				log = log .. entry.item .. "|n"
 			elseif entry.entryType == "SEPARATOR" then
-				log = log .. "|n"
+				log = log .. "--------" .. "|n|n"
 			elseif entry.entryType == "ENTRY" then
 				local name = entry.name:GetText()
 				local roll = entry.roll:GetText()
