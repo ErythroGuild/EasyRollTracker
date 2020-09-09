@@ -4,6 +4,7 @@
 
 	<Frame name="eRollTracker_Template_Separator" virtual="true">
 		<Size x="0" y="20"/>
+		<KeyValues><KeyValue key="entryType" value="SEPARATOR"/></KeyValues>
 		<Layers>
 			<Layer level="OVERLAY">
 				<Line parentKey="line" thickness="2">
@@ -17,6 +18,7 @@
 
 	<Frame name="eRollTracker_Template_Heading" virtual="true">
 		<Size x="180" y="72"/>
+		<KeyValues><KeyValue key="entryType" value="HEADING"/></KeyValues>
 
 		<Scripts>
 			<OnEnter>
@@ -65,6 +67,7 @@
 
 	<Frame name="eRollTracker_Template_Entry" virtual="true" enableMouse="true">
 		<Size x="0" y="24"/>
+		<KeyValues><KeyValue key="entryType" value="ENTRY"/></KeyValues>
 		<Layers>
 			<Layer level="HIGHLIGHT">
 				<Texture setAllPoints="true">

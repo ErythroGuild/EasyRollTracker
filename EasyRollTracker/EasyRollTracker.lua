@@ -118,24 +118,27 @@ local const_spectable = {
 	[  71] = "ARM", [  72] = "FY" , [  73] = "PT" ,
 }
 local function GetSpec(player, entry)
-	local spec = ""
-	local specID = GetInspectSpecialization(player)
-	if specID ~= 0 then
-		spec = const_spectable[specID]
-		spec = ColorizeSpecBW(spec, specID)
-		ColorizeLayerSpec(entry.specBackground, specID)
-	else
-		local GUID = UnitGUID(player)
+	local GUID = UnitGUID(player)
+	if eRollTracker.specqueue[GUID] == nil then
 		eRollTracker.specqueue[GUID] = {
 			["name"] = player,
-			["entry"] = entry,
+			["entry"] = { entry },
 		}
-		if eRollTracker.isInspecting == false then
-			NotifyInspect(player)
-			eRollTracker.isInspecting = true
-		end
+	else
+		table.insert(eRollTracker.specqueue[GUID].entry, entry)
 	end
-	return spec
+	if eRollTracker.isInspecting == false then
+		NotifyInspect(player)
+		eRollTracker.isInspecting = true
+		local function reinspect()
+			if eRollTracker.isInspecting then
+				NotifyInspect(player)
+				C_Timer.After(2.000, reinspect)
+			end
+		end
+		C_Timer.After(2.000, reinspect)
+	end
+	return ""
 end
 
 local function ResetAddonData(isAcceptCallback)
@@ -289,6 +292,7 @@ function eRollTracker_OnLoad(self)
 	self.clickprev = GetTime();
 	
 	self:RegisterForDrag("LeftButton")
+	table.insert(UISpecialFrames, eRollTrackerFrame)
 
 	self:RegisterEvent("ADDON_LOADED")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
@@ -343,6 +347,33 @@ end
 
 -- Open the Interface settings menu to the panel for this AddOn.
 function eRollTracker_ShowOptions()
+end
+
+-- Show the export logs window (fully populated).
+function eRollTracker_ExportLogs()
+	if eRollTrackerFrame_ExportLogs:IsShown() then
+		eRollTrackerFrame_ExportLogs:Hide()
+	end
+	
+	local log = "Exported on: " .. date("%F %T") .. "|n|n"
+	local entries = { eRollTrackerFrame_Scroll_Layout:GetChildren() }
+	for _, entry in pairs(entries) do
+		if entry.entryType ~= nil then
+			if entry.entryType == "HEADING" then
+				log = log .. entry.item .. "|n"
+			elseif entry.entryType == "SEPARATOR" then
+				log = log .. "|n"
+			elseif entry.entryType == "ENTRY" then
+				local name = entry.name:GetText()
+				local roll = entry.roll:GetText()
+				local max  = entry.max:GetText()
+				log = log .. "> " .. name .. ": " .. roll .. "/" .. max .. "|n"
+			end
+		end
+	end
+
+	eRollTrackerFrame_ExportLogs_Scroll_Logs.text = log
+	eRollTrackerFrame_ExportLogs:Show()
 end
 
 -- Use the item data on the cursor to update internal variables.
@@ -494,14 +525,25 @@ function eRollTracker.events:INSPECT_READY(...)
 		local specID = GetInspectSpecialization(player)
 		spec = const_spectable[specID]
 		spec = ColorizeSpecBW(spec, specID)
-		eRollTracker.specqueue[inspecteeGUID].entry.spec:SetText(spec)
-		ColorizeLayerSpec(eRollTracker.specqueue[inspecteeGUID].entry.specBackground, specID)
+
+		for _, entry in pairs(eRollTracker.specqueue[inspecteeGUID].entry) do
+			entry.spec:SetText(spec)
+			ColorizeLayerSpec(entry.specBackground, specID)
+		end
+		
 		eRollTracker.specqueue[inspecteeGUID] = nil
 		ClearInspectPlayer()
 		if #(eRollTracker.specqueue) > 0 then
 			for k,v in pairs(eRollTracker.specqueue) do
 				NotifyInspect(v.name)
 				eRollTracker.isInspecting = true
+				local function reinspect()
+					if eRollTracker.isInspecting then
+						NotifyInspect(player)
+						C_Timer.After(2.000, reinspect)
+					end
+				end
+				C_Timer.After(2.000, reinspect)
 				break
 			end
 		else

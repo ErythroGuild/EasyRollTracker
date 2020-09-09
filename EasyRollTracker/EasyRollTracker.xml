@@ -9,11 +9,11 @@
 		resizable="true"
 		clampedToScreen="true"
 		enableMouse="true">
-		<Size><AbsDimension x="250" y="320"/></Size>
+		<Size x="250" y="320"/>
 		<Anchors><Anchor point="CENTER"/></Anchors>
 		<ResizeBounds>
-			<minResize><AbsDimension x="235" y="220"/></minResize>
-			<maxResize><AbsDimension x="360" y="600"/></maxResize>
+			<minResize x="235" y="220"/>
+			<maxResize x="360" y="600"/>
 		</ResizeBounds>
 		
 		<Scripts>
@@ -196,9 +196,7 @@
 			
 			<Button name="$parent_ButtonClear" text="Clear All" inherits="eRollTracker_Template_Button_Text">
 				<Size x="90" y="24"/>
-				<Anchors>
-					<Anchor point="BOTTOM" y="14"/>
-				</Anchors>
+				<Anchors><Anchor point="BOTTOM" y="14"/></Anchors>
 				<Scripts><OnClick function="eRollTracker_ClearAll"/></Scripts>
 			</Button>
 			
@@ -237,13 +235,29 @@
 				<Size x="24" y="24"/>
 				<Anchors>
 					<Anchor point="BOTTOM" y="14"/>
-					<Anchor point="RIGHT" x="-34"/>
+					<Anchor point="RIGHT" x="-22"/>
 				</Anchors>
 				<Scripts><OnClick function="eRollTracker_ShowOptions"/></Scripts>
 
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-settings.tga">
+							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Button>
+			<Button name="$parent_ButtonLogs" inherits="eRollTracker_Template_Button_Text">
+				<Size x="24" y="24"/>
+				<Anchors>
+					<Anchor point="BOTTOM" y="14"/>
+					<Anchor point="RIGHT" relativeTo="$parent_ButtonSettings" relativePoint="LEFT"/>
+				</Anchors>
+				<Scripts><OnClick function="eRollTracker_ExportLogs"/></Scripts>
+
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-logs.tga">
 							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
 						</Texture>
 					</Layer>
