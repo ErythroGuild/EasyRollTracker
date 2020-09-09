@@ -45,6 +45,7 @@ limits (need to send inspect request and be in range)
 - Items can be dragged onto editbox
 - Parses valid plaintext to itemlinks
 - Tooltip preview of items
+- Export logs of all items/rolls onscreen
 - Resizable window
 - Maximize by double-clicking titlebar / resize handle
 
