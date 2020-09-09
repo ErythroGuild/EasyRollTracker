@@ -11,6 +11,7 @@ local LibWindow = LibStub("LibWindow-1.1")
 ----------------------
 -- Member Variables --
 ----------------------
+eRollTracker.wasMainWindowShown = false	-- whether main window should be shown after closing options window
 eRollTracker.item = ""		-- this should be a valid itemLink
 eRollTracker.isOpen = false	-- if an item is currently being rolled for
 eRollTracker.entries = {}	-- list of current roll (sorted) entries
@@ -149,6 +150,13 @@ local function ResetAddonData(isAcceptCallback)
 		eRollTracker_ClearAll()
 	
 		EasyRollTrackerDB = {
+			options = {
+				maxRollThreshold = 100,
+				onlyAllowValidItems = true,
+				autoCloseRoll = false,
+				autoCloseDelay = 150,
+				exportOnClear = false,
+			},
 			unmaximize = { width = 250, height = 320 },
 			libwindow = {},
 			ldbicon = { hide = false },
@@ -292,7 +300,7 @@ function eRollTracker_OnLoad(self)
 	self.clickprev = GetTime();
 	
 	self:RegisterForDrag("LeftButton")
-	table.insert(UISpecialFrames, eRollTrackerFrame)
+	table.insert(UISpecialFrames, "eRollTrackerFrame")
 
 	self:RegisterEvent("ADDON_LOADED")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
@@ -347,6 +355,23 @@ end
 
 -- Open the Interface settings menu to the panel for this AddOn.
 function eRollTracker_ShowOptions()
+	eRollTracker.wasMainWindowShown = eRollTrackerFrame:IsShown()
+	eRollTrackerFrame:Hide()
+	eRollTrackerFrame_Options:HookScript("OnHide", function()
+		if eRollTracker.wasMainWindowShown then
+			eRollTrackerFrame:Show()
+		end
+	end)
+	eRollTrackerFrame:HookScript("OnShow", function()
+		if eRollTrackerFrame_Options:IsShown() then
+			eRollTracker.wasMainWindowShown = true
+			eRollTrackerFrame:Hide()
+		end
+	end)
+
+	if eRollTrackerFrame_Options:IsShown() == false then
+		eRollTrackerFrame_Options:Show()
+	end
 end
 
 -- Show the export logs window (fully populated).
@@ -362,7 +387,7 @@ function eRollTracker_ExportLogs()
 			if entry.entryType == "HEADING" then
 				log = log .. entry.item .. "|n"
 			elseif entry.entryType == "SEPARATOR" then
-				log = log .. "|n"
+				log = log .. "--------" .. "|n|n"
 			elseif entry.entryType == "ENTRY" then
 				local name = entry.name:GetText()
 				local roll = entry.roll:GetText()
@@ -374,6 +399,9 @@ function eRollTracker_ExportLogs()
 
 	eRollTrackerFrame_ExportLogs_Scroll_Logs.text = log
 	eRollTrackerFrame_ExportLogs:Show()
+	if eRollTrackerFrame:IsShown() == false then
+		eRollTrackerFrame:Show()
+	end
 end
 
 -- Use the item data on the cursor to update internal variables.
@@ -586,6 +614,26 @@ end
 function eRollTracker.events:ADDON_LOADED(...)
 	local addonName = ...
 	if addonName == "EasyRollTracker" then
+		-- Default options
+		if EasyRollTrackerDB.options == nil then
+			EasyRollTrackerDB.options = {}
+		end
+		if EasyRollTrackerDB.options.maxRollThreshold == nil then
+			EasyRollTrackerDB.options.maxRollThreshold = 100
+		end
+		if EasyRollTrackerDB.options.onlyAllowValidItems == nil then
+			EasyRollTrackerDB.options.onlyAllowValidItems = true
+		end
+		if EasyRollTrackerDB.options.autoCloseRoll == nil then
+			EasyRollTrackerDB.options.autoCloseRoll = false
+		end
+		if EasyRollTrackerDB.options.autoCloseDelay == nil then
+			EasyRollTrackerDB.options.autoCloseDelay = 150
+		end
+		if EasyRollTrackerDB.options.exportOnClear == nil then
+			EasyRollTrackerDB.options.exportOnClear = false
+		end
+
 		-- LibWindow: resolution-independent positioning
 		-- Registration needs to happen after addon loads,
 		-- otherwise XML frames aren't defined yet.

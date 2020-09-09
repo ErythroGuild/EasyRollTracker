@@ -47,8 +47,9 @@
 
 		<Frames>
 			<Button name="$parent_ButtonClose">
-				<Size x="20" y="20"/>
-				<Anchors><Anchor point="TOPRIGHT" x="-6" y="-6"/></Anchors>
+				<Size x="16" y="16"/>
+				<Anchors><Anchor point="TOPRIGHT" x="-4" y="-4"/></Anchors>
+				<HitRectInsets left= "-2" right="-2" top="-2" bottom="-2"/>
 
 				<Scripts><OnClick>eRollTrackerFrame:Hide();</OnClick></Scripts>
 
@@ -210,7 +211,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-up.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+							<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
 						</Texture>
 					</Layer>
 				</Layers>
@@ -225,7 +226,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-down.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+							<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
 						</Texture>
 					</Layer>
 				</Layers>
@@ -242,7 +243,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-settings.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+							<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
 						</Texture>
 					</Layer>
 				</Layers>
@@ -258,7 +259,7 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<Texture setAllPoints="true" file="Interface/AddOns/EasyRollTracker/rc/button-logs.tga">
-							<Color r="0.85" g="0.85" b="0.85" a="1.00"/>
+							<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
 						</Texture>
 					</Layer>
 				</Layers>

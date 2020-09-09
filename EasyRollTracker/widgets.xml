@@ -16,6 +16,43 @@
 			<Color r="0.80" g="0.80" b="0.80" a="0.40"/>
 		</HighlightTexture>
 	</Button>
+	
+	<CheckButton name="eRollTracker_Template_Checkbox" virtual="true">
+		<Size x="18" y="18"/>
+
+		<Frames>
+			<Frame setAllPoints="true">
+				<Scripts>
+					<OnShow>
+						self:SetPoint("LEFT", self:GetParent(), "RIGHT", 2, 0);
+						self:SetPoint("RIGHT", self:GetParent().label, "RIGHT", 2, 0);
+					</OnShow>
+					<OnMouseDown>
+						self:GetParent():Click();
+					</OnMouseDown>
+				</Scripts>
+			</Frame>
+		</Frames>
+
+		<NormalFont style="GameFontNormal"/>
+		<PushedTextOffset x="0" y="0"/>
+		<ButtonText parentKey="label">
+			<Anchors><Anchor point="LEFT" relativePoint="RIGHT" x="4"/></Anchors>
+		</ButtonText>
+
+		<NormalTexture setAllPoints="true">
+			<Color r="0.05" g="0.05" b="0.05" a="0.80"/>
+		</NormalTexture>
+		<PushedTexture setAllPoints="true">
+			<Color r="0.10" g="0.25" b="0.35" a="1.00"/>
+		</PushedTexture>
+		<HighlightTexture setAllPoints="true" alphaMode="ADD">
+			<Color r="0.80" g="0.80" b="0.80" a="0.40"/>
+		</HighlightTexture>
+		<CheckedTexture setAllPoints="true" file="Interface\AddOns\EasyRollTracker\rc\checkbox-checked.tga">
+			<Color r="1.00" g="0.82" b="0.00" a="1.00"/>
+		</CheckedTexture>
+	</CheckButton>
 
 	<EditBox name="eRollTracker_Template_EditBox" virtual="true"
 		autoFocus="false"

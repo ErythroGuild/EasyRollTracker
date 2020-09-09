@@ -13,12 +13,27 @@
    viewBox="0 0 26.458333 26.458333"
    height="100"
    width="100"
-   sodipodi:docname="button-close.svg"
-   inkscape:export-filename="button-close.png"
+   sodipodi:docname="checkbox-checked.svg"
+   inkscape:export-filename="checkbox-checked.png"
    inkscape:export-xdpi="61.439999"
    inkscape:export-ydpi="61.439999">
   <defs
-     id="defs2" />
+     id="defs2">
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect835"
+       is_visible="true"
+       lpeversion="1"
+       offset_points="0.2,0.79374999 | 1,0.79374999 | 1.3064081,1.2134543"
+       sort_points="true"
+       interpolator_type="CentripetalCatmullRom"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       linejoin_type="round"
+       miter_limit="4"
+       scale_width="1"
+       end_linecap_type="zerowidth" />
+  </defs>
   <sodipodi:namedview
      borderlayer="true"
      inkscape:showpageshadow="false"
@@ -26,7 +41,7 @@
      width="100px"
      units="px"
      inkscape:snap-global="true"
-     inkscape:snap-bbox="false"
+     inkscape:snap-bbox="true"
      showgrid="false"
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
@@ -39,7 +54,9 @@
      borderopacity="1.0"
      bordercolor="#666666"
      pagecolor="#ffffff"
-     id="base" />
+     id="base"
+     inkscape:snap-page="true"
+     inkscape:bbox-nodes="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -48,7 +65,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,17 +73,18 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
-    <g
-       id="icon">
-      <path
-         id="path1"
-         d="M 5.8208333,5.8208075 20.6375,20.637526"
-         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:6.35;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         style="color:#000000;overflow:visible;fill:none;stroke:#ffffff;stroke-width:6.35;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="M 20.6375,5.8208074 5.8208333,20.637526"
-         id="path2" />
-    </g>
+    <rect
+       y="0"
+       x="0"
+       height="26.458332"
+       width="26.458332"
+       id="rect832"
+       style="color:#000000;overflow:visible;fill:#0d0d0d;stroke:none;stroke-width:6.35;stroke-linecap:round;stroke-linejoin:round;fill-opacity:0.80000001" />
+    <path
+       style="color:#000000;overflow:visible;fill:none;fill-rule:nonzero;stroke:#ffffff;stroke-width:5.29167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 3.96875,17.661047 C 6.7248548,18.993555 9.2307513,20.659675 11.613699,22.489732 14.370317,16.264972 17.626514,10.069601 22.489583,3.9687512"
+       id="icon"
+       sodipodi:nodetypes="ccc" />
   </g>
   <inkscape:templateinfo>
     <inkscape:name>square-icon-100px</inkscape:name>

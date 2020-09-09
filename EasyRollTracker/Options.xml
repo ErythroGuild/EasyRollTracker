@@ -1,0 +1,170 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	
+	<Frame name="eRollTrackerFrame_Options" parent="UIParent"
+		hidden="true"
+		frameStrata="HIGH"
+		movable="true"
+		clampedToScreen="true"
+		enableMouse="true">
+		<Size x="380" y="220"/>
+		<Anchors><Anchor point="CENTER"/></Anchors>
+
+		<Scripts>
+			<OnLoad>self:RegisterForDrag("LeftButton");</OnLoad>
+			<OnShow function="eRollTrackerFrame_Options_OnShow"/>
+			<OnDragStart method="StartMoving"/>
+			<OnDragStop method="StopMovingOrSizing"/>
+		</Scripts>
+
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<Color r="0.05" g="0.05" b="0.05" a="0.70"/>
+				</Texture>
+				<FontString name="$parent_Title" inherits="GameFontNormal"
+					parentKey="title"
+					text="Easy Roll Tracker Options">
+					<Anchors><Anchor point="TOP" y="-8"/></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<Frames>
+			<Button name="$parent_ButtonClose">
+				<Size x="16" y="16"/>
+				<Anchors><Anchor point="TOPRIGHT" x="-4" y="-4"/></Anchors>
+				<HitRectInsets left= "-2" right="-2" top="-2" bottom="-2"/>
+
+				<Scripts><OnClick>self:GetParent():Hide();</OnClick></Scripts>
+
+				<NormalTexture file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.85" g="0.85" b="0.85" a="0.90"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.59" g="0.01" b="0.01" a="1.00"/>
+				</PushedTexture>
+				<HighlightTexture alphaMode="BLEND" file="Interface\AddOns\EasyRollTracker\rc\button-close.tga">
+					<Color r="0.99" g="0.21" b="0.21" a="0.40"/>
+				</HighlightTexture>
+				<!-- HSL: (0, 97%, 60%) -> (0, 97%, 30%) -->
+			</Button>
+			
+			<Button name="$parent_ButtonApply" text="Apply" inherits="eRollTracker_Template_Button_Text">
+				<Size x="80" y="24"/>
+				<Anchors>
+					<Anchor point="BOTTOM" y="8"/>
+					<Anchor point="RIGHT" x="-12"/>
+				</Anchors>
+				<Scripts><OnClick function="eRollTrackerFrame_Options_OnAccept"/></Scripts>
+			</Button>
+			<Button name="$parent_ButtonCancel" text="Cancel" inherits="eRollTracker_Template_Button_Text">
+				<Size x="80" y="24"/>
+				<Anchors>
+					<Anchor point="BOTTOM" y="8"/>
+					<Anchor point="RIGHT" relativeTo="$parent_ButtonApply" relativePoint="LEFT" x="-4"/>
+				</Anchors>
+				<Scripts><OnClick>self:GetParent():Hide();</OnClick></Scripts>
+			</Button>
+			<Button name="$parent_ButtonDefaults" text="Defaults" inherits="eRollTracker_Template_Button_Text">
+				<Size x="80" y="24"/>
+				<Anchors>
+					<Anchor point="BOTTOM" y="8"/>
+					<Anchor point="LEFT" x="12"/>
+				</Anchors>
+				<Scripts><OnClick function="eRollTrackerFrame_Options_SetDefaults"/></Scripts>
+			</Button>
+
+			<CheckButton name="$parent_ShowMinimapButton" inherits="eRollTracker_Template_Checkbox"
+				parentKey="showMinimapButton"
+				text="Show minimap button">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parent_Title" relativePoint="BOTTOM" y="-12"/>
+					<Anchor point="LEFT" x="28"/>
+				</Anchors>
+			</CheckButton>
+			<Frame name="$parent_MaxRollThreshold"
+				parentKey="maxRollThreshold">
+				<Size x="1" y="18"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent_ShowMinimapButton" relativePoint="BOTTOMLEFT" y="-6"/>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parent_Label" inherits="GameFontNormal"
+							text="Default roll threshold:">
+							<Anchors><Anchor point="LEFT" x="4"/></Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<EditBox name="$parent_EditBox" inherits="eRollTracker_Template_EditBox"
+						parentKey="editbox"
+						numeric="true">
+						<Size x="55" y="18"/>
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parent_Label" relativePoint="RIGHT" x="6"/>
+						</Anchors>
+					</EditBox>
+				</Frames>
+			</Frame>
+			<CheckButton name="$parent_OnlyAllowValidItems" inherits="eRollTracker_Template_Checkbox"
+				parentKey="onlyAllowValidItems"
+				text="Only allow rolling for valid itemlinks">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent_MaxRollThreshold" relativePoint="BOTTOMLEFT" y="-6"/>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="$parent_AutoCloseRoll" inherits="eRollTracker_Template_Checkbox"
+				parentKey="autoCloseRoll"
+				text="Automatically close rolls after a set delay">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent_OnlyAllowValidItems" relativePoint="BOTTOMLEFT" y="-6"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							self:GetParent().autoCloseDelay:SetAlpha(1.0);
+						else
+							self:GetParent().autoCloseDelay:SetAlpha(0.4);
+						end
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<Frame name="$parent_AutoCloseDelay"
+				parentKey="autoCloseDelay"
+				alpha="0.4">
+				<Size x="1" y="18"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent_AutoCloseRoll" relativePoint="BOTTOMLEFT" y="-6"/>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parent_Label" inherits="GameFontNormal"
+							text="Seconds to keep rolls open for:">
+							<Anchors><Anchor point="LEFT" x="36"/></Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<EditBox name="$parent_EditBox" inherits="eRollTracker_Template_EditBox"
+						parentKey="editbox"
+						numeric="true">
+						<Size x="55" y="18"/>
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parent_Label" relativePoint="RIGHT" x="6"/>
+						</Anchors>
+					</EditBox>
+				</Frames>
+			</Frame>
+			<CheckButton name="$parent_ExportOnClear" inherits="eRollTracker_Template_Checkbox"
+				parentKey="exportOnClear"
+				text="Automatically export logs when clearing history">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent_AutoCloseDelay" relativePoint="BOTTOMLEFT" y="-6"/>
+				</Anchors>
+			</CheckButton>
+		</Frames>
+	</Frame>
+</Ui>
