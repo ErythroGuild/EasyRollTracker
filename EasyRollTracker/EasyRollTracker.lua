@@ -496,7 +496,15 @@ function eRollTracker_OpenRoll()
 		itemstring = itemLink
 	end
 	local message = "Roll for " .. itemstring
-	SendChatMessage(message, "RAID_WARNING")
+	local channel = ""
+	if IsInRaid() then
+		channel = "RAID_WARNING"
+	elseif IsInGroup() then
+		channel = "PARTY"
+	else
+		channel = "SAY"
+	end
+	SendChatMessage(message, channel)
 	
 	ChatThrottleLib:SendAddonMessage("ALERT", "eRollTrack", "<v1>H:" .. eRollTracker.item, "RAID")
 
@@ -527,7 +535,15 @@ function eRollTracker_CloseRoll()
 		itemstring = itemLink
 	end
 	local message = "Closed roll for " .. itemstring
-	SendChatMessage(message, "RAID_WARNING")
+	local channel = ""
+	if IsInRaid() then
+		channel = "RAID_WARNING"
+	elseif IsInGroup() then
+		channel = "PARTY"
+	else
+		channel = "SAY"
+	end
+	SendChatMessage(message, channel)
 
 	ChatThrottleLib:SendAddonMessage("ALERT", "eRollTrack", "<v1>S:", "RAID")
 
