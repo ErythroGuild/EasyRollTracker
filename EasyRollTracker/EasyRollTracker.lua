@@ -594,8 +594,12 @@ end
 -- Event: CHAT_MSG_ADDON
 function eRollTracker.events:CHAT_MSG_ADDON(...)
 	local prefix, text, channel, sender, target, zoneChannelID, localID, name, instanceID = ...
-	local name_self = UnitName("player")
-	local isSelf = (sender == name_self)
+	local self_name, self_realm = UnitFullName("player")
+	local self_str = self_name .. "-" .. self_realm
+	local isSelf = (sender == self_str)
+	print(sender)
+	print(self_str)
+	print(isSelf)
 	local isAssist = false
 	if UnitIsSameServer(sender) then
 		local regex_find_name = "([^%-]+)%-.+"
