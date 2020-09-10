@@ -5,7 +5,7 @@ with many convenience features. Open the tracking window
 with `/rt` or `/rolltrack`.
 
 **Feedback, suggestions, and criticism are welcome!**
-Open a [new GitHub issue][5] for the fastest response,
+Open a [new GitHub issue][6] for the fastest response,
 but comments in other places will get to me eventually.
 
 ### Limitations
@@ -21,6 +21,7 @@ limits (need to send inspect request and be in range)
 - Listing and sorting all `/roll` results in group
 - Tracking the number rolled out of
 - Announcing loot rolls to group as `/rw`
+- A variety of customizable options
 
 ### Commands
 
@@ -44,8 +45,11 @@ limits (need to send inspect request and be in range)
 - Drag-and-drop or shift-click items
 - Items can be dragged onto editbox
 - Parses valid plaintext to itemlinks
+- Option to only allow valid itemlinks
 - Tooltip preview of items
+- Option to automatically close rolls after a delay
 - Export logs of all items/rolls onscreen
+- Option to auto-export when history is cleared
 - Resizable window
 - Maximize by double-clicking titlebar / resize handle
 
@@ -53,13 +57,16 @@ limits (need to send inspect request and be in range)
 
 *Download the latest release from GitHub [here][2].*
 
-*Screenshots (including historical versions) hosted*
-*on Imgur [here][3].*
+*A roadmap for future releases can be found [here][3].*
 
-*Latest CurseForge screenshots are [here][4].*
+*Screenshots (including historical versions) hosted*
+*on Imgur [here][4].*
+
+*Latest CurseForge screenshots are [here][5].*
 
 [1]: https://www.curseforge.com/wow/addons/easy-roll-tracker
 [2]: https://github.com/ErythroGuild/EasyRollTracker/releases/latest
-[3]: https://imgur.com/a/AZu9CpG
-[4]: https://www.curseforge.com/wow/addons/easy-roll-tracker/screenshots
-[5]: https://github.com/ErythroGuild/EasyRollTracker/issues/new
+[3]: https://github.com/ErythroGuild/EasyRollTracker/milestones
+[4]: https://imgur.com/a/AZu9CpG
+[5]: https://www.curseforge.com/wow/addons/easy-roll-tracker/screenshots
+[6]: https://github.com/ErythroGuild/EasyRollTracker/issues/new
