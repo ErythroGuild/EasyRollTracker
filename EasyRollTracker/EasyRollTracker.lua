@@ -684,7 +684,6 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 	local text = ...
 	local isRoll, player, roll, max = ParseRollText(text)
 	if isRoll then
-		print("ping")
 		local entry = eRollTracker.pools.entry:Acquire()
 		ResetEntry(entry)
 
@@ -714,6 +713,10 @@ end
 function eRollTracker.events:ADDON_LOADED(...)
 	local addonName = ...
 	if addonName == "EasyRollTracker" then
+		if EasyRollTrackerDB == nil then
+			EasyRollTrackerDB = {}
+		end
+
 		-- Default options
 		if EasyRollTrackerDB.options == nil then
 			EasyRollTrackerDB.options = {}
