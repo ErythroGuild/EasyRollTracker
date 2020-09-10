@@ -88,7 +88,7 @@ local function ParseRollText(text)
 		return false
 	else
 		local _,_, name, roll, max =
-		string.find(text, regex_find_data)
+			string.find(text, regex_find_data)
 		return true, name, roll, max
 	end
 end
@@ -313,7 +313,12 @@ function eRollTracker_OnLoad(self)
 	self:RegisterForDrag("LeftButton")
 	table.insert(UISpecialFrames, "eRollTrackerFrame")
 
+	C_ChatInfo.RegisterAddonMessagePrefix("eRollTrack")
+
 	self:RegisterEvent("ADDON_LOADED")
+	self:RegisterEvent("RAID_ROSTER_UPDATE")
+	self:RegisterEvent("GROUP_ROSTER_UPDATE")
+	self:RegisterEvent("CHAT_MSG_ADDON")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
 	self:RegisterEvent("INSPECT_READY")
 end
@@ -492,6 +497,8 @@ function eRollTracker_OpenRoll()
 	end
 	local message = "Roll for " .. itemstring
 	SendChatMessage(message, "RAID_WARNING")
+	
+	ChatThrottleLib:SendAddonMessage("ALERT", "eRollTrack", "<v1>H:" .. eRollTracker.item, "RAID")
 
 	local heading = eRollTracker.pools.heading:Acquire()
 	ResetHeading(heading)
@@ -521,6 +528,8 @@ function eRollTracker_CloseRoll()
 	end
 	local message = "Closed roll for " .. itemstring
 	SendChatMessage(message, "RAID_WARNING")
+
+	ChatThrottleLib:SendAddonMessage("ALERT", "eRollTrack", "<v1>S:", "RAID")
 
 	local separator = eRollTracker.pools.separator:Acquire()
 	ResetSeparator(separator)
@@ -572,6 +581,65 @@ function eRollTrackerFrame_OnEvent(self, event, ...)
 	eRollTracker.events[event](self, ...)
 end
 
+-- Event: RAID_/GROUP_ROSTER_UPDATE
+-- Updates the button status
+-- (whether or not a client can broadcast roll alerts).
+function eRollTracker.events:RAID_ROSTER_UPDATE()
+	-- print("raid roster update")
+end
+function eRollTracker.events:GROUP_ROSTER_UPDATE()
+	-- print("group roster update")
+end
+
+-- Event: CHAT_MSG_ADDON
+function eRollTracker.events:CHAT_MSG_ADDON(...)
+	local prefix, text, channel, sender, target, zoneChannelID, localID, name, instanceID = ...
+	local name_self = UnitName("player")
+	local isSelf = (sender == name_self)
+	local isAssist = false
+	if UnitIsSameServer(sender) then
+		local regex_find_name = "([^%-]+)%-.+"
+		local _,_, name = string.find(sender, regex_find_name)
+		sender = name
+	end
+	if IsInRaid() then
+		isAssist = (UnitIsGroupAssistant(sender) or UnitIsGroupLeader(sender))
+	elseif IsInGroup() then
+		isAssist = UnitIsGroupLeader(sender)
+	else
+		isAssist = true
+	end
+	if (prefix == "eRollTrack") and (not isSelf) and isAssist then
+		local regex_find_comm = "^<v(%d+)>([HS]):(.*)"
+		local _,_, version, type, data =
+			string.find(text, regex_find_comm)
+		if version == "1" then
+			if type == "S" then
+				eRollTracker.isOpen = false
+
+				local separator = eRollTracker.pools.separator:Acquire()
+				ResetSeparator(separator)
+				InitSeparator(separator)
+				separator:Show()
+				ScrollAppend(separator)
+				eRollTracker.entries = { separator }
+			
+				ClearItem()
+			elseif type == "H" then
+				eRollTracker.isOpen = true
+				eRollTracker.item = data
+
+				local heading = eRollTracker.pools.heading:Acquire()
+				ResetHeading(heading)
+				InitHeading(heading, eRollTracker.item)
+				heading:Show()
+				ScrollAppend(heading)
+				eRollTracker.entries = { heading }
+			end
+		end
+	end
+end
+
 -- Event: INSPECT_READY
 -- Updates any spec info that still needs to be filled in.
 function eRollTracker.events:INSPECT_READY(...)
@@ -616,6 +684,7 @@ function eRollTracker.events:CHAT_MSG_SYSTEM(...)
 	local text = ...
 	local isRoll, player, roll, max = ParseRollText(text)
 	if isRoll then
+		print("ping")
 		local entry = eRollTracker.pools.entry:Acquire()
 		ResetEntry(entry)
 
