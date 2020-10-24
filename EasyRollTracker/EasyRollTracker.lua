@@ -313,12 +313,16 @@ function eRollTracker_OnLoad(self)
 	self:RegisterForDrag("LeftButton")
 	table.insert(UISpecialFrames, "eRollTrackerFrame")
 
-	C_ChatInfo.RegisterAddonMessagePrefix("eRollTrack")
+	local addon_registered = C_ChatInfo.RegisterAddonMessagePrefix("eRollTrack")
+	if addon_registered == false then
+		StaticPopup_Show("EASYROLLTRACKER_CHATPREFIXFULL")
+	else
+		self:RegisterEvent("CHAT_MSG_ADDON")
+	end
 
 	self:RegisterEvent("ADDON_LOADED")
 	self:RegisterEvent("RAID_ROSTER_UPDATE")
 	self:RegisterEvent("GROUP_ROSTER_UPDATE")
-	self:RegisterEvent("CHAT_MSG_ADDON")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
 	self:RegisterEvent("INSPECT_READY")
 end
@@ -496,7 +500,15 @@ function eRollTracker_OpenRoll()
 		itemstring = itemLink
 	end
 	local message = "Roll for " .. itemstring
-	SendChatMessage(message, "RAID_WARNING")
+	local channel = ""
+	if IsInRaid() then
+		channel = "RAID_WARNING"
+	elseif IsInGroup() then
+		channel = "PARTY"
+	else
+		channel = "SAY"
+	end
+	SendChatMessage(message, channel)
 	
 	ChatThrottleLib:SendAddonMessage("ALERT", "eRollTrack", "<v1>H:" .. eRollTracker.item, "RAID")
 
@@ -527,7 +539,15 @@ function eRollTracker_CloseRoll()
 		itemstring = itemLink
 	end
 	local message = "Closed roll for " .. itemstring
-	SendChatMessage(message, "RAID_WARNING")
+	local channel = ""
+	if IsInRaid() then
+		channel = "RAID_WARNING"
+	elseif IsInGroup() then
+		channel = "PARTY"
+	else
+		channel = "SAY"
+	end
+	SendChatMessage(message, channel)
 
 	ChatThrottleLib:SendAddonMessage("ALERT", "eRollTrack", "<v1>S:", "RAID")
 
@@ -812,7 +832,7 @@ end
 local const_text_confirmReset =
 	"This will reset all " ..
 	Colorize("Easy", const_colortable["Erythro"]) ..
-	" Roll Tracker data.".. "\n" ..
+	" Roll Tracker data.".. "|n" ..
 	"Are you sure?"
 StaticPopupDialogs["EASYROLLTRACKER_RESET"] = {
 	showAlert = true,
@@ -822,6 +842,20 @@ StaticPopupDialogs["EASYROLLTRACKER_RESET"] = {
 	OnAccept = function()
 		ResetAddonData(true)
 	end,
+	whileDead = true,
+	hideOnEscape = true,
+	timeout = 300,
+}
+
+local const_text_chatPrefixFull =
+	"All chat prefix slots have been registered." .. "|n" ..
+	Colorize("Easy", const_colortable["Erythro"]) ..
+	" Roll Tracker can no longer sync your display" .. "|n" ..
+	"with the rest of the raid."
+StaticPopupDialogs["EASYROLLTRACKER_CHATPREFIXFULL"] = {
+	showAlert = true,
+	text = const_text_chatPrefixFull,
+	button1 = "Okay",
 	whileDead = true,
 	hideOnEscape = true,
 	timeout = 300,
