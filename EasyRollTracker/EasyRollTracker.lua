@@ -43,7 +43,6 @@ local const_path_icon_unknown	= eRollTracker.ext.const_path_icon_unknown
 -- color.lua
 local const_colortable	= eRollTracker.ext.const_colortable
 local const_classcolor	= eRollTracker.ext.const_classcolor
-local const_raritycolor	= eRollTracker.ext.const_raritycolor
 
 local UncolorizeText = eRollTracker.ext.UncolorizeText
 
