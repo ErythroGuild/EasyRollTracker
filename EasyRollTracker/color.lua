@@ -136,24 +136,9 @@ local function ColorizeLayerSpec(frame, specID)
 end
 eRollTracker.ext.ColorizeLayerSpec = ColorizeLayerSpec
 
--- List of official rarity colors.
--- Indexed by Blizz's internal constants for readability.
--- NOTE: these are converted from hex values, and contain
--- a small amount of precision loss.
-local const_raritycolor = {
-	[ITEM_QUALITY0_DESC] = {0.6157, 0.6157, 0.6157},
-	[ITEM_QUALITY1_DESC] = {1.0000, 1.0000, 1.0000},
-	[ITEM_QUALITY2_DESC] = {0.1176, 1.0000, 0.0000},
-	[ITEM_QUALITY3_DESC] = {0.0000, 0.4392, 0.8667},
-	[ITEM_QUALITY4_DESC] = {0.6392, 0.2078, 0.9333},
-	[ITEM_QUALITY5_DESC] = {1.0000, 0.5020, 0.0000},
-	[ITEM_QUALITY6_DESC] = {0.9020, 0.8000, 0.5020},
-	[ITEM_QUALITY7_DESC] = {0.0000, 0.8000, 1.0000}
-}
-eRollTracker.ext.const_raritycolor = const_raritycolor
-
 -- Colorize a <LayeredRegion> by rarity level.
 local function ColorizeLayerRarity(frame, rarity)
-	frame:SetVertexColor(unpack(const_raritycolor[rarity]))
+	local r, g, b, _ = GetItemQualityColor(rarity)
+	frame:SetVertexColor(r, g, b)
 end
 eRollTracker.ext.ColorizeLayerRarity = ColorizeLayerRarity
